@@ -75,3 +75,8 @@ if [ ! -d $dest/HOMULA-RIR ]; then
   get_homula-rir.sh $dest
   echo "Download finished."
 fi
+
+if [ ! -d "$dest/MP-RIR" ]; then
+  # MP-RIR Dataset
+  get_mprir.sh "$dest"
+fi
