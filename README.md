@@ -104,6 +104,36 @@ sbatch jobs/quick_cpu.sh pixi run rirdb registry compile
 
 On a SLURM cluster every Python command goes through `sbatch`; see [docs/hpc.md](docs/hpc.md). Downloads are resumable and checked against provider checksums. The resolved file lists (`registry/locks/`) and extracted-file manifests (`registry/manifests/`) are committed, so a purged or partial copy of the data can be detected and re-fetched.
 
+| Step | Command (inside `sbatch`) | Output |
+|---|---|---|
+| download | `jobs/download.sh fetch/run.sh --wave 1` (bash only) | `$RIRDB_ROOT/raw/<id>/`, `registry/locks/`, `registry/manifests/` |
+| check | `rirdb verify --wave 1 [--full] [--repair]` | `reports/verify/<date>.md` |
+| inspect | `rirdb probe <id>` | `registry/probes/<id>.txt` |
+| index | `rirdb index <id>` | `$RIRDB_ROOT/index/{irs,rooms}/` |
+| analyse | `jobs/analyze_dataset.sh <id> <n_shards>` (SLURM array + merge) | `$RIRDB_ROOT/metrics/v1/<id>/wide.parquet`, `features/v1/` |
+| embed | `PIXI_ENV=embed sbatch jobs/gpu.sh pixi run -e embed rirdb embed <id>` | `$RIRDB_ROOT/embeddings/` |
+| report | `rirdb report corpus`, `rirdb report cards`, `rirdb snapshot` | `reports/corpus/`, `docs/datasets/`, `snapshots/` |
+
+### Analyzer
+
+Every IR gets ISO 3382-1/-2 parameters per octave band (63 Hz-8 kHz) and broadband: EDT, T20, T30, LDT, C50, C80, D50, Ts, plus DRR, STI (IEC 60268-16:2020), bass and treble ratio, IACC (binaural), JLF (B-format), Abel-Huang echo density and mixing time, multi-band spectral descriptors, and fixed-shape representations (EDCs, log-mel, EDR, echo-density profiles, per-bin T60). The computations use [pyfar](https://pyfar.org) and [pyrato](https://pyrato.readthedocs.io) with explicit noise handling (Lundeby). Each value comes with a validity flag: ISO requires the decay to stay 10 dB above the noise, so EDT needs 20 dB of usable decay range, T20 35 dB and T30 45 dB. Quality flags and an A-D grade summarise each IR. Methods, choices and validation: [docs/decisions/analyzer-v1.md](docs/decisions/analyzer-v1.md). Corpus overview: [reports/corpus](reports/corpus/README.md). Per-dataset cards: [docs/datasets](docs/datasets/).
+
+### Picking IRs by constraints
+
+`rirdb query` runs SQL predicates over the `corpus` view (DuckDB over the Parquet tables; the prototype of the online picker):
+
+```bash
+# activate the env inside the job so the shell, not pixi, handles the quotes
+eval "$(pixi shell-hook)"
+rirdb query "t30_mid BETWEEN 1.2 AND 1.8 AND valid_t30_500 AND c80_mid > 0 AND ir_kind = 'room' AND preferred" \
+    --columns dataset_id,room_id,category,t30_mid,edt_mid,c80_mid,drr_bb,sti --order-by "c80_mid DESC"
+rirdb query "category = 'concert_hall' AND grade = 'A' AND training_use = 'allowed'" --csv picks.csv
+```
+
+- `preferred` keeps one representation per measured position (e.g. OpenAIR B-format rather than its mono copy).
+- `ir_kind` separates rooms from outdoor spaces, vehicles, scale models, virtual (computer-model) IRs, devices and anechoic references.
+- `training_use` states whether the licence allows ML training. For example, the EchoThief licence forbids AI training, so its IRs are `prohibited`.
+
 ### Legacy download scripts
 
 The original `get_*.sh` scripts still work for quick one-off downloads (`./get_all_rirs.sh <destination>`), but they do not verify checksums. The `rirdb` pipeline supersedes them.

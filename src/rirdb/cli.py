@@ -179,6 +179,23 @@ def report_corpus() -> None:
     console.print(f"wrote {build().relative_to(paths.REPO_ROOT)}")
 
 
+@report_app.command("cards")
+def report_cards() -> None:
+    """One card per registry dataset -> docs/datasets/<id>.md."""
+    from rirdb.report.cards import build
+
+    console.print(f"wrote {len(build())} dataset cards to docs/datasets/")
+
+
+@app.command()
+def embed(dataset_ids: list[str] = typer.Argument(...), batch: int = typer.Option(16)) -> None:
+    """CLAP embeddings of analysed IRs (GPU job, `pixi run -e embed`)."""
+    from rirdb.embed import embed_dataset
+
+    for d in dataset_ids:
+        console.print(f"wrote {embed_dataset(d, batch=batch)}")
+
+
 @app.command()
 def snapshot() -> None:
     """Write snapshots/metrics_core.parquet (committed; purge insurance)."""
