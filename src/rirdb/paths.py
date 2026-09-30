@@ -7,7 +7,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_DIR = REPO_ROOT / "registry"
-DATASETS_YAML = REGISTRY_DIR / "datasets.yaml"
+# Jobs read a copy pinned at submission (RIRDB_REGISTRY), so editing the registry cannot break queued work.
+DATASETS_YAML = Path(os.environ.get("RIRDB_REGISTRY") or REGISTRY_DIR / "datasets.yaml")
 LOCKS_DIR = REGISTRY_DIR / "locks"
 MANIFESTS_DIR = REGISTRY_DIR / "manifests"
 PROBES_DIR = REGISTRY_DIR / "probes"

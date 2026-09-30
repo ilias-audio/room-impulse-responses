@@ -129,7 +129,7 @@ def analyze(
     from rirdb.run import analyze_shard, auto_shard
 
     if shard == "auto":
-        s, n = auto_shard()
+        s, n = auto_shard(n_shards if n_shards > 1 else None)
     else:
         s, n = int(shard), n_shards
     w = workers or int(os.environ.get("SLURM_CPUS_PER_TASK", 4))
@@ -206,7 +206,7 @@ def embed(
     from rirdb.embed import embed_dataset
     from rirdb.run import auto_shard
 
-    s, n = auto_shard() if shard == "auto" else (int(shard), n_shards)
+    s, n = auto_shard(n_shards if n_shards > 1 else None) if shard == "auto" else (int(shard), n_shards)
     for d in dataset_ids:
         console.print(f"wrote {embed_dataset(d, batch=batch, shard=s, n_shards=n)}")
 

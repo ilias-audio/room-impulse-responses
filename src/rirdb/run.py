@@ -207,8 +207,12 @@ def merge(dataset_id: str) -> Path:
     return out
 
 
-def auto_shard() -> tuple[int, int]:
-    """(shard, n_shards) from the SLURM array environment."""
+def auto_shard(n_shards: int | None = None) -> tuple[int, int]:
+    """(shard, n_shards) from the SLURM array environment.
+
+    Pass n_shards when re-running part of an array (e.g. --array=50-79 of 80):
+    the array's own task count would then be wrong.
+    """
     shard = int(os.environ["SLURM_ARRAY_TASK_ID"])
-    n = int(os.environ.get("SLURM_ARRAY_TASK_COUNT") or (int(os.environ["SLURM_ARRAY_TASK_MAX"]) + 1))
+    n = n_shards or int(os.environ.get("SLURM_ARRAY_TASK_COUNT") or (int(os.environ["SLURM_ARRAY_TASK_MAX"]) + 1))
     return shard, n
