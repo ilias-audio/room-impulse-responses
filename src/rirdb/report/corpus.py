@@ -196,6 +196,13 @@ def build(out_dir: Path = paths.REPORTS_DIR / "corpus") -> Path:
         "t30_bands.png": fig_t30_bands(df, out_dir / "t30_bands.png"),
     }
     room = df[df["ir_kind"] == "room"]
+    con = connect()
+    dups = con.execute("""SELECT d.content_sha1[:10] AS sha, list(i.dataset_id || ': ' || i.local_key) AS files
+                          FROM duplicates d, UNNEST(d.ir_ids) AS u(id) JOIN irs i ON i.ir_id = u.id
+                          GROUP BY 1 ORDER BY 1""").df()
+    dup_md = (["No exact duplicates (identical decoded samples) found."] if dups.empty else
+              [f"{len(dups)} group(s) of byte-identical IRs (the `corpus_dedup` view marks all but one with `dup_of`):", ""]
+              + [f"- {' = '.join(f)}" for f in dups["files"]])
     md = [
         "# Corpus report",
         "",
@@ -219,6 +226,10 @@ def build(out_dir: Path = paths.REPORTS_DIR / "corpus") -> Path:
         "## Quality-flag rates (% of IRs; flags seen in >= 1 % of some dataset)",
         "",
         flag_table(df),
+        "",
+        "## Exact duplicates",
+        "",
+        *dup_md,
         "",
         "## Figures",
         "",

@@ -20,7 +20,7 @@ The only things that run directly on the login node are:
 | `jobs/quick_cpu.sh` | tests, registry compile, index, merge, reports, extraction | default (`compute`) | 6 h | 8 CPU, 8 G/CPU |
 | `jobs/cpu_array.sh` | sharded analysis (`--shard auto` reads `SLURM_ARRAY_TASK_ID`) | default | 6 h/task | 4 CPU, 4 G/CPU |
 | `jobs/quick_gpu.sh` | embedding smoke tests | `gpushort` | 1 h | 1 GPU |
-| `jobs/gpu.sh` | full embedding runs | `gpu` | 12 h | 1 GPU |
+| `jobs/gpu.sh` | long embedding runs | `sae` (account `pilot_sae_gpu`; the `gpu` partition is not available to this account) | 12 h | 1 GPU |
 | `jobs/net_probe.sh` | checks compute-node internet (no Python) | `computeshort` | 10 min | 1 CPU |
 | `jobs/download.sh` | network layer as a batch job (bash only) | `compute` | 48 h | 2 CPU |
 

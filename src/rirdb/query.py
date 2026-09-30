@@ -36,6 +36,15 @@ def connect() -> duckdb.DuckDBPyConnection:
             FROM metrics m
             LEFT JOIN rooms r USING (room_id)
             LEFT JOIN irs i USING (ir_id);
+        -- exact duplicates: identical decoded samples (float32 sha1) under different records
+        CREATE VIEW duplicates AS
+            SELECT content_sha1, count(*) AS n, list(ir_id ORDER BY ir_id) AS ir_ids,
+                   list(DISTINCT dataset_id) AS datasets, min(ir_id) AS keep_ir_id
+            FROM metrics WHERE content_sha1 IS NOT NULL
+            GROUP BY content_sha1 HAVING count(*) > 1;
+        CREATE VIEW corpus_dedup AS
+            SELECT c.*, d.keep_ir_id AS dup_of FROM corpus c
+            LEFT JOIN duplicates d ON c.content_sha1 = d.content_sha1 AND c.ir_id <> d.keep_ir_id;
     """)
     return con
 

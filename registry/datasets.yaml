@@ -54,6 +54,7 @@ datasets:
   homepage: https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089
   doi: 10.60593/ur.d.26801089
   status: planned
+  notes: "Room 13: the three Speak2 files are byte-identical copies of the Speak1 files (publishing error, found by content hash on 2026-09-30); the corpus_dedup view marks them."
 
 - id: voxengo
   name: Voxengo free reverb impulse responses
