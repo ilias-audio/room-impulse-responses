@@ -1,0 +1,80 @@
+# Just-noticeable differences and perceptual descriptors of room-acoustic
+# parameters. Single-number values follow ISO 3382-1:2009 Table A.1
+# (mean of the 500 Hz and 1 kHz octave bands unless noted).
+#
+# kind: additive -> z = x / jnd
+#       relative -> z = ln(x) / ln(1 + jnd)   (jnd as a fraction)
+# normative: true only for values stated in ISO 3382-1 Table A.1.
+
+parameters:
+  edt_mid:
+    descriptor: reverberance
+    unit: s
+    jnd: 0.05
+    kind: relative
+    normative: true
+    source: ISO 3382-1:2009 Table A.1 (EDT, subjective level of sound reverberance)
+  t30_mid:
+    descriptor: reverberation
+    unit: s
+    jnd: 0.05
+    kind: relative
+    normative: false
+    source: 5 % convention (Seraphim 1958; ISO 3382-1 lists it for EDT only)
+  c80_mid:
+    descriptor: clarity
+    unit: dB
+    jnd: 1.0
+    kind: additive
+    normative: true
+    source: ISO 3382-1:2009 Table A.1 (C80, perceived clarity of sound)
+  d50_mid:
+    descriptor: clarity
+    unit: ""
+    jnd: 0.05
+    kind: additive
+    normative: true
+    source: ISO 3382-1:2009 Table A.1 (D50)
+  ts_mid:
+    descriptor: clarity
+    unit: s
+    jnd: 0.010
+    kind: additive
+    normative: true
+    source: ISO 3382-1:2009 Table A.1 (Ts)
+  jlf_low:
+    descriptor: apparent_source_width
+    unit: ""
+    jnd: 0.05
+    kind: additive
+    normative: true
+    source: ISO 3382-1:2009 Table A.1 (JLF, mean of 125-1000 Hz)
+  one_minus_iacc_e3:
+    descriptor: apparent_source_width
+    unit: ""
+    jnd: 0.075
+    kind: additive
+    normative: false
+    source: Cox, Davies & Lam (1993), Acta Acustica 79
+  drr_bb:
+    descriptor: distance_presence
+    unit: dB
+    jnd: 2.0
+    kind: additive
+    normative: false
+    source: Larsen et al. (2008), JASA 124(1), ~2-3 dB near 0-10 dB DRR
+  sti:
+    descriptor: intelligibility
+    unit: ""
+    jnd: 0.03
+    kind: additive
+    normative: false
+    source: Bradley, Reich & Norcross (1999) / IEC 60268-16 annex guidance
+
+# Descriptors without an established JND: reported, not placed in JND space.
+descriptors_without_jnd:
+  warmth: bass ratio BR = (T125 + T250) / (T500 + T1k)   # Beranek
+  brilliance: treble ratio TR = (T2k + T4k) / (T500 + T1k)  # Beranek
+  diffuseness_onset: mixing time (Abel & Huang NED reaches 1)
+  envelopment: LJ (late lateral level) needs a calibrated free-field reference; not computable
+  loudness: G (strength) needs calibration; not computable

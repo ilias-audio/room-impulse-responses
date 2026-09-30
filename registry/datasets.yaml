@@ -1,0 +1,1002 @@
+# Registry of impulse-response datasets: the single source of truth.
+# Validated by src/rirdb/registry.py; `rirdb registry compile` regenerates the
+# README tables and registry/compiled/sources.tsv (read by fetch/*.sh).
+#
+# Conventions
+#   wave   0 smoke | 1 many spaces (sparse) | 2 multi-condition | 3 dense grids | 4 simulated (later)
+#   status planned (in a wave, not fetched yet) | active (fetched + indexed) | manual | broken | deferred
+#   license.redistribute_audio gates what the future platform may serve:
+#          yes | unaltered_only | no | unknown (treated as no)
+#   fs_hz / expected: [] / null until confirmed by `rirdb probe` (P3).
+# Source facts (record ids, file names, sizes, licences) were resolved from the
+# provider APIs on 2026-09-30; exact files + checksums live in registry/locks/.
+
+datasets:
+
+# ============================================================== W0: smoke test
+- id: mit_survey
+  name: MIT IR Survey
+  year: 2016
+  type: measured
+  ir_kinds: [room, outdoor, vehicle]
+  capture_formats: [mono_omni]
+  content: 271 mono RIRs, each recorded in a distinct everyday place (surveyed from daily-life locations of volunteers).
+  expected: {n_irs: 271, n_rooms: 271}
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
+  access: open
+  source: {kind: http, urls: ["https://mcdermottlab.mit.edu/Reverb/IRMAudio/Audio.zip"]}
+  wave: 0
+  homepage: https://mcdermottlab.mit.edu/Reverb/IR_Survey.html
+  paper: {title: "Statistics of natural reverberation enable perceptual separation of sound and space", url: "https://www.pnas.org/content/113/48/E7856"}
+  doi: 10.1073/pnas.1612524113
+  status: planned
+
+- id: rochester
+  name: University of Rochester RIR dataset
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  fs_hz: [48000]
+  content: Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a wide range of RT60, clarity and EDT; room layouts and acoustic plots per room.
+  expected: {n_rooms: 14}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: figshare, records: ["26801089"]}
+  wave: 0
+  homepage: https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089
+  doi: 10.60593/ur.d.26801089
+  status: planned
+
+- id: voxengo
+  name: Voxengo free reverb impulse responses
+  type: production
+  ir_kinds: [room, outdoor, creative]
+  capture_formats: [stereo]
+  content: Free stereo reverb IRs of real spaces and processed spaces distributed with Voxengo's convolution tools.
+  license:
+    spdx: LicenseRef-Voxengo-IR
+    url: https://www.voxengo.com/impulses/
+    redistribute_audio: unaltered_only
+    note: Royalty-free use incl. commercial; redistribution only complete, unaltered, free of charge, with the copyright notice; never sold.
+  access: open
+  source: {kind: http, urls: ["https://www.voxengo.com/files/impulses/IMreverbs.zip"]}
+  wave: 0
+  homepage: https://www.voxengo.com/impulses/
+  status: planned
+
+- id: echothief
+  name: EchoThief impulse response library
+  type: production
+  ir_kinds: [room, outdoor]
+  capture_formats: [stereo]
+  content: More than a hundred real-world spaces sampled around North America (caves, tunnels, stairwells, glaciers, bridges, ...), from SDSU Music Recording Technology.
+  expected: {note: "~115 spaces"}
+  license: {spdx: LicenseRef-unspecified, url: "https://www.echothief.com/downloads/", redistribute_audio: unknown, note: "Free download; no licence text published."}
+  access: open
+  source: {kind: http, urls: ["https://www.echothief.com/wp-content/uploads/2024/07/EchoThiefImpulseResponseLibrary.zip"]}
+  wave: 0
+  homepage: https://www.echothief.com/
+  status: planned
+
+# ======================================================= W1: many spaces (sparse)
+- id: openair
+  name: OpenAIR
+  year: 2010
+  type: measured
+  ir_kinds: [room, outdoor, scale_model]
+  capture_formats: [mono_omni, stereo, foa_fuma, binaural]
+  content: Ambisonic B-format (and mono/stereo) RIRs recorded in over 46 (still increasing) environments, with per-space data tables. Includes a few non-room entries (scale model, slinky, simulated auralizations) tagged by ir_kind.
+  expected: {note: "46+ environments"}
+  license: {spdx: CC-BY-4.0, url: "https://www.openairlib.net/", redistribute_audio: unknown, note: "Per-IR terms vary; confirm from the per-space tables before serving audio."}
+  access: open
+  source:
+    kind: wget_mirror
+    urls: ["https://webfiles.york.ac.uk/OPENAIR/IRs/"]
+    accept: ["*.wav", "*.WAV", "*.csv", "*.txt", "*.xlsx", "*.pdf"]
+  keep_archive: false
+  wave: 1
+  homepage: https://www.openairlib.net/
+  paper: {title: "OpenAIR: An interactive auralization web resource and database", url: "https://www.aes.org/e-lib/browse.cfm?elib=15648"}
+  status: planned
+
+- id: ok5
+  name: OK5 (Aalto)
+  year: 2026
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [sdm_array]
+  content: 70 spatial RIRs from 25 spaces (offices, corridors, lecture rooms, stairwells, ...) of the Otakaari 5 building at Aalto University, measured with a 6-microphone GRAS vector-intensity probe.
+  expected: {n_irs: 70, n_rooms: 25}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["18622201"], include: ["measurements.zip", "floor_plan.pdf"]}
+  wave: 1
+  homepage: https://zenodo.org/records/18622201
+  doi: 10.5281/zenodo.18622201
+  status: planned
+
+- id: aachen_air
+  name: Aachen Impulse Response (AIR) database
+  year: 2009
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, mono_omni]
+  content: 344 binaural RIRs measured with a dummy head in 5 environments including a church (release 1.4, full-bandwidth .mat files).
+  expected: {n_irs: 344, n_rooms: 5}
+  license: {spdx: MIT, redistribute_audio: unknown}
+  access: open
+  source: {kind: http, urls: ["https://www.iks.rwth-aachen.de/fileadmin/user_upload/downloads/forschung/tools-downloads/air_database_release_1_4.zip"]}
+  wave: 1
+  homepage: http://www.iks.rwth-aachen.de/en/research/tools-downloads/databases/aachen-impulse-response-database/
+  paper: {title: "A Binaural Room Impulse Response Database for the Evaluation of Dereverberation Algorithms", url: "https://ieeexplore.ieee.org/abstract/document/5201259"}
+  status: planned
+
+- id: openslr28
+  name: RWCP + REVERB (via OpenSLR 28)
+  year: 2017
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw, mono_omni]
+  fs_hz: [16000]
+  content: "Real RIRs bundled by OpenSLR 28 at 16 kHz: RWCP Sound Scene Database (2000; 143 multi-channel RIRs in 14 rooms) and REVERB Challenge (2013; 24 8-channel RIRs in small/medium/large rooms). Its AIR copy is de-duplicated against aachen_air; noises and simulated RIRs are not indexed."
+  expected: {n_irs: 325, note: "OpenSLR count incl. AIR copies"}
+  license: {spdx: Apache-2.0, url: "https://www.openslr.org/28/", redistribute_audio: unknown, note: "Bundle is Apache-2.0; RWCP and REVERB components keep their own terms."}
+  access: open
+  source: {kind: http, urls: ["https://www.openslr.org/resources/28/rirs_noises.zip"]}
+  wave: 1
+  homepage: https://www.openslr.org/28/
+  paper: {title: "Sound scene data collection in real acoustical environments (RWCP)", url: "https://library.naist.jp/dspace/bitstream/handle/10061/7746/JourAcouSocJaE_20_3_225.pdf?sequence=1"}
+  notes: "REVERB paper: https://ieeexplore.ieee.org/document/6701894 ; RWCP home: http://research.nii.ac.jp/src/en/RWCP-SSD.html"
+  status: planned
+
+- id: but_reverb
+  name: BUT Speech@FIT Reverb Database
+  year: 2019
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni, array_raw]
+  content: 1300+ mono-channel RIRs recorded in 8 rooms (offices, lecture rooms, stairs, ...) with 31 microphones per source position.
+  expected: {n_irs: 1300, n_rooms: 8}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: http, urls: ["http://merlin.fit.vutbr.cz/ReverbDB/BUT_ReverbDB_rel_19_06_RIR-Only.tgz"]}
+  keep_archive: false
+  wave: 1
+  homepage: https://speech.fit.vutbr.cz/software/but-speech-fit-reverb-database
+  paper: {title: "Building and evaluation of a real room impulse response dataset", url: "https://ieeexplore.ieee.org/document/8717722"}
+  status: planned
+
+- id: ace
+  name: ACE Challenge corpus (single-mic + ground truth)
+  year: 2015
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  fs_hz: [48000]
+  content: Single-microphone RIRs from 7 rooms (2 positions each) with the published per-band T60 and DRR ground truth. Multichannel arrays are in ace_arrays.
+  expected: {n_rooms: 7}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source:
+    kind: zenodo
+    records: ["6257551"]
+    include: ["ACE_Corpus_RIRN_Single.tbz2", "ACE_Corpus_Data.tbz2", "ACE_Corpus_instructions_v01.pdf", "ACE_Corpus_Microphone_arrangements_v02.pdf", "ACE_TASLP_ref.bib"]
+  wave: 1
+  homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
+  paper: {title: "Estimation of room acoustic parameters: The ACE challenge", url: "https://ieeexplore.ieee.org/document/7336912"}
+  doi: 10.5281/zenodo.6257551
+  status: planned
+
+- id: c4dm
+  name: C4DM RIR database
+  year: 2010
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 468 mono or Ambisonic B-format RIRs recorded in 3 large environments (Great Hall, Octagon, a classroom) at Queen Mary University of London; omni files fetched.
+  expected: {n_irs: 468, n_rooms: 3}
+  license: {spdx: CC-BY-NC-SA-3.0, redistribute_audio: yes, note: "Upstream list states CC BY-NC-SA; version to verify on isophonics.net."}
+  access: open
+  source:
+    kind: http
+    urls:
+      - http://isophonics.net/files/irs/greathallOmni.zip
+      - http://isophonics.net/files/irs/octagonOmni.zip
+      - http://isophonics.net/files/irs/classroomOmni.zip
+  wave: 1
+  homepage: http://isophonics.net/content/room-impulse-response-data-set
+  paper: {title: "Database of Omnidirectional and B-Format Impulse Responses", url: "https://ieeexplore.ieee.org/document/5496083"}
+  status: planned
+
+- id: detmold_srir
+  name: Detmold University of Music SRIR database
+  year: 2020
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [sdm_array, binaural, array_raw]
+  content: About 600 multichannel SRIRs from 3 performance spaces (Konzerthaus ~600 seats, Brahmssaal ~100 seats, Sommertheater ~300 seats), stage and audience positions, open SDM array and dummy head; incl. orchestra loudspeaker setups.
+  expected: {n_rooms: 3, note: "~600 multichannel RIRs"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["4116247"]}
+  wave: 1
+  homepage: https://zenodo.org/records/4116247
+  doi: 10.5281/zenodo.4116247
+  status: planned
+
+- id: raves
+  name: "RAVes: Room Acoustic Variances"
+  year: 2026
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [sdm_array, binaural]
+  content: SRIRs and BRIRs of a 5.0 loudspeaker layout (ITU-R BS.2159, r=2 m) in 7 rooms (RT 0.21-1.20 s plus a lecture hall and a foyer), at middle, wall and edge listening positions.
+  expected: {n_rooms: 7}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["19809790"], include: ["SRIRs_*.zip", "BRIRs_*.zip", "Floor_plans.zip"]}
+  keep_archive: false
+  wave: 1
+  homepage: https://zenodo.org/records/19809790
+  doi: 10.5281/zenodo.19809790
+  status: planned
+
+- id: bras
+  name: BRAS - Benchmark for Room Acoustical Simulation
+  year: 2020
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni, binaural]
+  fs_hz: [44100]
+  content: Measured RIRs and BRIRs (SOFA + wav) of 11 reference scenes (4 complex rooms CR1-CR4 and simple scenes RS1-RS7) plus RS8 (2026), each with geometry, boundary conditions and source/receiver descriptions.
+  expected: {note: "12 scenes"}
+  license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
+  access: open
+  source:
+    kind: depositonce
+    records: ["38410727-febb-4769-8002-9c710ba393c4", "326fed8c-636a-47f2-977d-b4fd6a0ce771"]
+    include: ["Documentation.pdf", "1_scene_descriptions-*.zip", "1_Scene_descriptions.zip", "3_surface_descriptions.zip", "3_Surface_descriptions.zip", "4_additional_data.zip"]
+  wave: 1
+  homepage: https://depositonce.tu-berlin.de/items/38410727-febb-4769-8002-9c710ba393c4
+  paper: {title: "A benchmark for room acoustical simulation. Concept and database", url: "https://www.sciencedirect.com/science/article/abs/pii/S0003682X20309725"}
+  status: planned
+
+- id: mird
+  name: Multichannel Impulse Response Database (Bar-Ilan)
+  year: 2014
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 234 8-channel RIRs recorded in the same room with 3 levels of reverberation (0.16/0.36/0.61 s) and 3 microphone array spacings (.mat files).
+  expected: {n_irs: 234, n_rooms: 1, note: "1 room x 3 reverberation settings"}
+  license: {spdx: ODC-By-1.0, redistribute_audio: unknown}
+  access: open
+  source:
+    kind: http
+    urls:
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_3-3-3-8-3-3-3.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_4-4-4-8-4-4-4.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_8-8-8-8-8-8-8.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_3-3-3-8-3-3-3.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_4-4-4-8-4-4-4.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_8-8-8-8-8-8-8.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_3-3-3-8-3-3-3.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_4-4-4-8-4-4-4.zip"
+      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_8-8-8-8-8-8-8.zip"
+  wave: 1
+  homepage: https://www.eng.biu.ac.il/gannot/downloads/
+  paper: {title: "Multichannel audio database in various acoustic environments", url: "https://ieeexplore.ieee.org/document/6954309"}
+  status: planned
+
+- id: iosr_listening_room_brirs
+  name: IoSR listening room multichannel BRIRs
+  year: 2016
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural]
+  content: BRIRs of an ITU-R BS.1116 listening room for 24 loudspeakers in the 22.2 layout, at head angles 0-360 deg in 2.5 deg steps.
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: github, records: ["IoSR-Surrey/IoSR_ListeningRoom_BRIRs@master"]}
+  wave: 1
+  homepage: https://github.com/IoSR-Surrey/IoSR_ListeningRoom_BRIRs
+  status: planned
+
+- id: surrey_real_room_brirs
+  name: Surrey real-room BRIRs
+  year: 2010
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural]
+  content: BRIRs captured with a head-and-torso simulator in 4 real rooms of the University of Surrey at 37 azimuths.
+  expected: {n_rooms: 4}
+  license: {spdx: MIT, redistribute_audio: yes}
+  access: open
+  source: {kind: github, records: ["IoSR-Surrey/RealRoomBRIRs@master"]}
+  wave: 1
+  homepage: https://github.com/IoSR-Surrey/RealRoomBRIRs
+  status: planned
+
+- id: bbc_brirs
+  name: BBC R&D BRIR dataset
+  year: 2019
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural]
+  content: BRIRs measured on a 3D multichannel loudspeaker system for dynamic data-based auralisation (SOFA MultiSpeakerBRIR convention).
+  license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: github, records: ["bbc/bbcrd-brirs@master"]}
+  wave: 1
+  homepage: https://github.com/bbc/bbcrd-brirs
+  status: planned
+
+- id: churchir
+  name: ChurchIR
+  year: 2025
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: Multichannel church impulse responses for spatial audio applications.
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["14901751"]}
+  wave: 1
+  homepage: https://zenodo.org/records/14901751
+  doi: 10.5281/zenodo.14901751
+  status: planned
+
+- id: ho_rir_cremona
+  name: "The Sound of the Violin's Home (Arvedi Auditorium)"
+  year: 2026
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [hoa_sh, sma_raw]
+  content: Higher-order RIRs of the Arvedi Auditorium (Museo del Violino, Cremona).
+  expected: {n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["20098848"]}
+  wave: 1
+  homepage: https://zenodo.org/records/20098848
+  doi: 10.5281/zenodo.20098848
+  status: planned
+
+- id: drr_scaled_brirs
+  name: DRR-scaled individual BRIRs
+  year: 2016
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural]
+  content: Individual binaural room impulse responses with the direct-to-reverberant ratio scaled in steps (listening-test material).
+  license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["61072"]}
+  wave: 1
+  homepage: https://zenodo.org/records/61072
+  doi: 10.5281/zenodo.61072
+  status: planned
+
+- id: fokke
+  name: Fokke van Saane impulse responses
+  type: production
+  ir_kinds: [digital_reverb, plate, spring, device, room, outdoor]
+  capture_formats: [stereo]
+  content: Hardware reverb units (Lexicon, EMT, spring, tape echo), speakers/telephones and a few spaces (forest, street, factory hall); site offline, archived on the Wayback Machine as StuffIt archives.
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown, note: "Stated as free to use in any convolver."}
+  access: open
+  source: {kind: wayback, urls: ["https://fokkie.home.xs4all.nl/IR.htm"]}
+  wave: 1
+  homepage: https://web.archive.org/web/2012/https://fokkie.home.xs4all.nl/IR.htm
+  status: deferred
+  notes: Needs a StuffIt (.sit) extractor; not on conda-forge. Revisit after W1.
+
+# ================================================== W2: multi-condition datasets
+- id: arni
+  name: Arni variable-acoustics room
+  year: 2022
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 132,037 RIRs measured using 5342 configurations of 55 acoustic panels in the variable acoustics laboratory Arni at Aalto Acoustics Lab (5 mics, 5 IRs per combination).
+  expected: {n_irs: 132037, n_rooms: 1, note: "5342 panel configurations"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["6985104"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/6985104
+  paper: {title: "Calibrating the Sabine and Eyring formulas", url: "https://asa.scitation.org/doi/full/10.1121/10.0013575"}
+  doi: 10.5281/zenodo.6985104
+  status: planned
+
+- id: motus
+  name: Motus
+  year: 2021
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [hoa_sh]
+  content: 3,320 higher-order Ambisonic RIRs measured with an Eigenmike em32, 4 loudspeaker positions and 830 furniture configurations in a single room at Aalto Acoustics Lab; 3D models for each configuration (spherical photos not fetched).
+  expected: {n_irs: 3320, n_rooms: 1, note: "830 furniture configurations"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["4923187"], include: ["sh_rirs.zip", "metadata.zip", "3d_models.zip", "code.zip"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://doi.org/10.5281/zenodo.4923187
+  paper: {title: "A dataset of higher-order Ambisonic room impulse responses and 3D models measured in a room with varying furniture", url: "https://doi.org/10.1109/I3DA48870.2021.9610933"}
+  doi: 10.5281/zenodo.4923187
+  status: planned
+
+- id: dechorate
+  name: dEchorate
+  year: 2021
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 1800 annotated RIRs from 6 arrays of 5 microphones, 6 sources and 11 acoustic conditions (reflective panels on/off) of one room; echo timings annotated (processed RIR file only).
+  expected: {n_irs: 1800, n_rooms: 1, note: "11 acoustic conditions"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["5562386"], include: ["dechorate_rir_processed.hdf5", "load_positions_and_plot.py"]}
+  wave: 2
+  homepage: https://zenodo.org/records/5562386
+  paper: {title: "dEchorate: a Calibrated Room Impulse Response Dataset for Echo-aware Signal Processing", url: "https://arxiv.org/abs/2104.13168"}
+  doi: 10.5281/zenodo.5562386
+  status: planned
+
+- id: myriad
+  name: MYRiAD
+  year: 2023
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, array_raw]
+  fs_hz: [44100]
+  content: 1214 RIRs from two rooms (SONORA lab, RT 2.1 s; Alamire Interactive Lab, RT 0.5 s) with in-ear/behind-ear dummy-head mics, circular arrays and distributed mics (archive also holds speech/music/noise recordings).
+  expected: {n_irs: 1214, n_rooms: 2}
+  license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["7322755"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/7322755
+  paper: {title: "MYRiAD: a multi-array room acoustic database", url: "https://doi.org/10.1186/s13636-023-00284-9"}
+  doi: 10.5281/zenodo.7322755
+  status: planned
+
+- id: trajectorir
+  name: trajectoRIR
+  year: 2025
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, foa_ambix, array_raw]
+  fs_hz: [48000]
+  content: 8648 stationary RIRs sampling an L-shaped trajectory (RT 0.5 s room) with a dummy head, 3 first-order Ambisonics mics, circular (16/4 ch) and linear (12 ch) arrays; plus moving-microphone recordings.
+  expected: {n_irs: 8648, n_rooms: 1}
+  license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["15564430"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/15564430
+  paper: {title: "The trajectoRIR database: room acoustic recordings along a trajectory of moving microphones", url: "https://doi.org/10.1186/s13636-026-00449-2"}
+  doi: 10.5281/zenodo.15564430
+  status: planned
+
+- id: tau_srir
+  name: TAU Spatial Room Impulse Response Database
+  year: 2022
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [foa_ambix, tetra_raw]
+  fs_hz: [24000]
+  content: SRIRs from 9 spaces of Tampere University (fixed receiver, many source positions along trajectories), first-order Ambisonics and tetrahedral array formats derived from Eigenmike em32, downsampled to 24 kHz.
+  expected: {n_rooms: 9}
+  license: {spdx: LicenseRef-TAU-NonCommercial, redistribute_audio: unaltered_only, note: "Zenodo licence 'other-nc'; see LICENSE.txt in the record."}
+  access: open
+  source: {kind: zenodo, records: ["6408611"], include: ["TAU-SRIR_DB.z0*", "TAU-SRIR_DB.zip", "README.md", "LICENSE.txt"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/6408611
+  doi: 10.5281/zenodo.6408611
+  status: planned
+
+- id: upv_rir_db
+  name: UPV_RIR_DB
+  year: 2026
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 166 multichannel RIR files (18,976 single IRs) measured in 3 rooms of the Universitat Politecnica de Valencia with explicit spatial metadata and calibrations.
+  expected: {n_irs: 18976, n_rooms: 3, note: "166 multichannel files"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["19371528"]}
+  wave: 2
+  homepage: https://zenodo.org/records/19371528
+  doi: 10.5281/zenodo.19371528
+  status: planned
+
+- id: aalto_multiroom
+  name: Aalto Multi-Room Transition dataset
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, stereo]
+  content: 4,032 RIRs across 3 multi-room (coupled) environments measured along transitions between rooms with a KEMAR dummy head and a Zoom H3.
+  expected: {n_irs: 4032, n_rooms: 3}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["11196820"]}
+  wave: 2
+  homepage: https://zenodo.org/records/11196820
+  doi: 10.5281/zenodo.11196820
+  status: planned
+
+- id: arni_6dof_srir
+  name: 6DoF SRIRs in Arni (Eigenmike + Zylia)
+  year: 2022
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [em32_raw, sma_raw, hoa_sh]
+  content: SRIRs with an Eigenmike em32 and a Zylia ZM-1 (raw and SH-encoded) for 3 sources x 7 receivers in 5 absorption configurations of the Arni variable-acoustics room.
+  expected: {n_rooms: 1, note: "3 src x 7 rcv x 5 configurations per array"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["6382405"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/6382405
+  paper: {title: "Dataset of Spatial Room Impulse Responses in a Variable Acoustics Room for Six Degrees-of-Freedom Rendering and Analysis", url: "https://arxiv.org/abs/2111.11882"}
+  doi: 10.5281/zenodo.6382405
+  status: planned
+
+- id: aalto_robot_coupled
+  name: "SRIR dataset: a robot's journey through coupled rooms"
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [sma_raw]
+  content: SRIRs captured by a robot with a microphone array moving through coupled rooms (corridors, halls, an office) of a reverberant university building; two Zenodo parts (2024, 2026 office).
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["10708306", "22702503"], include: ["*.zip", "*.jpg", "*.png"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/10708306
+  paper: {title: "Spatial Room Impulse Response Dataset: A Robot's Journey Through Coupled Rooms (DAGA 2024)", url: "https://pub.dega-akustik.de/DAGA_2024/files/upload/paper/453.pdf"}
+  doi: 10.5281/zenodo.10708306
+  status: planned
+
+- id: metu_sparg
+  name: METU SPARG Eigenmike em32 AIR dataset
+  year: 2019
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [em32_raw, mono_omni]
+  content: Eigenmike em32 acoustic impulse responses for 244 source positions in a classroom (METU S05), with omni reference measurements at the same position.
+  expected: {n_rooms: 1, note: "244 emitter positions x 32 capsules"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["2635758"]}
+  wave: 2
+  homepage: http://www.sparg.ii.metu.edu.tr/code.html
+  doi: 10.5281/zenodo.2635758
+  status: planned
+
+- id: homula_rir
+  name: HOMULA-RIR
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw, sma_raw]
+  content: Seminar-room RIRs from a 64-microphone ULA (eStick) near 2 Genelec 8020 speakers, and higher-order microphones (Voyage Spatial Mic) at 25 attendee positions (teleconferencing scenario).
+  expected: {n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["10479726"]}
+  wave: 2
+  homepage: https://github.com/polimi-ispl/homula-rir
+  paper: {title: "HOMULA-RIR: A Room Impulse Response Dataset for Teleconferencing and Spatial Audio Applications", url: "https://doi.org/10.1109/ICASSPW62465.2024.10626753"}
+  doi: 10.5281/zenodo.10479726
+  status: planned
+
+- id: flair
+  name: FLAIR
+  year: 2025
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 270 RIRs in a single room with a millimetre-accurate dense 3D point cloud of the room geometry and microphone positions (inverse problems with boundary information).
+  expected: {n_irs: 270, n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["17037517"]}
+  wave: 2
+  homepage: https://zenodo.org/records/17037517
+  paper: {title: "Bayesian Sound Field Reconstruction Using Partial Boundary Information", url: "https://ieeexplore.ieee.org/document/11197648"}
+  doi: 10.5281/zenodo.17037517
+  status: planned
+
+- id: brudex
+  name: BRUDEX
+  year: 2023
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, array_raw]
+  content: Binaural RIRs with uniformly distributed external microphones (RIR archive only; speech/noise recordings not fetched).
+  license: {spdx: MIT, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["8340195"], include: ["rir.zip", "README.txt", "LICENSE", "Setup_Database.pdf", "pythonScripts.zip", "matlabScripts.zip"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/8340195
+  doi: 10.5281/zenodo.8340195
+  status: planned
+
+- id: huddersfield_360_brir
+  name: Huddersfield 360-degree BRIR database (6DoF)
+  year: 2019
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural]
+  content: 360-degree BRIRs (3.6 deg resolution, Neumann KU100, SOFA) captured in a reverberant concert hall at the University of Huddersfield for 6DoF perception research.
+  expected: {n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["2641166"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/2641166
+  doi: 10.5281/zenodo.2641166
+  status: planned
+
+- id: soundcam
+  name: SoundCam
+  year: 2023
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 5,000 10-channel real-world RIRs in three rooms (treated lab, in-the-wild living room, conference room) with humans at positions throughout each room (preprocessed archives fetched).
+  expected: {n_irs: 5000, n_rooms: 3}
+  license: {spdx: MIT, redistribute_audio: yes}
+  access: open
+  source:
+    kind: http
+    urls:
+      - https://stacks.stanford.edu/file/druid:xq364hd5023/ConferenceRoom_preprocessed.tar.gz
+      - https://stacks.stanford.edu/file/druid:xq364hd5023/LivingRoom_preprocessed.tar.gz
+      - https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoom_preprocessed.tar.gz
+      - https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoomPanels_preprocessed.tar.gz
+  keep_archive: false
+  wave: 2
+  homepage: https://sites.google.com/view/soundcam
+  paper: {title: "SoundCam: A Dataset for Tasks in Tracking and Identifying Humans from Real Room Acoustics", url: "https://nips.cc/virtual/2023/poster/73471"}
+  status: planned
+
+- id: ace_arrays
+  name: ACE Challenge corpus (multichannel arrays)
+  year: 2015
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw, em32_raw]
+  fs_hz: [48000]
+  content: "{2,3,5,8,32}-channel RIRs (Chromebook, Mobile, Crucif, Lin8Ch, EM32) recorded in the 7 ACE rooms."
+  expected: {n_rooms: 7}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["6257551"], include: ["ACE_Corpus_RIRN_Chromebook.tbz2", "ACE_Corpus_RIRN_Mobile.tbz2", "ACE_Corpus_RIRN_Crucif.tbz2", "ACE_Corpus_RIRN_Lin8Ch.tbz2", "ACE_Corpus_RIRN_EM32.tbz2"]}
+  keep_archive: false
+  wave: 2
+  homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
+  paper: {title: "Estimation of room acoustic parameters: The ACE challenge", url: "https://ieeexplore.ieee.org/document/7336912"}
+  doi: 10.5281/zenodo.6257551
+  status: planned
+
+- id: rsoanu
+  name: RSoANU RIR dataset
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [foa_fuma, em32_raw]
+  content: RIRs recorded with a Rode NT-SF1 B-format microphone and an Eigenmike em32 (rooms and positions described in the record documentation).
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["10720345"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/10720345
+  doi: 10.5281/zenodo.10720345
+  status: planned
+  notes: Content description to be confirmed from RSoANU_Documentation_v2.pdf during probe.
+
+- id: gtu_rir
+  name: GTU-RIR
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: More than 15,000 RIRs collected with a semi-automated recording system in rooms of Gebze Technical University.
+  expected: {n_irs: 15000}
+  license: {spdx: GPL-3.0-only, redistribute_audio: yes}
+  access: manual
+  source:
+    kind: manual
+    instructions: "SharePoint link returns 403 to scripts. Download RIR.pickle.dat via a browser from the link in https://github.com/mehmetpekmezci/gtu-rir and place it in $RIRDB_ROOT/raw/_inbox/gtu_rir/, then run `rirdb adopt-manual gtu_rir`. Only unpickle inside a job, after the checksum is recorded."
+  wave: 2
+  homepage: https://github.com/mehmetpekmezci/gtu-rir
+  status: manual
+
+# ============================================ W3: dense grids (analyse subsample)
+- id: meshrir
+  name: MeshRIR
+  year: 2021
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 4410 mono RIRs on very dense grids (S1-M3969 planar, S32-M441 cuboidal) in a moderately reverberant room with accurate coordinates (npy release).
+  expected: {n_irs: 4410, n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["10852693"], include: ["S1-M3969_npy.zip", "S32-M441_npy.zip", "src.zip", "LICENSE", "README.md"]}
+  keep_archive: false
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://sh01k.github.io/MeshRIR/
+  paper: {title: "MeshRIR: A Dataset of Room Impulse Responses on Meshed Grid Points", url: "https://arxiv.org/abs/2106.10801"}
+  doi: 10.5281/zenodo.10852693
+  status: planned
+
+- id: em32_line_arni
+  name: "SRIR dataset: em32 along a line (Arni)"
+  year: 2025
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [em32_raw]
+  content: Eigenmike em32 SRIRs along a line in the Arni room for 3 sources in dry, reverberant and anisotropic configurations (SOFA).
+  expected: {n_rooms: 1, note: "3 configurations x 3 sources"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["15169199"]}
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://zenodo.org/records/15169199
+  doi: 10.5281/zenodo.15169199
+  status: planned
+
+- id: meshgrid3d
+  name: 3D Meshgrid RIR dataset (raw, 48 kHz)
+  year: 2026
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  fs_hz: [48000]
+  content: Raw RIRs on a 2 cm 3D grid (48 x 51 x 26 positions) for 4 loudspeakers, 2 s TSP excitation, 48 kHz (Part 0; the 16 kHz Part I is not fetched).
+  expected: {n_irs: 254592, n_rooms: 1, note: "48*51*26 positions x 4 loudspeakers"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["19656813"]}
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://zenodo.org/records/19656813
+  doi: 10.5281/zenodo.19656813
+  status: planned
+
+- id: mp_rir
+  name: MP-RIR
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 68,736 RIRs on a dense 3D grid in a complex-shaped room, measured by a robot moving a vertical linear array of 8 omni mics; 4 sources at 8 positions.
+  expected: {n_irs: 68736, n_rooms: 1}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["11148712"]}
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://zenodo.org/records/11148712
+  paper: {title: "Multi-Purpose Room Impulse Response Dataset Measured on a 3D Spatial Grid", url: "https://aes2.org/publications/elibrary-page/?id=22515"}
+  doi: 10.5281/zenodo.11148712
+  status: planned
+
+- id: miracle
+  name: MIRACLE
+  year: 2023
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 856,128 single-channel IRs across 4 scenarios with a planar 64-channel microphone array; 64 x 64 source grids at two distances, a dense 33 x 33 grid, and a reflective-panel case.
+  expected: {n_irs: 856128, n_rooms: 1, note: "4 scenarios"}
+  license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: depositonce, records: ["b079fd1c-999f-42cb-afd2-bcd34de6180b"]}
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://depositonce.tu-berlin.de/items/b079fd1c-999f-42cb-afd2-bcd34de6180b
+  paper: {title: "MIRACLE - Microphone Array Impulse Response Dataset for Acoustic Learning", url: "https://doi.org/10.1186/s13636-024-00352-8"}
+  status: planned
+  notes: Possibly near-anechoic; decay metrics may be mostly invalid. Verify at probe.
+
+- id: sriracha
+  name: SRIRACHA
+  year: 2025
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 2,654,720 single-channel RIRs of sources in a plane parallel to a planar mic array in a shoebox room, 8 scenarios (2 distances x 2 source arrangements x 2 absorption levels).
+  expected: {n_irs: 2654720, n_rooms: 1, note: "8 scenarios"}
+  license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: depositonce, records: ["d9d4b747-2f3e-4b21-b32e-48863e9af876"]}
+  wave: 3
+  analysis: {scope: subsample_v1}
+  homepage: https://depositonce.tu-berlin.de/items/d9d4b747-2f3e-4b21-b32e-48863e9af876
+  paper: {title: "SRIRACHA: Shoebox Room Impulse Response Archive with Varying Absorption", url: "https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/643a8b38-bc2e-43cb-89e8-f972ed4457f8/content"}
+  status: planned
+
+# ======================================== W4: simulated (needs permanent storage)
+- id: treble10
+  name: Treble10-RIR
+  year: 2025
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [mono_omni, hoa_sh]
+  content: 3000+ broadband RIRs from a hybrid wave-based (<5 kHz) + geometrical solver in 10 furnished real-world rooms (bathrooms, bedrooms, living rooms, meeting rooms), receiver grids at 3 heights.
+  expected: {n_rooms: 10}
+  license: {spdx: LicenseRef-Treble-NonCommercial, redistribute_audio: no, note: "Free for non-commercial research."}
+  access: open
+  source: {kind: hf, records: ["treble-technologies/Treble10-RIR@main"]}
+  wave: 4
+  homepage: https://huggingface.co/datasets/treble-technologies/Treble10-RIR
+  paper: {title: "Treble10: A high-quality dataset for far-field speech recognition, dereverberation, and enhancement", url: "https://arxiv.org/abs/2510.23141"}
+  status: deferred
+
+- id: acousticrooms
+  name: AcousticRooms
+  year: 2025
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 300,000+ single-channel RIRs simulated in 260 rooms of 10 categories (apartment, auditorium, office, cafe, ...) with 3D geometry and materials from a 332-material library.
+  expected: {n_irs: 300000, n_rooms: 260}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: github, records: ["facebookresearch/AcousticRooms@main"]}
+  wave: 4
+  homepage: https://github.com/facebookresearch/AcousticRooms
+  paper: {title: "Hearing Anywhere in Any Environment", url: "https://arxiv.org/abs/2504.10746"}
+  status: deferred
+
+- id: bird
+  name: BIRD - Big Impulse Response Dataset
+  year: 2020
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 100,000 two-microphone RIRs from the image method (Habets) over a wide range of shoebox room sizes and mic spacings, in 10 folds.
+  expected: {n_irs: 100000}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["4139416"]}
+  wave: 4
+  homepage: https://zenodo.org/records/4139416
+  paper: {title: "BIRD: Big Impulse Response Dataset", url: "https://arxiv.org/abs/2010.09930"}
+  status: deferred
+
+- id: spadenrir
+  name: SpaDenRIR
+  year: 2026
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: Spatially dense simulated room impulse responses (102 GB).
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["21618947"]}
+  wave: 4
+  homepage: https://zenodo.org/records/21618947
+  status: deferred
+
+- id: hybridreverb2
+  name: HybridReverb2 IR database
+  year: 2011
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [stereo, binaural]
+  content: Impulse responses of virtual rooms generated by hybrid room-acoustic simulation for the HybridReverb2 convolution reverb.
+  license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: github, records: ["jpcima/HybridReverb2-impulse-response-database@master"]}
+  wave: 4
+  homepage: https://github.com/jpcima/HybridReverb2-impulse-response-database
+  status: deferred
+
+- id: gwa
+  name: GWA - Geometric-Wave Acoustic dataset
+  year: 2022
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 2M+ synthetic RIRs in 6.8K professionally designed 3D houses, geometric ray tracing calibrated with FDTD wave simulation below the crossover.
+  expected: {n_irs: 2000000}
+  license: {spdx: LicenseRef-GWA, redistribute_audio: unknown}
+  access: manual
+  source: {kind: manual, instructions: "Follow the download instructions at https://gamma.umd.edu/pro/sound/gwa/ (multi-TB); needs permanent storage."}
+  wave: 4
+  homepage: https://gamma.umd.edu/pro/sound/gwa/
+  paper: {title: "GWA: A Large High-Quality Acoustic Dataset for Audio Processing", url: "https://arxiv.org/abs/2204.01787"}
+  status: deferred
+
+- id: rir_mega
+  name: RIR-Mega
+  year: 2025
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: 50,000 simulated RIRs (image source + stochastic ray tracing; rooms 3-25 m long) with a compact metadata schema; HF subset + full Zenodo archive.
+  expected: {n_irs: 50000}
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
+  access: manual
+  source: {kind: manual, instructions: "Resolve the Hugging Face / Zenodo ids from https://arxiv.org/abs/2510.18917 before adding a fetchable source."}
+  wave: 4
+  paper: {title: "RIR-Mega: a large-scale simulated room impulse response dataset", url: "https://arxiv.org/abs/2510.18917"}
+  status: deferred
+
+# ============================================ Manual / registration-only sources
+- id: s3a
+  name: S3A room impulse responses (Surrey)
+  year: 2015
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [binaural, array_raw, foa_fuma]
+  content: RIRs and BRIRs recorded in several rooms at the University of Surrey (S3A programme) with two dummy heads and arrays.
+  license: {spdx: LicenseRef-S3A-academic, redistribute_audio: no, note: "Academic use only; registered users; must not be redistributed."}
+  access: registration
+  source: {kind: manual, instructions: "Register at http://cvssp.org/data/s3a/ and place the downloaded files in $RIRDB_ROOT/raw/_inbox/s3a/, then `rirdb adopt-manual s3a`."}
+  homepage: http://cvssp.org/data/s3a/
+  doi: 10.15126/surreydata.00808465
+  status: manual
+
+- id: smard
+  name: SMARD (Aalborg)
+  year: 2014
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: Raw single- and multichannel recordings (48 configurations of 3 loudspeakers x 4 arrays) in a listening room from which IRs can be estimated; no pre-computed IRs.
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
+  access: manual
+  source: {kind: manual, instructions: "Download from https://www.smard.es.aau.dk/ ; IRs must be estimated from the recorded excitation signals (not yet supported)."}
+  homepage: https://www.smard.es.aau.dk/
+  status: manual
+
+- id: raf
+  name: Real Acoustic Fields (RAF)
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [array_raw]
+  content: Densely captured RIRs with a 36-microphone "Earful Tower", multi-view images and 6DoF tracking of emitters and listeners (audio-visual room acoustics).
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
+  access: manual
+  source: {kind: manual, instructions: "Follow the download script in https://github.com/facebookresearch/real-acoustic-fields ; very large."}
+  homepage: https://facebookresearch.github.io/real-acoustic-fields/
+  paper: {title: "Real Acoustic Fields: An Audio-Visual Room Acoustics Dataset and Benchmark", url: "https://arxiv.org/abs/2403.18821"}
+  status: manual
+
+- id: hearing_anything_anywhere
+  name: Hearing Anything Anywhere dataset
+  year: 2024
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: Sparse RIR and music recordings in 4 real environments of diverse materials, shapes and complexity (DiffRIR).
+  expected: {n_rooms: 4}
+  license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
+  access: manual
+  source: {kind: manual, instructions: "Follow the data link in https://github.com/maswang32/hearinganythinganywhere ."}
+  homepage: https://github.com/maswang32/hearinganythinganywhere
+  paper: {title: "Hearing Anything Anywhere", url: "https://arxiv.org/abs/2406.07532"}
+  status: manual

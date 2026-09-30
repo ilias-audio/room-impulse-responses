@@ -1,0 +1,63 @@
+[workspace]
+authors = ["Ilias Ibnyahya <ibnyahya.ilias@gmail.com>"]
+channels = ["conda-forge", "nvidia"]
+name = "rirdb"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+# All real Python commands MUST be submitted via sbatch (see docs/hpc.md):
+#   sbatch jobs/quick_cpu.sh pixi run rirdb <command>
+#   sbatch jobs/quick_cpu.sh pixi run test
+
+[dependencies]
+python = "3.12.*"
+numpy = ">=1.26,<3"
+scipy = ">=1.13,<2"
+pandas = ">=2.2,<3"
+pyarrow = ">=15"
+python-duckdb = ">=1.0"
+h5py = ">=3.10,<4"
+pysoundfile = ">=0.12"
+matplotlib = ">=3.9,<4"
+pyyaml = ">=6"
+pydantic = ">=2.6,<3"
+typer = ">=0.12"
+rich = ">=13"
+tqdm = ">=4.66,<5"
+scikit-learn = ">=1.4"
+umap-learn = ">=0.5"
+pytest = ">=8,<10"
+pytest-xdist = ">=3"
+p7zip = "*"
+# DecayFitNet preprocessing needs torch/torchaudio (inference runs in onnxruntime).
+# Same pytorch-gpu build as FDN2FDN so the env works on both CPU and GPU nodes;
+# install on the (GPU-less) login node with CONDA_OVERRIDE_CUDA=12.6.
+pytorch-gpu = ">=2.4,<3"
+torchaudio = ">=2.4,<3"
+cuda-version = ">=12.6,<12.7"
+onnx = "*"
+onnxruntime = "*"
+
+[pypi-dependencies]
+pyfar = ">=0.8.1,<0.9"
+pyrato = ">=1.1.0,<1.2"
+sofar = ">=1.2,<2"
+hdf5plugin = ">=4.1"
+soxr = ">=0.3"
+rirdb = { path = ".", editable = true }
+
+[system-requirements]
+cuda = "12.6"
+
+[tasks]
+test = "pytest -q"
+rirdb = "rirdb"
+
+# CLAP embeddings (GPU jobs). transformers pinned <5 to match FDN2FDN's eval env,
+# so embeddings are comparable across the two projects.
+#   CONDA_OVERRIDE_CUDA=12.6 pixi install -e embed
+[feature.embed.pypi-dependencies]
+transformers = ">=4.44,<5"
+
+[environments]
+embed = ["embed"]

@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+*.egg-info
+.venv
+
+# IDE
+.vscode
+.idea
+.DS_Store
+
+# Pixi (the lock IS committed in this repo, for reproducible metrics)
+.pixi/*
+!.pixi/config.toml
+
+# SLURM logs
+qlogs/*
+!qlogs/.gitkeep
+
+# Local env / user-managed agent notes
+.env
+CLAUDE.md
+
+# Data never goes in git: it lives under $RIRDB_ROOT (scratch).
+data/
+rir-data/
+*.wav
+*.WAV
+*.flac
+*.aif
+*.aiff
+*.sofa
+*.mat
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.zip
+*.z[0-9][0-9]
+*.tar
+*.tar.gz
+*.tgz
+*.tbz2
+*.bz2
+*.sit
+*.pickle
+*.pkl
+*.dat
+*.onnx
+*.pth
+*.parquet
+*.duckdb
+# ...except the small committed snapshots and tiny synthetic test fixtures
+!snapshots/*.parquet
+!tests/fixtures/**

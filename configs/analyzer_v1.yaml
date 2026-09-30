@@ -1,0 +1,74 @@
+# Analyzer configuration v1. Its sha256 is stored with every output row, so
+# any change here produces a distinguishable set of metrics.
+version: "1.0.0"
+
+preprocess:
+  onset_threshold_db: 20          # ISO 3382-1 A.3.4: start where level first rises to 20 dB below peak
+  digital_silence_abs: 1.0e-9     # |x| below this (float files) counts as digital silence
+  noise_tail_fraction: 0.1        # explicit noise estimate from the last 10 % of the *trimmed* IR
+  min_duration_s: 0.3
+  pre_onset_guard_ms: 1.0         # pre-onset window ends this long before the onset
+
+bands:
+  octave_centres_hz: [63, 125, 250, 500, 1000, 2000, 4000, 8000]
+  filter_order: 14                # pyfar Butterworth order; IEC 61260-1 class 1 for octaves at order >= 5
+  max_upper_edge_fraction_of_nyquist: 0.9   # drop bands whose upper -3 dB edge exceeds 0.9 * fs/2
+  broadband_range_hz: [63, 8000]
+
+decay:
+  # Minimum usable decay range (smoothed peak level minus noise floor, dB)
+  # for a value to count as valid: ISO 3382-1/-2 require the bottom of the
+  # evaluation range to stay >= 10 dB above the background noise.
+  min_range_db: {EDT: 20, T20: 35, T30: 45}
+  lundeby_broadband_smoothing: broadband   # 30 ms window (Lundeby et al. 1995)
+  curvature_flag_percent: 10               # ISO 3382-2 Annex B: C > 10 % indicates a curved decay
+  nonlinearity_flag_permille: 10           # xi > 10 permille
+  chu_disagreement_flag: 0.05              # relative T30 difference Lundeby vs Chu+Lundeby EDC
+  filter_bias_bt: 16                       # B*T below this: octave-filter ringing can bias T (Rasmussen 1991)
+
+energy:
+  early_limits_ms: [50, 80]
+
+drr:
+  direct_half_window_ms: 2.5      # ACE challenge convention (Eaton et al. 2016)
+
+sti:
+  min_length_s: 1.6               # IEC 60268-16:2020, 6.2
+
+echo_density:
+  ned_window_ms: 20               # Abel & Huang 2006
+  ned_hop_ms: 1
+  mixing_threshold: 1.0           # t where NED first reaches 1
+  kurtosis_window_ms: 10          # FDN2FDN EDP (kept for continuity with the DAFx26 paper)
+  kurtosis_hop_ms: 2
+  kurtosis_mixing_threshold: 0.85
+
+binaural:
+  iacc_max_lag_ms: 1.0
+  iacc_bands_hz: [500, 1000, 2000]   # IACC_E3 / IACC_L3 average over these octave bands
+  early_ms: 80
+
+features:
+  edc_grid_ms: 2
+  edc_max_s: 8.0
+  edc_logtime_points: 256
+  mel_sr: 48000
+  mel_n_fft: 2048
+  mel_hop_ms: 10
+  mel_n_mels: 64
+  mel_max_s: 4.0
+  edr_fractions: 12
+  edr_hop_ms: 10
+  edr_max_s: 4.0
+  magnitude_fractions: 24
+
+quality:
+  clip_run_samples: 3
+  dc_offset_db: -50
+  pre_onset_energy_db: -30
+  low_fs_hz: 32000
+  tail_truncated_fraction: 0.95
+  # Air-absorption ceiling: T30(f) above 55.3 / (4 m(f) c) is physically implausible
+  # for a room (m minimised over 10-90 % RH and 10-30 degC).
+  air_ceiling_humidity_percent: [10, 90]
+  air_ceiling_temperature_c: [10, 30]

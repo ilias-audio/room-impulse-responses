@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rirdb"
+version = "0.1.0"
+description = "Consolidated room impulse response corpus with an ISO 3382 analyzer"
+authors = [{ name = "Ilias Ibnyahya", email = "ibnyahya.ilias@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+rirdb = "rirdb.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rirdb"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: long-running tests (real data, large sweeps)"]
