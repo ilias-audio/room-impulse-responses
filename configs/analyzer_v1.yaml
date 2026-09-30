@@ -66,7 +66,8 @@ features:
 quality:
   clip_run_samples: 3
   dc_offset_db: -50
-  pre_onset_excess_db: 20         # pre-onset power (beyond the guard) this far above the tail noise: artefact (time aliasing, distortion products)
+  pre_onset_excess_db: 20         # pre-onset power (beyond the guard) this far above the tail noise ...
+  pre_onset_min_level_db: -55     # ... and at least this loud re the IR peak: artefact (time aliasing, distortion products)
   low_fs_hz: 32000
   tail_truncated_fraction: 0.95
   # Air-absorption ceiling: T30(f) above 55.3 / (4 m(f) c) is physically implausible

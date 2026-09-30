@@ -134,3 +134,12 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
   surface; only the signal-based predictor is reported.
 - Raw spherical-array capsules are analysed on one capsule (`omni_proxy`);
   proper SH encoding is future work.
+
+## Amendments
+
+- **Pre-onset flag, second condition** (2026-09-30). OpenAIR tails are often
+  processed down to -83...-99 dB re peak, so harmless -60 dB pre-ringing in the
+  5-30 ms before the onset read as "30 dB above noise" and 48 % of OpenAIR was
+  flagged. The flag now also requires the pre-onset power to reach -55 dB re
+  peak (`pre_onset_min_level_db`). Rochester's time-aliased tails (-39 to
+  -47 dB) are still flagged.

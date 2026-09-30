@@ -109,9 +109,14 @@ def prepare(x: np.ndarray, fs: int, cfg: Config) -> Prepared:
         excess = 10 * np.log10(np.max(pre_power / (noise_power + 1e-30)) + 1e-30)
         stats["pre_onset_excess_db"] = float(excess)
         stats["pre_onset_energy_db"] = float(10 * np.log10(np.sum(pre ** 2) / (np.sum(xc ** 2) + 1e-30) + 1e-30))
-        flags["pre_onset_energy"] = bool(stats["pre_onset_excess_db"] > cfg.quality.pre_onset_excess_db)
+        stats["pre_onset_level_db"] = float(10 * np.log10(np.max(pre_power) / (peak ** 2) + 1e-30)) if peak > 0 else float("nan")
+        # artefact = well above the tail noise AND not negligible relative to the IR itself
+        # (processed tails can sit at -90 dB, making harmless -60 dB pre-ringing look "30 dB above noise")
+        flags["pre_onset_energy"] = bool(stats["pre_onset_excess_db"] > cfg.quality.pre_onset_excess_db
+                                         and stats["pre_onset_level_db"] > cfg.quality.pre_onset_min_level_db)
     else:
         stats["pre_onset_excess_db"] = float("nan")
+        stats["pre_onset_level_db"] = float("nan")
         stats["pre_onset_energy_db"] = float("nan")
         flags["pre_onset_energy"] = False
 

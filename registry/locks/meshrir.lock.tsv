@@ -1,0 +1,6 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+S1-M3969_npy.zip	https://zenodo.org/api/records/10852693/files/S1-M3969_npy.zip/content	995777273	md5	2cb598eb44bb9905560c545db7af3432	zenodo:10852693	2026-09-30T16:29:18Z
+S32-M441_npy.zip	https://zenodo.org/api/records/10852693/files/S32-M441_npy.zip/content	3531528616	md5	9818fc66b36513590e7abd071243d8e9	zenodo:10852693	2026-09-30T16:29:18Z
+src.zip	https://zenodo.org/api/records/10852693/files/src.zip/content	558021	md5	ceab25bb1db3bc8c821057af0dbfa767	zenodo:10852693	2026-09-30T16:29:18Z
+LICENSE	https://zenodo.org/api/records/10852693/files/LICENSE/content	18656	md5	527dc6cad772ccb187d5bfe5af738204	zenodo:10852693	2026-09-30T16:29:18Z
+README.md	https://zenodo.org/api/records/10852693/files/README.md/content	1261	md5	2876df245539451271e079c62c46e88e	zenodo:10852693	2026-09-30T16:29:18Z
