@@ -71,7 +71,7 @@ _WORKER = {}
 
 def _init_worker(dataset_id: str):
     d = get_dataset(dataset_id)
-    _WORKER.update(dataset=d, adapter=get_adapter(d.adapter.name), root=paths.files_dir(dataset_id),
+    _WORKER.update(dataset=d, adapter=get_adapter(d.adapter.name, d.adapter.params), root=paths.files_dir(dataset_id),
                    cfg=load_config())
 
 

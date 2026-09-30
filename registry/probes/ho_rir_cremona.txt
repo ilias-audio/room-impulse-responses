@@ -1,0 +1,23 @@
+# probe ho_rir_cremona
+# root: /gpfs/scratch/eey119/rir-data/raw/ho_rir_cremona/files
+
+327 files, 1.00 GB
+extensions: .wav 325, .csv 2
+
+## tree
+arvedi_auditorium_dataset/  (327 files)
+  rirs/  (325 files)
+    rir-S0-A101.wav  [3.07 MB]
+    rir-S0-A102.wav  [3.07 MB]
+    rir-S0-A103.wav  [3.07 MB]
+    rir-S0-A104.wav  [3.07 MB]
+    rir-S0-A105.wav  [3.07 MB]
+    rir-S0-A106.wav  [3.07 MB]
+    ... 319 more files
+  pos_receivers.csv  [0.03 MB]
+  pos_sources.csv  [0.00 MB]
+
+## audio
+audio headers read: 325 of 325 (0 unreadable)
+     325 x  8 ch  48000 Hz  FLOAT
+  duration s: min 2.000  median 2.000  max 2.000

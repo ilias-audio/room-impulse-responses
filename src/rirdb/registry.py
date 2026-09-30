@@ -58,7 +58,20 @@ class License(_Strict):
     spdx: str                       # SPDX id, or LicenseRef-... for custom terms
     url: str | None = None
     redistribute_audio: Redistribute = "unknown"
+    # May the audio be used to train ML models? Explicit value wins; otherwise
+    # derived from the licence (see `training`): open licences -> allowed
+    # (NC: non-commercial research only), unspecified/custom -> unknown.
+    training_use: Literal["allowed", "prohibited", "ask", "unknown"] | None = None
     note: str | None = None
+
+    @property
+    def training(self) -> str:
+        if self.training_use:
+            return self.training_use
+        open_ids = ("CC-BY", "CC0", "MIT", "Apache-2.0", "GPL-", "ODC-By", "BSD")
+        if any(self.spdx.startswith(p) for p in open_ids):
+            return "allowed"
+        return "unknown"
 
     @field_validator("redistribute_audio", mode="before")
     @classmethod

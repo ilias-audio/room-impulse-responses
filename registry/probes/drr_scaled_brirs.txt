@@ -1,0 +1,10 @@
+# probe drr_scaled_brirs
+# root: /gpfs/scratch/eey119/rir-data/raw/drr_scaled_brirs/files
+
+0 files, 0.00 GB
+extensions: 
+
+## tree
+
+
+## audio

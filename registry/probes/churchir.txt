@@ -1,0 +1,50 @@
+# probe churchir
+# root: /gpfs/scratch/eey119/rir-data/raw/churchir/files
+
+181 files, 2.00 GB
+extensions: .wav 180, .csv 1
+
+## tree
+EIG/  (90 files)
+  SC_MC_EIG_1.wav  [21.50 MB]
+  SC_MC_EIG_10.wav  [21.50 MB]
+  SC_MC_EIG_2.wav  [21.50 MB]
+  SC_MC_EIG_3.wav  [21.50 MB]
+  SC_MC_EIG_4.wav  [21.50 MB]
+  SC_MC_EIG_5.wav  [21.50 MB]
+  ... 84 more files
+OMNI/  (90 files)
+  SC_MC_OMNI_1.wav  [0.67 MB]
+  SC_MC_OMNI_10.wav  [0.67 MB]
+  SC_MC_OMNI_2.wav  [0.67 MB]
+  SC_MC_OMNI_3.wav  [0.67 MB]
+  SC_MC_OMNI_4.wav  [0.67 MB]
+  SC_MC_OMNI_5.wav  [0.67 MB]
+  ... 84 more files
+__MACOSX/  (183 files)
+  EIG/  (90 files)
+    ._SC_MC_EIG_1.wav  [0.00 MB]
+    ._SC_MC_EIG_10.wav  [0.00 MB]
+    ._SC_MC_EIG_2.wav  [0.00 MB]
+    ._SC_MC_EIG_3.wav  [0.00 MB]
+    ._SC_MC_EIG_4.wav  [0.00 MB]
+    ._SC_MC_EIG_5.wav  [0.00 MB]
+    ... 84 more files
+  OMNI/  (90 files)
+    ._SC_MC_OMNI_1.wav  [0.00 MB]
+    ._SC_MC_OMNI_10.wav  [0.00 MB]
+    ._SC_MC_OMNI_2.wav  [0.00 MB]
+    ._SC_MC_OMNI_3.wav  [0.00 MB]
+    ._SC_MC_OMNI_4.wav  [0.00 MB]
+    ._SC_MC_OMNI_5.wav  [0.00 MB]
+    ... 84 more files
+  ._EIG  [0.00 MB]
+  ._OMNI  [0.00 MB]
+  ._pos.csv  [0.00 MB]
+pos.csv  [0.00 MB]
+
+## audio
+audio headers read: 180 of 180 (0 unreadable)
+      90 x  32 ch  48000 Hz  PCM_16
+      90 x  1 ch  48000 Hz  PCM_16
+  duration s: min 7.000  median 7.000  max 7.000

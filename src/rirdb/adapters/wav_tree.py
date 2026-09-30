@@ -14,6 +14,9 @@ Registry parameters (adapter.params), all optional:
   sh_norm:     FuMa | SN3D | N3D (for B-format files)
   orientation_known: bool (default true)
   ir_kind_from_regex: {regex: ir_kind} applied to the relpath (first match wins)
+  channels:    only index files with these channel counts, e.g. [1, 2]
+  reference_roles: {n_channels: role or "mean"} analysed reference per channel count
+  preferred_regex: relpaths matching it are the preferred representation (others kept, not preferred)
 """
 
 from __future__ import annotations
@@ -65,6 +68,8 @@ class WavTreeAdapter:
             else:
                 room = stem
             n_ch = info.channels
+            if p.get("channels") and n_ch not in p["channels"]:
+                continue
             roles = roles_map.get(n_ch) or [f"ch{i}" for i in range(n_ch)]
             if len(roles) != n_ch:
                 roles = [f"ch{i}" for i in range(n_ch)]
@@ -93,7 +98,9 @@ class WavTreeAdapter:
                 room_label=g.get("label") or room,
                 category_hint=category,
                 ir_kind=kind,
-                extra={"subtype": info.subtype},
+                extra={"subtype": info.subtype,
+                       "reference_role": (p.get("reference_roles") or {}).get(n_ch) or (p.get("reference_roles") or {}).get(str(n_ch)),
+                       "preferred": bool(re.search(p["preferred_regex"], rel)) if p.get("preferred_regex") else True},
             )
 
     def load(self, locator: dict, root: Path) -> tuple[np.ndarray, int]:

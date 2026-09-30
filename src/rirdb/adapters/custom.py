@@ -204,50 +204,136 @@ class OpenSLR28Adapter:
         return x.T, int(fs)
 
 
-# ---------------------------------------------------------------- SOFA
 class SofaAdapter:
-    """Generic SOFA (netCDF4/HDF5) adapter: one record per measurement M, all receivers R.
+    """Generic SOFA (netCDF4/HDF5) adapter.
 
-    Params: glob (default **/*.sofa), room_from (file|parent), roles (list for R
-    receivers, default mic_i), capture_format, reference_role, sh_norm,
-    orientation_known.
+    Data.IR is (M, R, N) or (M, R, N, E): one record per measurement m (and
+    emitter e), with all R receivers as channels. Settings come from
+    `adapter.params`, or from a list `params.groups` of such dicts when one
+    dataset mixes file types (e.g. BRIR and SRIR files):
+      glob (default **/*.sofa), pattern (regex on the file name: groups room, rcv, src, cond),
+      room_from (pattern|file|parent), roles (list of R), capture_format, reference_role,
+      sh_norm, orientation_known, m_select (list of m indices, e.g. [0] = frontal head
+      orientation for rotation-dense BRIR sets), ir_kind.
+    Loading reads one slice lazily via h5py.
     """
 
     def iter_records(self, dataset, root: Path) -> Iterator[IRRecord]:
         import h5py
 
-        p = dataset.adapter.params
-        exclude = re.compile(p.get("exclude", DEFAULT_EXCLUDE))
-        for f in sorted(root.glob(p.get("glob", "**/*.sofa"))):
-            rel = f.relative_to(root).as_posix()
-            if exclude.search(rel):
-                continue
-            with h5py.File(f, "r") as h:
-                M, R, N = h["Data.IR"].shape
-                fs = int(np.ravel(h["Data.SamplingRate"][()])[0])
-                src = np.asarray(h["SourcePosition"]) if "SourcePosition" in h else None
-                lis = np.asarray(h["ListenerPosition"]) if "ListenerPosition" in h else None
-                conv = h.attrs.get("SOFAConventions", b"")
-                conv = conv.decode() if isinstance(conv, bytes) else str(conv)
-            roles = p.get("roles") or [f"mic_{i}" for i in range(R)]
-            if len(roles) != R:
-                roles = [f"mic_{i}" for i in range(R)]
-            room = Path(rel).parent.name if p.get("room_from") == "parent" else Path(rel).stem
-            for m in range(M):
-                sp = tuple(src[m if src.shape[0] == M else 0]) if src is not None else None
-                lp = tuple(lis[m if lis.shape[0] == M else 0]) if lis is not None else None
-                yield IRRecord(
-                    dataset_id=dataset.id, local_key=f"{rel}#{m}", room_key=slug(room),
-                    capture_format=p.get("capture_format", "array_raw"), channel_roles=tuple(roles), fs=fs,
-                    n_samples=int(N), locator={"relpath": rel, "container": "sofa", "m": m},
-                    src_key=f"m{m}", src_pos=sp, rcv_pos=lp, sh_norm=p.get("sh_norm"),
-                    orientation_known=bool(p.get("orientation_known", True)), room_label=room.replace("_", " "),
-                    extra={"sofa_conventions": conv, "reference_role": p.get("reference_role")})
+        params = dataset.adapter.params
+        groups = params.get("groups") or [params]
+        exclude = re.compile(params.get("exclude", DEFAULT_EXCLUDE))
+        for p in groups:
+            pattern = re.compile(p["pattern"]) if p.get("pattern") else None
+            for f in sorted(root.glob(p.get("glob", "**/*.sofa"))):
+                rel = f.relative_to(root).as_posix()
+                if exclude.search(rel):
+                    continue
+                g = {}
+                if pattern is not None:
+                    m_ = pattern.search(f.name)
+                    if m_ is None:
+                        continue
+                    g = m_.groupdict()
+                try:
+                    with h5py.File(f, "r") as h:
+                        shape = h["Data.IR"].shape
+                        fs = int(np.ravel(h["Data.SamplingRate"][()])[0])
+                        src = np.asarray(h["SourcePosition"]) if "SourcePosition" in h else None
+                        lis = np.asarray(h["ListenerPosition"]) if "ListenerPosition" in h else None
+                        conv = h.attrs.get("SOFAConventions", b"")
+                        conv = conv.decode() if isinstance(conv, bytes) else str(conv)
+                except OSError:
+                    continue      # not HDF5 (e.g. a git-LFS pointer)
+                M, R, N = shape[:3]
+                E = shape[3] if len(shape) == 4 else None
+                roles = p.get("roles") or [f"mic_{i}" for i in range(R)]
+                if len(roles) != R:
+                    roles = [f"mic_{i}" for i in range(R)]
+                room_from = p.get("room_from") or ("pattern" if g.get("room") else "file")
+                room = g.get("room") if room_from == "pattern" else (
+                    Path(rel).parent.name if room_from == "parent" else Path(rel).stem)
+                ms = p.get("m_select") or range(M)
+                es = range(E) if E else [None]
+                for m in ms:
+                    if m >= M:
+                        continue
+                    for e in es:
+                        sp = tuple(src[m if src.shape[0] == M else 0]) if src is not None and src.ndim == 2 else None
+                        lp = tuple(lis[m if lis.shape[0] == M else 0]) if lis is not None and lis.ndim == 2 else None
+                        key = f"{rel}#{m}" + (f"#{e}" if e is not None else "")
+                        yield IRRecord(
+                            dataset_id=dataset.id, local_key=key, room_key=slug(room),
+                            capture_format=p.get("capture_format", "array_raw"), channel_roles=tuple(roles), fs=fs,
+                            n_samples=int(N), locator={"relpath": rel, "container": "sofa", "m": int(m), "e": e},
+                            src_key=f"e{e}" if e is not None else (g.get("src") or f"m{m}"),
+                            rcv_key=g.get("rcv") or (f"m{m}" if e is not None else None),
+                            condition_key=g.get("cond"), src_pos=sp, rcv_pos=lp, sh_norm=p.get("sh_norm"),
+                            orientation_known=bool(p.get("orientation_known", True)),
+                            room_label=str(room).replace("_", " "), ir_kind=p.get("ir_kind", "room"),
+                            extra={"sofa_conventions": conv, "reference_role": p.get("reference_role"),
+                                   "preferred": bool(p.get("preferred", True))})
 
     def load(self, locator: dict, root: Path):
         import h5py
 
         with h5py.File(root / locator["relpath"], "r") as h:
-            x = np.asarray(h["Data.IR"][locator["m"]], dtype=np.float64)
+            d = h["Data.IR"]
+            x = d[locator["m"], :, :, locator["e"]] if locator.get("e") is not None else d[locator["m"]]
             fs = int(np.ravel(h["Data.SamplingRate"][()])[0])
-        return np.atleast_2d(x), fs
+        return np.atleast_2d(np.asarray(x, dtype=np.float64)), fs
+
+
+# ---------------------------------------------------------------- MATLAB arrays
+class MatArrayAdapter:
+    """IRs stored as N-d arrays in .mat files (e.g. IoSR BRIRs: brir[N, 2 ears, 24 speakers]).
+
+    Params: glob, file_pattern (regex on file name; groups become keys), var,
+    time_axis, channel_axis, record_axis (one record per index; None = one per file),
+    roles, capture_format, fs, room_default, record_prefix.
+    """
+
+    def _arr(self, path: Path, var: str):
+        import scipy.io
+
+        try:
+            return np.asarray(scipy.io.loadmat(str(path), variable_names=[var])[var])
+        except NotImplementedError:          # v7.3 (HDF5)
+            import h5py
+
+            with h5py.File(path, "r") as h:
+                return np.asarray(h[var]).T
+
+    def iter_records(self, dataset, root: Path) -> Iterator[IRRecord]:
+        p = dataset.adapter.params
+        fpat = re.compile(p.get("file_pattern", r".*\.mat$"))
+        for f in sorted(root.glob(p.get("glob", "**/*.mat"))):
+            m_ = fpat.search(f.name)
+            if not m_:
+                continue
+            g = m_.groupdict()
+            rel = f.relative_to(root).as_posix()
+            a = self._arr(f, p["var"])
+            n = a.shape[p.get("time_axis", 0)]
+            n_rec = a.shape[p["record_axis"]] if p.get("record_axis") is not None else 1
+            roles = p.get("roles") or [f"mic_{i}" for i in range(a.shape[p.get("channel_axis", 1)])]
+            for k in range(n_rec):
+                yield IRRecord(
+                    dataset_id=dataset.id, local_key=f"{rel}#{k}", room_key=slug(g.get("room") or p.get("room_default", "unknown")),
+                    capture_format=p.get("capture_format", "array_raw"), channel_roles=tuple(roles), fs=int(p["fs"]),
+                    n_samples=int(n), locator={"relpath": rel, "container": "mat", "k": k},
+                    src_key=f"{p.get('record_prefix', 'rec')}{k + 1}", rcv_key=g.get("rcv"), condition_key=g.get("cond"),
+                    room_label=str(g.get("room") or p.get("room_default", "")).replace("_", " "), extra={})
+
+    def load(self, locator: dict, root: Path):
+        p = self._params
+        a = self._arr(root / locator["relpath"], p["var"])
+        t_ax, c_ax, r_ax = p.get("time_axis", 0), p.get("channel_axis", 1), p.get("record_axis")
+        if r_ax is not None:
+            a = np.take(a, locator["k"], axis=r_ax)
+            if c_ax > r_ax:
+                c_ax -= 1
+            if t_ax > r_ax:
+                t_ax -= 1
+        return np.moveaxis(a, (c_ax, t_ax), (0, 1)).astype(np.float64), int(p["fs"])

@@ -1,0 +1,35 @@
+# probe surrey_real_room_brirs
+# root: /gpfs/scratch/eey119/rir-data/raw/surrey_real_room_brirs/files
+
+21 files, 0.19 GB
+extensions: .sofa 10, .pdf 7, .tex 2, <none> 1, .md 1
+
+## tree
+RealRoomBRIRs-b41d237c03d1fe535810954ac4a8496f4e88f8fc/  (21 files)
+  Documentation/  (9 files)
+    Figures/  (6 files)
+      Room_A.pdf  [0.09 MB]
+      Room_B.pdf  [0.08 MB]
+      Room_C.pdf  [0.10 MB]
+      Room_D.pdf  [0.09 MB]
+      pseudo-anechoic-IR.pdf  [0.12 MB]
+      pseudo-anechoic-TF.pdf  [0.14 MB]
+    BRIR_measurements.pdf  [0.79 MB]
+    BRIR_measurements.tex  [0.00 MB]
+    Content.tex  [0.01 MB]
+  LICENSE  [0.00 MB]
+  README.md  [0.00 MB]
+  UniS_Anechoic_BRIR_16k.sofa  [0.16 MB]
+  UniS_Anechoic_BRIR_48k.sofa  [0.39 MB]
+  UniS_Room_A_BRIR_16k.sofa  [3.75 MB]
+  UniS_Room_A_BRIR_48k.sofa  [20.97 MB]
+  ... 6 more files
+
+## audio
+
+## sofa (10 files; first 5)
+-- UniS_Anechoic_BRIR_16k.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (37, 2, 197); fs 16000.0
+-- UniS_Anechoic_BRIR_48k.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (37, 2, 591); fs 48000.0
+-- UniS_Room_A_BRIR_16k.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (37, 2, 6259); fs 16000.0
+-- UniS_Room_A_BRIR_48k.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (37, 2, 18776); fs 48000.0
+-- UniS_Room_B_BRIR_16k.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (37, 2, 16001); fs 16000.0

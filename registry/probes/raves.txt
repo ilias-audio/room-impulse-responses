@@ -1,0 +1,79 @@
+# probe raves
+# root: /gpfs/scratch/eey119/rir-data/raw/raves/files
+
+54 files, 10.18 GB
+extensions: .sofa 38, .png 16
+
+## tree
+BRIRs_H1539b/  (3 files)
+  H1539b/  (3 files)
+    BRIRs_H1539b_E.sofa  [485.01 MB]
+    BRIRs_H1539b_M.sofa  [486.05 MB]
+    BRIRs_H1539b_W.sofa  [486.15 MB]
+BRIRs_H1562/  (3 files)
+  H1562/  (3 files)
+    BRIRs_H1562_E.sofa  [681.19 MB]
+    BRIRs_H1562_M.sofa  [680.51 MB]
+    BRIRs_H1562_W.sofa  [679.87 MB]
+BRIRs_H2505/  (3 files)
+  H2505/  (3 files)
+    BRIRs_H2505_E.sofa  [483.95 MB]
+    BRIRs_H2505_M.sofa  [484.12 MB]
+    BRIRs_H2505_W.sofa  [484.56 MB]
+BRIRs_HL/  (3 files)
+  HL/  (3 files)
+    BRIRs_HL_E.sofa  [469.58 MB]
+    BRIRs_HL_M.sofa  [457.36 MB]
+    BRIRs_HL_W.sofa  [468.82 MB]
+BRIRs_HU103/  (3 files)
+  HU103/  (3 files)
+    BRIRs_HU103_E.sofa  [475.75 MB]
+    BRIRs_HU103_M.sofa  [469.84 MB]
+    BRIRs_HU103_W.sofa  [471.53 MB]
+BRIRs_LR001/  (1 files)
+  LR001/  (1 files)
+    BRIRs_LR001_M.sofa  [477.91 MB]
+BRIRs_ML2-102/  (3 files)
+  ML2-102/  (3 files)
+    BRIRs_ML2-102_E.sofa  [485.48 MB]
+    BRIRs_ML2-102_M.sofa  [485.70 MB]
+    BRIRs_ML2-102_W.sofa  [485.29 MB]
+Floor_plans/  (16 files)
+  Floor_plans/  (16 files)
+    H1539b_E.png  [0.03 MB]
+    H1539b_M.png  [0.03 MB]
+    H1539b_W.png  [0.03 MB]
+    H1562_E.png  [2.25 MB]
+    H1562_M.png  [2.27 MB]
+    H1562_W.png  [2.27 MB]
+    ... 10 more files
+SRIRs_H1539b/  (3 files)
+  H1539b/  (3 files)
+    SRIRs_H1539b_E.sofa  [23.78 MB]
+    SRIRs_H1539b_M.sofa  [23.83 MB]
+    SRIRs_H1539b_W.sofa  [23.83 MB]
+SRIRs_H1562/  (3 files)
+  H1562/  (3 files)
+    SRIRs_H1562_E.sofa  [23.37 MB]
+    SRIRs_H1562_M.sofa  [23.29 MB]
+    SRIRs_H1562_W.sofa  [23.32 MB]
+SRIRs_H2505/  (3 files)
+  H2505/  (3 files)
+    SRIRs_H2505_E.sofa  [23.53 MB]
+    SRIRs_H2505_M.sofa  [23.60 MB]
+    SRIRs_H2505_W.sofa  [23.59 MB]
+SRIRs_HL/  (3 files)
+  HL/  (3 files)
+    SRIRs_HL_E.sofa  [23.75 MB]
+    SRIRs_HL_M.sofa  [23.59 MB]
+    SRIRs_HL_W.sofa  [23.72 MB]
+... 3 more dirs
+
+## audio
+
+## sofa (38 files; first 5)
+-- BRIRs_H1539b_E.sofa: SingleRoomMIMOSRIR v1.0; Data.IR (72, 2, 96000, 5); fs 48000.0
+-- BRIRs_H1539b_M.sofa: SingleRoomMIMOSRIR v1.0; Data.IR (72, 2, 96000, 5); fs 48000.0
+-- BRIRs_H1539b_W.sofa: SingleRoomMIMOSRIR v1.0; Data.IR (72, 2, 96000, 5); fs 48000.0
+-- BRIRs_H1562_E.sofa: SingleRoomMIMOSRIR v1.0; Data.IR (72, 2, 135520, 5); fs 48000.0
+-- BRIRs_H1562_M.sofa: SingleRoomMIMOSRIR v1.0; Data.IR (72, 2, 135520, 5); fs 48000.0

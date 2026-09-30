@@ -1,0 +1,5 @@
+room_key,category,ir_kind,room_label,note
+cr1,industrial,room,CR1 coupled rooms (laboratory + reverberation chamber),coupled-volume scene
+cr2,lecture_classroom,room,CR2 small room (seminar room),
+cr3,concert_hall,room,CR3 medium room (chamber music hall),
+cr4,theatre_auditorium,room,CR4 large room (auditorium),

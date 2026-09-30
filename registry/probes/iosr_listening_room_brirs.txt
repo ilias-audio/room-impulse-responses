@@ -1,0 +1,33 @@
+# probe iosr_listening_room_brirs
+# root: /gpfs/scratch/eey119/rir-data/raw/iosr_listening_room_brirs/files
+
+149 files, 2.05 GB
+extensions: .mat 144, <none> 1, .pdf 1, .txt 1, .sofa 1, .md 1
+
+## tree
+IoSR_ListeningRoom_BRIRs-d36af1bbd0f4083a9f9ee678ff8f499044e851a7/  (149 files)
+  IoSR_ListeningRoom_BRIRs_MATLAB/  (144 files)
+    angle_0.0.mat  [14.28 MB]
+    angle_10.0.mat  [14.22 MB]
+    angle_100.0.mat  [14.24 MB]
+    angle_102.5.mat  [14.25 MB]
+    angle_105.0.mat  [14.23 MB]
+    angle_107.5.mat  [14.25 MB]
+    ... 138 more files
+  .gitattributes  [0.00 MB]
+  IoSR_ListeningRoom_BRIR.pdf  [3.16 MB]
+  IoSR_ListeningRoom_BRIRs.sofa  [0.00 MB]
+  LICENCE.txt  [0.02 MB]
+  README.md  [0.00 MB]
+
+## audio
+
+## mat (144 files; first 5)
+-- angle_0.0.mat: [('brir', (65536, 2, 24), 'double')]
+-- angle_10.0.mat: [('brir', (65536, 2, 24), 'double')]
+-- angle_100.0.mat: [('brir', (65536, 2, 24), 'double')]
+-- angle_102.5.mat: [('brir', (65536, 2, 24), 'double')]
+-- angle_105.0.mat: [('brir', (65536, 2, 24), 'double')]
+
+## sofa (1 files; first 1)
+-- IoSR_ListeningRoom_BRIRs.sofa: unreadable SOFA ([Errno -51] NetCDF: Unknown file format: '/gpfs/scratch/eey119/rir-data/raw/iosr_listening_room_brirs/files/IoSR_ListeningRoom_BRIRs-d36af1bbd0f4083a9f9ee678ff8f499044e851a7/IoSR_ListeningRoom_BRIRs.sofa')

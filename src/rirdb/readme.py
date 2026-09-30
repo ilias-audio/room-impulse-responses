@@ -38,7 +38,10 @@ def _license(d: Dataset) -> str:
         label = "custom"
     else:
         label = spdx.replace("-only", "")
-    return f"[{label}]({d.license.url})" if d.license.url else label
+    out = f"[{label}]({d.license.url})" if d.license.url else label
+    if d.license.training == "prohibited":
+        out += " **no ML training**"
+    return out
 
 
 def _fs(d: Dataset) -> str:
@@ -61,6 +64,25 @@ def _get(d: Dataset) -> str:
     return f"W{d.wave} :heavy_check_mark:"
 
 
+# confirmed counts from the canonical index, when it exists (set by update_readme)
+_INDEXED: dict[str, dict] = {}
+
+
+def _indexed_counts() -> dict[str, dict]:
+    import glob
+
+    import pandas as pd
+
+    from rirdb import paths
+
+    out = {}
+    for f in glob.glob(str(paths.data_root() / "index" / "irs" / "dataset=*" / "part-0.parquet")):
+        ds = f.split("dataset=")[1].split("/")[0]
+        df = pd.read_parquet(f, columns=["room_id", "fs"])
+        out[ds] = {"n_irs": len(df), "n_rooms": df["room_id"].nunique(), "fs": sorted(df["fs"].unique().tolist())}
+    return out
+
+
 def _row(d: Dataset) -> str:
     name = f"[{_esc(d.name)}]({d.homepage})" if d.homepage else _esc(d.name)
     paper = f"[{_esc(d.paper.title)}]({d.paper.url})" if d.paper else (f"[doi]({'https://doi.org/' + d.doi})" if d.doi else "")
@@ -70,10 +92,10 @@ def _row(d: Dataset) -> str:
     cells = (
         name,
         content,
-        _count(d.expected.n_irs),
-        _count(d.expected.n_rooms),
+        _count(_INDEXED[d.id]["n_irs"]) if d.id in _INDEXED else _count(d.expected.n_irs),
+        _count(_INDEXED[d.id]["n_rooms"]) if d.id in _INDEXED else _count(d.expected.n_rooms),
         ", ".join(_FORMAT_LABELS[f] for f in d.capture_formats),
-        _fs(d),
+        ", ".join(f"{f / 1000:g}k" for f in _INDEXED[d.id]["fs"]) if d.id in _INDEXED else _fs(d),
         _license(d),
         str(d.year or ""),
         paper,
@@ -104,7 +126,8 @@ def render_tables(datasets: list[Dataset]) -> str:
         f"{len(datasets)} datasets tracked, {n_fetch} fetched automatically by the pipeline. "
         "**Get**: `W<n>` is the download wave (0 smoke, 1 many spaces, 2 multi-condition, "
         "3 dense grids); `manual` needs registration or a browser download; `later` is not yet scheduled. "
-        "Counts are as reported by the authors; `?` means not yet confirmed by `rirdb probe`.",
+        "IRs, rooms and fs are counted from the canonical index once a dataset is indexed (otherwise as reported "
+        "by the authors; `?` = not yet confirmed).",
     ]
     for title, rows in sections:
         if rows:
@@ -115,6 +138,8 @@ def render_tables(datasets: list[Dataset]) -> str:
 
 def update_readme(readme: Path, datasets: list[Dataset]) -> bool:
     """Replace the generated block in the README. Returns True if the file changed."""
+    _INDEXED.clear()
+    _INDEXED.update(_indexed_counts())
     text = readme.read_text()
     if BEGIN not in text or END not in text:
         raise ValueError(f"{readme} has no generated-dataset markers")

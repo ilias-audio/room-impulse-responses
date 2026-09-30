@@ -90,7 +90,12 @@ datasets:
       room_from: file
       category_from: parent
       ir_kind_from_regex: {'/Nature/': outdoor}
-  license: {spdx: LicenseRef-unspecified, url: "https://www.echothief.com/downloads/", redistribute_audio: unknown, note: "Free download; no licence text published."}
+  license:
+    spdx: LicenseRef-EchoThief
+    url: https://www.echothief.com/downloads/
+    redistribute_audio: "no"
+    training_use: prohibited
+    note: "EchoThief License.pdf (in the archive): use to create derivative artistic work (e.g. convolution reverb); any other use by agreement with the author; not authorized for training AI."
   access: open
   source: {kind: http, urls: ["https://www.echothief.com/wp-content/uploads/2024/07/EchoThiefImpulseResponseLibrary.zip"]}
   wave: 0
@@ -274,6 +279,15 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["19809790"], include: ["SRIRs_*.zip", "BRIRs_*.zip", "Floor_plans.zip"]}
+  adapter:
+    name: sofa
+    params:
+      groups:
+        # 72 head orientations x 5 loudspeakers per file: analyse the frontal orientation (m = 0)
+        - {glob: "BRIRs_*/**/*.sofa", pattern: 'BRIRs_(?P<room>.+)_(?P<rcv>[EMW])\.sofa$', roles: [L, R],
+           capture_format: binaural, m_select: [0], preferred: false}
+        - {glob: "SRIRs_*/**/*.sofa", pattern: 'SRIRs_(?P<room>.+)_(?P<rcv>[EMW])\.sofa$',
+           capture_format: sdm_array, reference_role: mic_0}
   keep_archive: false
   wave: 1
   homepage: https://zenodo.org/records/19809790
@@ -295,6 +309,15 @@ datasets:
     kind: depositonce
     records: ["38410727-febb-4769-8002-9c710ba393c4", "326fed8c-636a-47f2-977d-b4fd6a0ce771"]
     include: ["Documentation.pdf", "1_scene_descriptions-*.zip", "1_Scene_descriptions.zip", "3_surface_descriptions.zip", "3_Surface_descriptions.zip", "4_additional_data.zip"]
+  adapter:
+    name: wav_tree
+    # complex rooms CR1-CR4 only; RS1-RS8 are single-reflection/diffraction scenes (not rooms)
+    params:
+      pattern: '1_scene_descriptions-(?P<room>CR\d)/.*/(?P<cond>RIRs|BRIRs)/wav/(?P<label>[^/]+)\.wav$'
+      channels: [1, 2]
+      roles: {1: [omni], 2: [L, R]}
+      channel_formats: {1: mono_omni, 2: binaural}
+      preferred_regex: '/RIRs/wav/'
   wave: 1
   homepage: https://depositonce.tu-berlin.de/items/38410727-febb-4769-8002-9c710ba393c4
   paper: {title: "A benchmark for room acoustical simulation. Concept and database", url: "https://www.sciencedirect.com/science/article/abs/pii/S0003682X20309725"}
@@ -328,6 +351,12 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: github, records: ["IoSR-Surrey/IoSR_ListeningRoom_BRIRs@master"]}
+  adapter:
+    name: mat_array
+    # brir[65536, 2 ears, 24 loudspeakers] per head angle (0-357.5 deg in 2.5 deg): frontal angle only
+    params: {glob: "**/angle_0.0.mat", var: brir, time_axis: 0, channel_axis: 1, record_axis: 2,
+             roles: [L, R], capture_format: binaural, fs: 48000, room_default: iosr-listening-room,
+             record_prefix: spk}
   wave: 1
   homepage: https://github.com/IoSR-Surrey/IoSR_ListeningRoom_BRIRs
   status: planned
@@ -343,6 +372,14 @@ datasets:
   license: {spdx: MIT, redistribute_audio: yes}
   access: open
   source: {kind: github, records: ["IoSR-Surrey/RealRoomBRIRs@master"]}
+  adapter:
+    name: sofa
+    params:
+      groups:
+        - {glob: "**/UniS_Room_*_BRIR_48k.sofa", pattern: 'UniS_(?P<room>Room_[A-D])_BRIR_48k\.sofa$',
+           roles: [L, R], capture_format: binaural}
+        - {glob: "**/UniS_Anechoic_BRIR_48k.sofa", pattern: 'UniS_(?P<room>Anechoic)_BRIR_48k\.sofa$',
+           roles: [L, R], capture_format: binaural, ir_kind: anechoic}
   wave: 1
   homepage: https://github.com/IoSR-Surrey/RealRoomBRIRs
   status: planned
@@ -357,6 +394,11 @@ datasets:
   license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
   access: open
   source: {kind: github, records: ["bbc/bbcrd-brirs@master"]}
+  adapter:
+    name: wav_tree
+    # 2-channel files = frontal head orientation per loudspeaker (the 720-channel files hold all 360 orientations)
+    params: {pattern: 'irs/BBCRD_LR_(?P<src>[^/]+)\.wav$', room_from: pattern, room_default: bbc-rd-listening-room,
+             channels: [2], roles: {2: [L, R]}, channel_formats: {2: binaural}}
   wave: 1
   homepage: https://github.com/bbc/bbcrd-brirs
   status: planned
@@ -371,6 +413,17 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["14901751"]}
+  adapter:
+    name: wav_tree
+    # the same 90 positions with an omni and an em32: omni preferred; em32 analysed on the capsule mean (order 0)
+    params:
+      pattern: '(?P<cond>OMNI|EIG)/(?P<src>S[CLR])_(?P<rcv>M[CLR])_(?:OMNI|EIG)_(?P<label>\d+)\.wav$'
+      room_from: pattern
+      room_default: church-santi-marcellino-e-pietro-cremona
+      roles: {1: [omni], 32: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32]}
+      channel_formats: {1: mono_omni, 32: em32_raw}
+      reference_roles: {32: mean}
+      preferred_regex: '^OMNI/'
   wave: 1
   homepage: https://zenodo.org/records/14901751
   doi: 10.5281/zenodo.14901751
@@ -387,6 +440,16 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["20098848"]}
+  adapter:
+    name: wav_tree
+    # 8-capsule spherical arrays at 65 receivers x 5 sources: analysed on the capsule mean (order 0)
+    params:
+      pattern: 'rirs/rir-(?P<src>S\d+)-(?P<rcv>A[0-9A_]+)\.wav$'
+      room_from: pattern
+      room_default: arvedi-auditorium-cremona
+      roles: {8: [c1, c2, c3, c4, c5, c6, c7, c8]}
+      channel_formats: {8: sma_raw}
+      reference_roles: {8: mean}
   wave: 1
   homepage: https://zenodo.org/records/20098848
   doi: 10.5281/zenodo.20098848
@@ -405,7 +468,8 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/61072
   doi: 10.5281/zenodo.61072
-  status: planned
+  status: broken
+  notes: "Zenodo file BRIRs_DRR-scaled.zip (md5 matches the record) is truncated upstream: 369 MB present, the zip directory references ~1.4 GB (checked 2026-09-30 with unzip, 7z and Python zipfile). Report to the authors."
 
 - id: fokke
   name: Fokke van Saane impulse responses

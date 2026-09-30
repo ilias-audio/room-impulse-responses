@@ -54,7 +54,7 @@ def subsample_mask(df: pd.DataFrame, d: Dataset) -> pd.Series:
 
 
 def build_index(d: Dataset) -> dict:
-    adapter = get_adapter(d.adapter.name)
+    adapter = get_adapter(d.adapter.name, d.adapter.params)
     root = paths.files_dir(d.id)
     rows = [r.to_row() for r in adapter.iter_records(d, root)]
     if not rows:
@@ -70,6 +70,7 @@ def build_index(d: Dataset) -> dict:
     df["measured"] = d.type == "measured"
     df["license_spdx"] = d.license.spdx
     df["redistribute_audio"] = d.license.redistribute_audio
+    df["training_use"] = d.license.training
     df["wave"] = d.wave
     dup = df["ir_id"].duplicated()
     if dup.any():

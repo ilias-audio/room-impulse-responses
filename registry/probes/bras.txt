@@ -1,0 +1,80 @@
+# probe bras
+# root: /gpfs/scratch/eey119/rir-data/raw/bras/files
+
+967 files, 3.48 GB
+extensions: .wav 376, .jpg 235, .png 93, .csv 65, .skp 49, <none> 42, .sofa 41, .txt 24, .pdf 22, .stl 9, .blend 9, .m 2
+
+## tree
+326fed8c/  (216 files)
+  1_Scene_descriptions/  (187 files)
+    1 Scene descriptions/  (93 files)
+      RS8 curved reflector (finite plate) /  (92 files)
+      .DS_Store  [0.01 MB]
+    __MACOSX/  (94 files)
+      1 Scene descriptions/  (94 files)
+  3_Surface_descriptions/  (28 files)
+    3 Surface descriptions/  (14 files)
+      _csv/  (5 files)
+      _descr/  (3 files)
+      _plots/  (5 files)
+      .DS_Store  [0.01 MB]
+    __MACOSX/  (14 files)
+      3 Surface descriptions/  (14 files)
+  Documentation.pdf  [1.08 MB]
+38410727/  (859 files)
+  1_scene_descriptions-CR1/  (84 files)
+    1 Scene descriptions/  (84 files)
+      CR1 coupled rooms (laboratory and reverberation chamber)/  (84 files)
+  1_scene_descriptions-CR2/  (90 files)
+    1 Scene descriptions/  (90 files)
+      CR2 small room (seminar room)/  (90 files)
+  1_scene_descriptions-CR3/  (155 files)
+    1 Scene descriptions/  (155 files)
+      CR3 medium room (chamber music hall)/  (155 files)
+  1_scene_descriptions-CR4/  (117 files)
+    1 Scene descriptions/  (117 files)
+      CR4 large room (auditorium)/  (117 files)
+  1_scene_descriptions-RS1/  (63 files)
+    1 Scene descriptions/  (63 files)
+      RS1 single reflection (infinite plate)/  (63 files)
+  1_scene_descriptions-RS2/  (72 files)
+    1 Scene descriptions/  (72 files)
+      RS2 single reflection (finite plate)/  (72 files)
+  1_scene_descriptions-RS3/  (10 files)
+    1 Scene descriptions/  (10 files)
+      RS3 multiple reflection (parallel finite plates)/  (10 files)
+  1_scene_descriptions-RS4/  (26 files)
+    1 Scene descriptions/  (26 files)
+      RS4 single reflection (reflector array)/  (26 files)
+  1_scene_descriptions-RS5/  (25 files)
+    1 Scene descriptions/  (25 files)
+      RS5 diffraction (infinite wedge)/  (25 files)
+  1_scene_descriptions-RS6/  (13 files)
+    1 Scene descriptions/  (13 files)
+      RS6 diffraction (finite body)/  (13 files)
+  1_scene_descriptions-RS7/  (12 files)
+    1 Scene descriptions/  (12 files)
+      RS7 multiple diffraction (seat dip effect)/  (12 files)
+  3_surface_descriptions/  (155 files)
+    3 Surface descriptions/  (155 files)
+      _csv/  (61 files)
+      _descr/  (10 files)
+      _img/  (46 files)
+      _plots/  (37 files)
+      AllMaterials.pdf  [0.39 MB]
+  ... 1 more dirs
+  Documentation.pdf  [3.68 MB]
+
+## audio
+audio headers read: 376 of 376 (0 unreadable)
+     344 x  1 ch  44100 Hz  FLOAT
+      28 x  2 ch  44100 Hz  FLOAT
+       4 x  5 ch  44100 Hz  FLOAT
+  duration s: min 0.136  median 3.500  max 13.000
+
+## sofa (41 files; first 5)
+-- RS8_RIRs_01a.sofa: SingleRoomSRIR v1.0; Data.IR (351, 1, 10001); fs 44100.0
+-- RS8_RIRs_01b.sofa: SingleRoomSRIR v1.0; Data.IR (351, 1, 10001); fs 44100.0
+-- RS8_RIRs_01c.sofa: SingleRoomSRIR v1.0; Data.IR (351, 1, 10001); fs 44100.0
+-- RS8_RIRs_02.sofa: SingleRoomSRIR v1.0; Data.IR (351, 1, 10001); fs 44100.0
+-- RS8_RIRs_03a.sofa: SingleRoomSRIR v1.0; Data.IR (351, 1, 10001); fs 44100.0

@@ -1,0 +1,57 @@
+# probe bbc_brirs
+# root: /gpfs/scratch/eey119/rir-data/raw/bbc_brirs/files
+
+96 files, 1.52 GB
+extensions: .wav 64, .config 15, .asd 8, .jpg 3, .pdf 2, <none> 1, .md 1, .sh 1, .txt 1
+
+## tree
+bbcrd-brirs-c88a293ed81f4aa820bcbc4138f951552819e001/  (96 files)
+  ambix-configs/  (48 files)
+    irs/  (32 files)
+      BBCRD_LR_B+000.wav  [0.13 MB]
+      BBCRD_LR_B+045.wav  [0.13 MB]
+      BBCRD_LR_B+135.wav  [0.13 MB]
+      BBCRD_LR_B-045.wav  [0.13 MB]
+      BBCRD_LR_B-135.wav  [0.13 MB]
+      BBCRD_LR_M+000.wav  [0.13 MB]
+      ... 26 more files
+    BBCRD_LR_0_2_0.config  [0.00 MB]
+    BBCRD_LR_0_2_0_nobottom.config  [0.00 MB]
+    BBCRD_LR_0_5_0.config  [0.00 MB]
+    BBCRD_LR_0_5_0_nobottom.config  [0.00 MB]
+    BBCRD_LR_2_5_0.config  [0.01 MB]
+    BBCRD_LR_2_5_0_nobottom.config  [0.01 MB]
+    ... 10 more files
+  docs/  (5 files)
+    images/  (3 files)
+      edr.jpg  [0.06 MB]
+      lr_cad.jpg  [0.77 MB]
+      lr_pano.jpg  [0.04 MB]
+    aes_ebrief.pdf  [1.36 MB]
+    aes_poster.pdf  [2.74 MB]
+  sofa/  (1 files)
+    get_sofa_files.sh  [0.00 MB]
+  ssr-scenes/  (40 files)
+    irs/  (32 files)
+      BBCRD_LR_B+000_SSR.wav  [47.19 MB]
+      BBCRD_LR_B+045_SSR.wav  [47.19 MB]
+      BBCRD_LR_B+135_SSR.wav  [47.19 MB]
+      BBCRD_LR_B-045_SSR.wav  [47.19 MB]
+      BBCRD_LR_B-135_SSR.wav  [47.19 MB]
+      BBCRD_LR_M+000_SSR.wav  [47.19 MB]
+      ... 26 more files
+    BBCRDLR_BRS_SystemA.asd  [0.00 MB]
+    BBCRDLR_BRS_SystemB.asd  [0.00 MB]
+    BBCRDLR_BRS_SystemC.asd  [0.00 MB]
+    BBCRDLR_BRS_SystemD.asd  [0.00 MB]
+    BBCRDLR_BRS_SystemE.asd  [0.00 MB]
+    BBCRDLR_BRS_SystemF.asd  [0.00 MB]
+    ... 2 more files
+  LICENSE  [0.02 MB]
+  README.md  [0.01 MB]
+
+## audio
+audio headers read: 64 of 64 (0 unreadable)
+      32 x  2 ch  48000 Hz  FLOAT
+      32 x  720 ch  48000 Hz  FLOAT
+  duration s: min 0.341  median 0.341  max 0.341
