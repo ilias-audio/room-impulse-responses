@@ -692,8 +692,8 @@ datasets:
   year: 2021
   type: measured
   ir_kinds: [room]
-  capture_formats: [em32_raw]
-  content: Spatial RIRs for 4 transitions between coupled rooms at Aalto (meeting room-hallway, office-anechoic chamber, office-kitchen, office-stairwell), 101 positions at 5 cm steps from 2.5 m inside one room to 2.5 m inside the other, 4 source positions each (LOS / no LOS, both rooms); Genelec 8331A, mh acoustics Eigenmike em32.
+  capture_formats: [hoa_sh]
+  content: Spatial RIRs for 4 transitions between coupled rooms at Aalto (meeting room-hallway, office-anechoic chamber, office-kitchen, office-stairwell), 101 positions at 5 cm steps from 2.5 m inside one room to 2.5 m inside the other, 4 source positions each (LOS / no LOS, both rooms); Genelec 8331A, mh acoustics Eigenmike em32; published as 4th-order SH (25 ch), 1.5 s.
   expected: {n_irs: 1616, n_rooms: 4, note: "4 transitions x 4 sources x 101 positions"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
@@ -702,6 +702,16 @@ datasets:
   source: {kind: zenodo, records: ["6375520"], include: ["*WAV.zip"]}
   keep_archive: false
   wave: 2
+  adapter:
+    name: wav_tree
+    # Wav Files/<transition>/Source in <room>/<With|No> Line of Sight/RIR_<distance>cm.wav: 4th-order SH (25 ch,
+    # ACN), 1.5 s at 48 kHz; SH normalisation and array orientation not documented -> no JLF
+    params:
+      pattern: 'Wav Files/(?P<room>[^/]+)/(?P<src>Source in [^/]+/(?:No|With) Line of Sight)/RIR_(?P<rcv>\d+cm)\.wav$'
+      room_from: pattern
+      roles: {25: [W, ACN1, ACN2, ACN3, ACN4, ACN5, ACN6, ACN7, ACN8, ACN9, ACN10, ACN11, ACN12, ACN13, ACN14, ACN15, ACN16, ACN17, ACN18, ACN19, ACN20, ACN21, ACN22, ACN23, ACN24]}
+      channel_formats: {25: hoa_sh}
+      orientation_known: false
   homepage: https://zenodo.org/records/6375520
   paper: {title: "Acoustic Analysis and Dataset of Transitions between Coupled Rooms (ICASSP 2021)", url: "https://doi.org/10.1109/ICASSP39728.2021.9415122"}
   doi: 10.5281/zenodo.6375520

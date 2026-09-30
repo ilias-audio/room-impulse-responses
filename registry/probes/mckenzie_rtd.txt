@@ -1,0 +1,34 @@
+# probe mckenzie_rtd
+# root: /gpfs/scratch/eey119/rir-data/raw/mckenzie_rtd/files
+
+1632 files, 8.73 GB
+extensions: .wav 1616, .pdf 16
+
+## tree
+Dataset of Room Impulse Responses for the Transition between Coupled Rooms WAV/  (1632 files)
+  Plots/  (16 files)
+    Direct-to-Reverberant Ratio - Meeting Room to Hallway.pdf  [0.01 MB]
+    Direct-to-Reverberant Ratio - Office to Anechoic Chamber.pdf  [0.01 MB]
+    Direct-to-Reverberant Ratio - Office to Kitchen.pdf  [0.01 MB]
+    Direct-to-Reverberant Ratio - Office to Stairwell.pdf  [0.01 MB]
+    Direction of Arrival - Meeting Room to Hallway.pdf  [0.06 MB]
+    Direction of Arrival - Office to Anechoic Chamber.pdf  [0.06 MB]
+    ... 10 more files
+  Wav Files/  (1616 files)
+    Meeting Room to Hallway/  (404 files)
+      Source in Hallway/  (202 files)
+      Source in Room/  (202 files)
+    Office to Anechoic Chamber/  (404 files)
+      Source in Chamber/  (202 files)
+      Source in Office/  (202 files)
+    Office to Kitchen/  (404 files)
+      Source in Kitchen/  (202 files)
+      Source in Office/  (202 files)
+    Office to Stairwell/  (404 files)
+      Source in Office/  (202 files)
+      Source in Stairwell/  (202 files)
+
+## audio
+audio headers read: 1616 of 1616 (0 unreadable)
+    1616 x  25 ch  48000 Hz  PCM_24
+  duration s: min 1.500  median 1.500  max 1.500

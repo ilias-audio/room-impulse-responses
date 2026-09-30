@@ -1,0 +1,5 @@
+room_key,category,ir_kind,room_label,volume_m3,note
+meeting-room-to-hallway,office_meeting,room,Aalto meeting room coupled to a hallway (transition),,positions span both rooms
+office-to-anechoic-chamber,office_meeting,room,Aalto office coupled to an anechoic chamber (transition),,positions span both rooms; not an anechoic measurement
+office-to-kitchen,office_meeting,room,Aalto office coupled to a kitchen (transition),,positions span both rooms
+office-to-stairwell,office_meeting,room,Aalto office coupled to a stairwell (transition),,positions span both rooms
