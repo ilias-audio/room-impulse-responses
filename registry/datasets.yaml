@@ -575,6 +575,10 @@ datasets:
   license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["15564430"]}
+  adapter:
+    name: wav_tree
+    # stationary RIRs only (moving-microphone recordings are not IRs): STAT/RIR/<source>/<mic config>/<position>/<mic>.wav
+    params: {pattern: 'STAT/RIR/(?P<src>[^/]+)/(?P<cond>MC\d)/(?P<rcv>P\d+)/(?P<label>[^/]+)\.wav$', room_from: pattern, room_default: trajectorir-room}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/15564430

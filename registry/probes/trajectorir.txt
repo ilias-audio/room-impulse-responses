@@ -1,0 +1,42 @@
+# probe trajectorir
+# root: /gpfs/scratch/eey119/rir-data/raw/trajectorir/files
+
+11254 files, 7.49 GB
+extensions: .wav 11246, .csv 5, <none> 1, .md 1, .py 1
+
+## tree
+trajectoRIR/  (11254 files)
+  audio/  (11246 files)
+    MOV/  (2592 files)
+      DR/  (420 files)
+      PI/  (420 files)
+      PS1/  (420 files)
+      PS8/  (420 files)
+      SP/  (420 files)
+      WN/  (420 files)
+      silence/  (72 files)
+    SRC/  (6 files)
+      DR.wav  [3.60 MB]
+      PI.wav  [3.60 MB]
+      PS1.wav  [3.60 MB]
+      PS8.wav  [3.60 MB]
+      SP.wav  [3.60 MB]
+      WN.wav  [3.60 MB]
+    STAT/  (8648 files)
+      RIR/  (8648 files)
+  meta/  (5 files)
+    cart_pose.csv  [0.00 MB]
+    mic_coordinates.csv  [0.23 MB]
+    mov_timestamps.csv  [0.06 MB]
+    temperature_MOV.csv  [0.00 MB]
+    temperature_STAT.csv  [0.01 MB]
+  tools/  (1 files)
+    Python/  (1 files)
+      load_data.py  [0.02 MB]
+  LICENSE  [0.02 MB]
+  README.md  [0.00 MB]
+
+## audio
+audio headers read: 3000 of 11246 (0 unreadable)
+    3000 x  1 ch  48000 Hz  PCM_24
+  duration s: min 1.000  median 15.000  max 25.000
