@@ -76,9 +76,8 @@ def _analyze_channel(x: np.ndarray, fs: int, cfg: Config, want_features: bool) -
     ib = len(labels) - 1                                    # broadband index
     s["pnr_db"] = float(10 * np.log10(np.max(bb ** 2) / noise_init[ib])) if noise_init[ib] > 0 else float("inf")
     s["t30_bb_chu"] = dmod.chu_t30(bb, fs, float(noise_init[ib]))
-    s.update(energy.drr(bb, dec.edc[ib], fs, cfg))
-
     it_bb = dec.intersection_s[ib]
+    s.update(energy.drr(x, fs, it_bb, subtract_noise=(dec.mode[ib] == "lundeby"), cfg=cfg))
     duration = x.shape[-1] / fs
     tail_truncated = bool(dec.mode[ib] == "lundeby" and it_bb >= cfg.quality.tail_truncated_fraction * duration)
     st = energy.sti(x, fs, it_bb, tail_ok=(dec.mode[ib] != "failed" and not tail_truncated

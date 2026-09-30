@@ -31,7 +31,7 @@ energy:
   early_limits_ms: [50, 80]
 
 drr:
-  direct_half_window_ms: 2.5      # ACE challenge convention (Eaton et al. 2016)
+  direct_half_window_ms: 8.0      # ACE challenge convention: full band, direct +-8 ms (ACE CSV "DRR direct +/-: 0.008")
 
 sti:
   min_length_s: 1.6               # IEC 60268-16:2020, 6.2

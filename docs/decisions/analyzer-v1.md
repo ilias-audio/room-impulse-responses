@@ -70,9 +70,11 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
    (pyfar would otherwise substitute a high-pass).
 7. **Single numbers** (`*_mid`) are the mean of the 500 Hz and 1 kHz octave
    values when both are valid (ISO 3382-1 Table A.1).
-8. **DRR** follows the ACE challenge convention (direct window +-2.5 ms around the
-   direct peak, searched within 10 ms of the onset), with energies read from
-   the noise-compensated broadband EDC.
+8. **DRR** follows the ACE challenge convention: full band (unfiltered, unlike
+   the other `_bb` metrics), direct window +-8 ms around the direct peak
+   (searched within 10 ms of the onset). Energies are integrated up to the
+   broadband Lundeby intersection time with the mean tail power subtracted.
+   The column keeps the name `drr_bb`. See the 2026-10-01 amendment.
 9. **STI** is room-only: no ambient noise, no auditory masking (the IRs are
    uncalibrated). The IR is truncated at the broadband Lundeby intersection time
    (so measurement noise is not read as reverberation) and zero-padded to
@@ -116,8 +118,9 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
   of ISO 3382-2 Annex A plus 1 %.
 - Same band signals through an independent numpy Schroeder + ISO fit
   (`analysis/reference.py`): T within 0.5 %, C80 0.05 dB, D50 0.005, Ts 2 ms.
-- Energy ratios and DRR against the realised band-limited energies
-  (C 0.1 dB, D50 0.01, Ts 2 ms, DRR 0.2 dB).
+- Energy ratios against the realised band-limited energies (C 0.1 dB, D50
+  0.01, Ts 2 ms); DRR against the full-band truth (0.2 dB clean, 0.3 dB at
+  50-70 dB PNR).
 - Noise sweep 40-90 dB PNR: T30 invalid at 40 dB; wherever valid, within 5 %
   of the same realisation without noise.
 - Invariance to gain, polarity, pre-delay, zero padding.
@@ -153,3 +156,20 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
   80 ms; OpenAIR's filter implementation is undocumented. Candidate fix for v1.1:
   compensate each band by its group delay at the centre frequency before the
   energy ratios (decay times are unaffected by a pure delay).
+- **DRR window corrected to ACE's +-8 ms, full band** (2026-10-01). v1 first
+  used +-2.5 ms on the band-limited broadband signal, on the assumption that
+  this was ACE's convention. Compared with ACE's ground truth (Chromebook,
+  Mobile, Crucif and Lin8Ch, channel 1), our DRR came out 2.09 dB low (median).
+  ACE's own measurement CSV gives the window in the columns
+  `DRR direct +:` / `DRR direct -:`, which are 0.008 s in every one of its
+  21,000 rows. Recomputing on the same IRs:
+
+  | variant | median diff vs ACE | MAE | within 1 dB |
+  |---|---|---|---|
+  | band-limited, +-2.5 ms (v1 as first run) | -2.09 dB | 2.40 dB | 7 % |
+  | full band, +-2.5 ms | -1.86 dB | 2.24 dB | 16 % |
+  | band-limited, +-8 ms | -0.21 dB | 0.39 dB | 95 % |
+  | **full band, +-8 ms (adopted)** | **-0.01 dB** | **0.22 dB** | **95 %** |
+
+  Outputs from before this change carry a different `config_hash`, and all
+  datasets are re-analysed before the `analyzer-v1.0.0` tag.

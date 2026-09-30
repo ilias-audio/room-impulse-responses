@@ -114,6 +114,57 @@ def openair_comparison() -> pd.DataFrame:
     return pub.merge(ours_per_space(), on=["space", "metric", "band"], how="inner")
 
 
+def ace_ground_truth() -> pd.DataFrame:
+    """ACE per-IR ground truth for channel 1: full-band T30 (ISO), T60 (AHM), DRR, and 1/3-octave T30 (ISO)."""
+    f = next(paths.files_dir("ace").rglob("*test_t60_DRR_measurement_results.csv"))
+    df = pd.read_csv(f, skipinitialspace=True)
+    df.columns = [c.strip().rstrip(":").strip() for c in df.columns]
+    df = df[df["Channel"].astype(str).str.strip() == "1"]
+    fb = df.groupby(["Room", "Mic Pos", "Config"], as_index=False).first()
+    rows = []
+    for _, r in fb.iterrows():
+        rows.append({"room_num": str(r["Room"]).strip(), "pos": int(r["Mic Pos"]), "config": str(r["Config"]).strip(),
+                     "metric": "t30_bb", "published": float(r["FB T30 ISO"])})
+        rows.append({"room_num": str(r["Room"]).strip(), "pos": int(r["Mic Pos"]), "config": str(r["Config"]).strip(),
+                     "metric": "drr_bb", "published": float(r["FB DRR"])})
+    for _, r in df.iterrows():
+        b = _band(float(r["Centre freq"]))
+        if b in (500, 1000, 2000) and abs(np.log2(float(r["Centre freq"]) / b)) < 0.05:
+            rows.append({"room_num": str(r["Room"]).strip(), "pos": int(r["Mic Pos"]), "config": str(r["Config"]).strip(),
+                         "metric": f"t30_{b}", "published": float(r["T30 ISO"])})
+    return pd.DataFrame(rows).drop_duplicates(["room_num", "pos", "config", "metric"])
+
+
+def ace_comparison() -> pd.DataFrame:
+    con = connect()
+    ours = con.execute("""SELECT local_key, condition_key AS config, t30_bb, valid_t30_bb, drr_bb,
+                                 t30_500, valid_t30_500, t30_1000, valid_t30_1000, t30_2000, valid_t30_2000
+                          FROM corpus WHERE dataset_id = 'ace_arrays' AND condition_key <> 'EM32'""").df()
+    key = ours["local_key"].str.extract(r"_(?P<room_num>[0-9a-zA-Z]+)_(?P<pos>\d)_RIR\.wav$")
+    ours["room_num"], ours["pos"] = key["room_num"], key["pos"].astype(int)
+    long = []
+    for _, r in ours.iterrows():
+        for m in ("t30_bb", "t30_500", "t30_1000", "t30_2000"):
+            if r[f"valid_{m}"]:
+                long.append({"room_num": r["room_num"], "pos": r["pos"], "config": r["config"], "metric": m, "ours": r[m]})
+        if np.isfinite(r["drr_bb"]):
+            long.append({"room_num": r["room_num"], "pos": r["pos"], "config": r["config"], "metric": "drr_bb", "ours": r["drr_bb"]})
+    return pd.DataFrame(long).merge(ace_ground_truth(), on=["room_num", "pos", "config", "metric"], how="inner")
+
+
+def ace_summary(m: pd.DataFrame) -> pd.DataFrame:
+    out = []
+    for metric, g in m.groupby("metric"):
+        if metric.startswith("t30"):
+            r = g["ours"] / g["published"]
+            out.append([metric, len(g), f"{np.median(r):.3f}", f"{np.mean(np.abs(r - 1) < 0.10) * 100:.0f} % within 10 %"])
+        else:
+            d = g["ours"] - g["published"]
+            out.append([metric, len(g), f"median diff {np.median(d):+.2f} dB",
+                        f"MAE {np.mean(np.abs(d)):.2f} dB; {np.mean(np.abs(d) < 2) * 100:.0f} % within 2 dB"])
+    return pd.DataFrame(out, columns=["metric", "n", "median ratio / diff", "agreement"])
+
+
 def summarise(m: pd.DataFrame) -> pd.DataFrame:
     out = []
     for (metric, band), g in m.groupby(["metric", "band"]):
@@ -181,6 +232,26 @@ def build(out_dir: Path = paths.REPORTS_DIR / "validation") -> Path:
         "![T30 and EDT vs OpenAIR](openair_t30_edt.png)",
         "",
     ]
+    try:
+        a = ace_comparison()
+    except (StopIteration, KeyError, FileNotFoundError) as e:
+        a = pd.DataFrame()
+        md += [f"## ACE ground truth\n\nNot available yet ({type(e).__name__}).", ""]
+    if not a.empty:
+        s2 = ace_summary(a)
+        md += [
+            "## ACE challenge ground truth",
+            "",
+            f"{len(a)} comparisons over the ACE multichannel RIRs (Chromebook, Mobile, Crucif, Lin8Ch; 7 rooms x 2 "
+            "positions; our first channel vs ACE channel 1). Published: ACE's ISO T30 (full band and 1/3-octave, "
+            "compared with our octave bands) and full-band DRR (ACE's +-8 ms direct window, the convention adopted here).",
+            "",
+            "| metric | n | median ratio / diff | agreement |",
+            "|---|---|---|---|",
+            *[f"| {r[0]} | {r[1]} | {r[2]} | {r[3]} |" for r in s2.values.tolist()],
+            "",
+        ]
+        a.to_csv(out_dir / "ace_comparison.csv", index=False)
     (out_dir / "README.md").write_text("\n".join(md) + "\n")
     m.to_csv(out_dir / "openair_comparison.csv", index=False)
     return out_dir / "README.md"

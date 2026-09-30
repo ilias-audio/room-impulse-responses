@@ -89,8 +89,17 @@ def test_energy_ratios_and_drr():
         assert abs(r["d50_bb"] - tr["d50"]) < 0.01
         assert abs(r["ts_bb"] - tr["ts"]) < 0.002
         if amp > 0:
-            assert abs(r["drr_bb"] - truth_drr(bb, fs)) < 0.2
-            assert abs(r["drr_bb"] - truth_drr(s.clean, fs)) < 1.5   # full-band truth, loosely
+            # DRR is full band (ACE convention), unlike the band-limited ratios above
+            assert abs(r["drr_bb"] - truth_drr(s.clean, fs, CFG.drr.direct_half_window_ms)) < 0.2
+
+
+@pytest.mark.parametrize("pnr_db", [50.0, 70.0])
+def test_drr_noise_compensated(pnr_db):
+    """Measurement noise must not be counted as reverberant energy."""
+    fs = 48000
+    s = exp_decay_ir(fs=fs, t60=1.0, direct_amp=1.0, pnr_db=pnr_db, seed=6)
+    r = run(s.x, fs)
+    assert abs(r["drr_bb"] - truth_drr(s.clean, fs, CFG.drr.direct_half_window_ms)) < 0.3
 
 
 @pytest.mark.parametrize("t60", [0.5, 1.0, 2.0])

@@ -1,8 +1,9 @@
 """Energy ratios (ISO 3382-1), tonal balance, DRR and STI (IEC 60268-16).
 
-All ratios are computed from the noise-compensated EDCs of `decay.py` through
-pyrato (clarity, definition, center_time). DRR follows the ACE challenge
-convention; STI uses pyrato's IEC 60268-16:2020 indirect method.
+C50/C80/D50/Ts are computed from the noise-compensated EDCs of `decay.py`
+through pyrato (clarity, definition, center_time). DRR follows the ACE
+challenge convention (full band, +-8 ms direct window); STI uses pyrato's
+IEC 60268-16:2020 indirect method.
 """
 
 from __future__ import annotations
@@ -52,24 +53,32 @@ def tonal_balance(t_best: dict) -> dict[str, float]:
     }
 
 
-def drr(x_bb: np.ndarray, edc_bb: np.ndarray, fs: int, cfg: Config) -> dict[str, float]:
-    """Direct-to-reverberant ratio (ACE convention: direct window +-2.5 ms around the direct peak).
+def drr(x: np.ndarray, fs: int, intersection_s: float, subtract_noise: bool, cfg: Config) -> dict[str, float]:
+    """Full-band direct-to-reverberant ratio, ACE challenge convention (Eaton et al. 2016).
 
-    Energies are read from the (unnormalised ratio of the) noise-compensated
-    broadband EDC, so the reverberant tail beyond the noise intersection is
-    included through the Lundeby correction and noise is not counted as reverb.
+    Direct: energy within +-direct_half_window_ms of the direct peak (searched
+    within 10 ms of the onset); ACE's ground-truth CSVs give the window as
+    "DRR direct +/-: 0.008" s. Reverberant: the energy after the direct window.
+    Both are integrated on the unfiltered signal up to the broadband Lundeby
+    intersection time with the mean tail power subtracted (`subtract_noise`),
+    so measurement noise is not counted as reverberation; the tail below the
+    noise floor is neglected. Without a floor (`subtract_noise=False`) the whole
+    signal is used as is.
     """
     out = {"drr_bb": float("nan"), "direct_peak_ms": float("nan")}
-    if not np.isfinite(edc_bb[0]):
+    if not np.isfinite(intersection_s):
         return out
+    e = np.asarray(x, dtype=np.float64) ** 2
+    n_tail = max(int(round(cfg.preprocess.noise_tail_fraction * e.size)), 1)
+    noise = float(np.mean(e[-n_tail:])) if subtract_noise else 0.0
     half = int(round(cfg.drr.direct_half_window_ms * 1e-3 * fs))
-    search = min(len(x_bb), int(0.010 * fs))            # direct sound within 10 ms of the onset
-    k = int(np.argmax(np.abs(x_bb[:max(search, 1)])))
+    search = min(e.size, int(0.010 * fs))                # direct sound within 10 ms of the onset
+    k = int(np.argmax(e[:max(search, 1)]))
     out["direct_peak_ms"] = k / fs * 1e3
-    a, b = max(k - half, 0), min(k + half + 1, len(edc_bb) - 1)
-    e = np.nan_to_num(edc_bb, nan=0.0)
-    direct = e[a] - e[b]
-    rev = e[b]
+    a, b = max(k - half, 0), min(k + half + 1, e.size)
+    end = min(max(int(round(intersection_s * fs)), b), e.size)
+    direct = e[a:b].sum() - noise * (b - a)
+    rev = e[b:end].sum() - noise * (end - b)
     if direct > 0 and rev > 0:
         out["drr_bb"] = float(10 * np.log10(direct / rev))
     return out

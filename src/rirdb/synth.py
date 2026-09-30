@@ -69,7 +69,7 @@ def truth_energy(clean: np.ndarray, fs: int) -> dict[str, float]:
     }
 
 
-def truth_drr(clean: np.ndarray, fs: int, half_ms: float = 2.5) -> float:
+def truth_drr(clean: np.ndarray, fs: int, half_ms: float = 8.0) -> float:
     e = clean ** 2
     k = int(np.argmax(np.abs(clean[: int(0.01 * fs)])))
     h = int(round(half_ms * 1e-3 * fs))
