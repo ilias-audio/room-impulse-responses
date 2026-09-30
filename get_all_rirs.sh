@@ -8,6 +8,9 @@ dest=$(echo $1 | sed 's:/*$::')
 cleandir=true
 export PATH=$(pwd):$PATH
 
+# Some helper scripts may be checked out without the executable bit
+chmod +x "$(dirname "$0")"/get_*.sh
+
 if [ ! -d $dest/OPENAIR ]; then
   echo "Downloading OpenAIR dataset..."
   get_openair.sh $dest
@@ -79,4 +82,16 @@ fi
 if [ ! -d "$dest/MP-RIR" ]; then
   # MP-RIR Dataset
   get_mprir.sh "$dest"
+fi
+
+if [ ! -d $dest/SRIRACHA ]; then
+  echo "Downloading SRIRACHA dataset..."
+  get_sriracha.sh $dest/SRIRACHA
+  echo "Download finished."
+fi
+
+if [ ! -d $dest/SoundCam ]; then
+  echo "Downloading SoundCam dataset..."
+  get_soundcam.sh $dest/SoundCam
+  echo "Download finished."
 fi
