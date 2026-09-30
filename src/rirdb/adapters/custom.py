@@ -215,7 +215,9 @@ class SofaAdapter:
       room_from (pattern|file|parent), roles (list of R), capture_format, reference_role,
       sh_norm, orientation_known, m_select (list of m indices, e.g. [0] = frontal head
       orientation for rotation-dense BRIR sets), first_per_source (keep only the first
-      measurement at each distinct SourcePosition: drops repeated measurements), ir_kind.
+      measurement at each distinct SourcePosition: drops repeated measurements), m_is (src
+      (default) | rcv: what the measurement index enumerates), ir_kind. An all-zero
+      SourcePosition is treated as unpublished.
     Loading reads one slice lazily via h5py.
     """
 
@@ -242,6 +244,8 @@ class SofaAdapter:
                         shape = h["Data.IR"].shape
                         fs = int(np.ravel(h["Data.SamplingRate"][()])[0])
                         src = np.asarray(h["SourcePosition"]) if "SourcePosition" in h else None
+                        if src is not None and not np.any(src):
+                            src = None                # all zeros: source positions not published
                         lis = np.asarray(h["ListenerPosition"]) if "ListenerPosition" in h else None
                         conv = h.attrs.get("SOFAConventions", b"")
                         conv = conv.decode() if isinstance(conv, bytes) else str(conv)
@@ -283,8 +287,8 @@ class SofaAdapter:
                             n_samples=int(N), locator={"relpath": rel, "container": "sofa", "m": int(m), "e": e},
                             src_key=f"e{e}" if e is not None else (g.get("src") or (
                                 "src_" + "_".join(f"{v:g}" for v in np.round(src[m], 2)) if first_per_source
-                                else f"m{m}")),
-                            rcv_key=g.get("rcv") or (f"m{m}" if e is not None else None),
+                                else None if p.get("m_is") == "rcv" else f"m{m}")),
+                            rcv_key=g.get("rcv") or (f"m{m}" if e is not None or p.get("m_is") == "rcv" else None),
                             condition_key=g.get("cond"), src_pos=sp, rcv_pos=lp, sh_norm=p.get("sh_norm"),
                             orientation_known=bool(p.get("orientation_known", True)),
                             room_label=str(room).replace("_", " "), ir_kind=p.get("ir_kind", "room"),

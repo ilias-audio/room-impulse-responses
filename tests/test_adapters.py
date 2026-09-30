@@ -96,3 +96,22 @@ def test_sofa_first_per_source(tmp_path):
     x, fs = ad.load(recs[1].locator, tmp_path)
     assert fs == 48000
     np.testing.assert_array_equal(x, ir[2])
+
+
+def test_sofa_measurements_as_receivers(tmp_path):
+    """MRTD layout: one file per loudspeaker, m = receiver position; all-zero SourcePosition = unknown."""
+    ir = np.random.default_rng(3).standard_normal((5, 4, 20))
+    with h5py.File(tmp_path / "offices_zoom_ls_2.sofa", "w") as h:
+        h["Data.IR"] = ir
+        h["Data.SamplingRate"] = np.array([48000.0])
+        h["SourcePosition"] = np.zeros((5, 3))
+        h["ListenerPosition"] = np.arange(15, dtype=float).reshape(5, 3)
+    params = {"glob": "*.sofa", "pattern": r"^(?P<room>[a-z-]+)_zoom_(?P<src>ls_\d)\.sofa$", "m_is": "rcv",
+              "roles": ["FLU", "FRD", "BLD", "BRU"], "capture_format": "tetra_raw", "reference_role": "mean"}
+    ds = SimpleNamespace(id="toy", ir_kinds=["room"], adapter=SimpleNamespace(name="sofa", params=params),
+                         analysis=SimpleNamespace(reference_role=None))
+    recs = list(get_adapter("sofa", params).iter_records(ds, tmp_path))
+    assert len(recs) == 5 and {r.src_key for r in recs} == {"ls_2"}
+    assert [r.rcv_key for r in recs] == [f"m{i}" for i in range(5)]
+    assert recs[0].src_pos is None and recs[1].rcv_pos == (3.0, 4.0, 5.0)
+    assert recs[0].room_key == "offices" and recs[0].channel_roles == ("FLU", "FRD", "BLD", "BRU")

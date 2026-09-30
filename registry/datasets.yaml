@@ -665,12 +665,23 @@ datasets:
   ir_kinds: [room]
   capture_formats: [binaural, tetra_raw]
   content: RIRs measured along paths through 3 complex multi-room environments (hallways + lecture hall, offices, workshops) with 4 fixed loudspeakers and a mobile platform carrying a GRAS 45BB KEMAR and a Zoom H3-VR tetrahedral array; 48 kHz. Aimed at multi-slope energy decay.
-  expected: {n_rooms: 3, note: "4,032 single-channel RIRs as published = 168 positions x 4 loudspeakers x (2 KEMAR + 4 Zoom channels)"}
+  expected: {n_irs: 1336, n_rooms: 3, note: "paper: 4,032 single-channel RIRs = 168 positions x 4 loudspeakers x (2 KEMAR + 4 Zoom channels); the SOFA files hold 167 positions (77 + 49 + 41): 668 Zoom + 668 KEMAR records"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   # v3 (2024-08-19) adds SOFA files next to the pickled DataFrame: fetch the SOFA files only
   source: {kind: zenodo, records: ["13341566"], include: ["*.sofa"]}
   wave: 2
+  adapter:
+    name: sofa
+    # SingleRoomSRIR Data.IR[positions, R, N] per scene x receiver x loudspeaker; fs 48 kHz, 2 s (hallways) / 1 s; m = position.
+    # KEMAR: Left/Right Ear. Zoom H3-VR: A-format capsules FLU, FRD, BLD, BRU -> capsule mean (W up to scale).
+    # SourcePosition is all zeros in the files (not published). The published RIRs are denoised.
+    params:
+      groups:
+        - {glob: "*_zoom_ls_*.sofa", pattern: '^(?P<room>[a-z-]+)_zoom_(?P<src>ls_\d)\.sofa$', m_is: rcv,
+           roles: [FLU, FRD, BLD, BRU], capture_format: tetra_raw, reference_role: mean}
+        - {glob: "*_kemar_ls_*.sofa", pattern: '^(?P<room>[a-z-]+)_kemar_(?P<src>ls_\d)\.sofa$', m_is: rcv,
+           roles: [L, R], capture_format: binaural, preferred: false}
   homepage: https://zenodo.org/records/13341566
   paper: {title: "A Multi-Room Transition Dataset for Blind Estimation of Energy Decay (IWAENC 2024)", url: "https://research.aalto.fi/en/publications/a-multi-room-transition-dataset-for-blind-estimation-of-energy-de"}
   doi: 10.5281/zenodo.13341566

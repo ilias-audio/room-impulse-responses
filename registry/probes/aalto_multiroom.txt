@@ -1,10 +1,23 @@
 # probe aalto_multiroom
 # root: /gpfs/scratch/eey119/rir-data/raw/aalto_multiroom/files
 
-1 files, 1.55 GB
-extensions: .pkl 1
+24 files, 1.49 GB
+extensions: .sofa 24
 
 ## tree
-all_scenes_denoised.pkl  [1548.31 MB]
+hallways-lecturehall_kemar_ls_1.sofa  [63.75 MB]
+hallways-lecturehall_kemar_ls_2.sofa  [63.83 MB]
+hallways-lecturehall_kemar_ls_3.sofa  [63.84 MB]
+hallways-lecturehall_kemar_ls_4.sofa  [63.87 MB]
+hallways-lecturehall_zoom_ls_1.sofa  [127.59 MB]
+hallways-lecturehall_zoom_ls_2.sofa  [127.93 MB]
+... 18 more files
 
 ## audio
+
+## sofa (24 files; first 5)
+-- hallways-lecturehall_kemar_ls_1.sofa: SingleRoomSRIR v1.0; Data.IR (77, 2, 96000); fs 48000.0
+-- hallways-lecturehall_kemar_ls_2.sofa: SingleRoomSRIR v1.0; Data.IR (77, 2, 96000); fs 48000.0
+-- hallways-lecturehall_kemar_ls_3.sofa: SingleRoomSRIR v1.0; Data.IR (77, 2, 96000); fs 48000.0
+-- hallways-lecturehall_kemar_ls_4.sofa: SingleRoomSRIR v1.0; Data.IR (77, 2, 96000); fs 48000.0
+-- hallways-lecturehall_zoom_ls_1.sofa: SingleRoomSRIR v1.0; Data.IR (77, 4, 96000); fs 48000.0

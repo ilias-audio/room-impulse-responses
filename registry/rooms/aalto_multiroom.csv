@@ -1,0 +1,4 @@
+room_key,category,ir_kind,room_label,volume_m3,note
+hallways-lecturehall,circulation,room,MRTD hallways and lecture hall (coupled; Aalto Otakaari 5),,multi-room scene; 77 positions
+offices,office_meeting,room,MRTD offices (coupled; Aalto Otakaari 5),,multi-room scene; 49 positions
+workshops,industrial,room,MRTD workshops (coupled; Aalto Otakaari 5),,multi-room scene
