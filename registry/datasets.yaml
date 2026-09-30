@@ -594,6 +594,7 @@ datasets:
   license: {spdx: LicenseRef-TAU-NonCommercial, redistribute_audio: unaltered_only, note: "Zenodo licence 'other-nc'; see LICENSE.txt in the record."}
   access: open
   source: {kind: zenodo, records: ["6408611"], include: ["TAU-SRIR_DB.z0*", "TAU-SRIR_DB.zip", "README.md", "LICENSE.txt"]}
+  adapter: {name: tau_srir, params: {format: foa}}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/6408611
@@ -802,6 +803,18 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["10720345"]}
+  adapter:
+    name: wav_tree
+    # <Felt|Wood>_Source<n>/WAV Files/RIR_S<n>_R<pos>.wav; B-format (Rode NT-SF1) preferred over the em32 copy
+    params:
+      pattern: 'RSoANU_RIRs_(?P<array>Bformat|em32)[^/]*/[^/]+/(?P<cond>Felt|Wood)_(?P<src>Source\d)/WAV Files/RIR_S\d_(?P<rcv>R[^/]+)\.wav$'
+      room_from: pattern
+      room_default: rsoanu-room
+      roles: {4: [W, X, Y, Z], 32: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32]}
+      channel_formats: {4: foa_ambix, 32: em32_raw}
+      reference_roles: {32: mean}
+      orientation_known: false
+      preferred_regex: RSoANU_RIRs_Bformat
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/10720345

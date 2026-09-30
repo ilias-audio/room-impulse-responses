@@ -1,0 +1,61 @@
+# probe rsoanu
+# root: /gpfs/scratch/eey119/rir-data/raw/rsoanu/files
+
+1585 files, 27.94 GB
+extensions: .wav 792, .mat 792, .pdf 1
+
+## tree
+RSoANU_RIRs_Bformat_RodeNTSF1/  (792 files)
+  RSoANU_RIRs_Bformat_RodeNTSF1/  (792 files)
+    Felt_Source1/  (130 files)
+      MAT Files/  (65 files)
+      WAV Files/  (65 files)
+    Felt_Source2/  (134 files)
+      MAT Files/  (67 files)
+      WAV Files/  (67 files)
+    Felt_Source3/  (132 files)
+      MAT Files/  (66 files)
+      WAV Files/  (66 files)
+    Wood_Source1/  (130 files)
+      MAT Files/  (65 files)
+      WAV Files/  (65 files)
+    Wood_Source2/  (134 files)
+      MAT Files/  (67 files)
+      WAV Files/  (67 files)
+    Wood_Source3/  (132 files)
+      MAT Files/  (66 files)
+      WAV Files/  (66 files)
+RSoANU_RIRs_em32Eigenmike/  (792 files)
+  RSoANU_RIRs_em32Eigenmike/  (792 files)
+    Felt_Source1/  (130 files)
+      MAT Files/  (65 files)
+      WAV Files/  (65 files)
+    Felt_Source2/  (134 files)
+      MAT Files/  (67 files)
+      WAV Files/  (67 files)
+    Felt_Source3/  (132 files)
+      MAT Files/  (66 files)
+      WAV Files/  (66 files)
+    Wood_Source1/  (130 files)
+      MAT Files/  (65 files)
+      WAV Files/  (65 files)
+    Wood_Source2/  (134 files)
+      MAT Files/  (67 files)
+      WAV Files/  (67 files)
+    Wood_Source3/  (132 files)
+      MAT Files/  (66 files)
+      WAV Files/  (66 files)
+RSoANU_Documentation_v2.pdf  [25.09 MB]
+
+## audio
+audio headers read: 792 of 792 (0 unreadable)
+     396 x  4 ch  48000 Hz  PCM_16
+     396 x  32 ch  48000 Hz  PCM_16
+  duration s: min 1.500  median 1.500  max 1.500
+
+## mat (792 files; first 5)
+-- RIR_S1_R00x04y.mat: [('RIR', (1, 1), 'struct')]
+-- RIR_S1_R00x01y.mat: [('RIR', (1, 1), 'struct')]
+-- RIR_S1_R00x02y.mat: [('RIR', (1, 1), 'struct')]
+-- RIR_S1_R00x03y.mat: [('RIR', (1, 1), 'struct')]
+-- RIR_S1_R00x05y.mat: [('RIR', (1, 1), 'struct')]

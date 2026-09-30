@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from rirdb.adapters.base import Adapter, IRRecord, make_ir_id, slug
 from rirdb.adapters.custom import (AirMatAdapter, MatArrayAdapter, NdArrayAdapter, OpenAirAdapter, OpenSLR28Adapter,
-                                   SofaAdapter)
+                                   SofaAdapter, TauSrirAdapter)
 from rirdb.adapters.wav_tree import WavTreeAdapter
 
 ADAPTERS: dict[str, type] = {
@@ -15,6 +15,7 @@ ADAPTERS: dict[str, type] = {
     "openslr28": OpenSLR28Adapter,
     "mat_array": MatArrayAdapter,
     "ndarray": NdArrayAdapter,
+    "tau_srir": TauSrirAdapter,
 }
 
 

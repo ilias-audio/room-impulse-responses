@@ -448,3 +448,44 @@ class NdArrayAdapter:
             if h is not None:
                 h.close()
         return np.atleast_2d(x), self._fs(path, g)
+
+
+# ---------------------------------------------------------------- TAU-SRIR DB
+class TauSrirAdapter:
+    """TAU-SRIR DB (MATLAB v7.3): rirs_<nn>_<room>.mat holds rirs(traj, height).{foa,mic},
+    each [samples x 4 x DOAs] (HDF5: object references to (DOAs, 4, 7200) arrays, 24 kHz).
+    One record per height x trajectory x DOA, FOA format (ACN W,Y,Z,X; SN3D)."""
+
+    FS = 24000
+    NAME = re.compile(r"rirs_(?P<n>\d+)_(?P<room>.+)\.mat$")
+
+    def iter_records(self, dataset, root: Path) -> Iterator[IRRecord]:
+        import h5py
+
+        fmt = (self._params or {}).get("format", "foa")
+        for f in sorted(root.glob("**/rirs_*.mat")):
+            m_ = self.NAME.search(f.name)
+            if not m_:
+                continue
+            rel = f.relative_to(root).as_posix()
+            with h5py.File(f, "r") as h:
+                refs = h["rirs"][fmt]
+                for (hi, ti), ref in np.ndenumerate(refs[()]):
+                    n_doa, n_ch, n = h[ref].shape
+                    for k in range(n_doa):
+                        yield IRRecord(
+                            dataset_id=dataset.id, local_key=f"{rel}#{fmt}/{hi},{ti},{k}", room_key=slug(m_["room"]),
+                            capture_format="foa_ambix" if fmt == "foa" else "tetra_raw",
+                            channel_roles=("W", "Y", "Z", "X") if fmt == "foa" else ("m1", "m2", "m3", "m4"),
+                            fs=self.FS, n_samples=int(n),
+                            locator={"relpath": rel, "container": "tau_mat", "fmt": fmt, "hi": int(hi), "ti": int(ti), "k": k},
+                            condition_key=f"height{hi + 1}", src_key=f"traj{ti + 1}_doa{k}", sh_norm="SN3D" if fmt == "foa" else None,
+                            orientation_known=False, room_label=m_["room"].replace("_", " "), extra={})
+
+    def load(self, locator: dict, root: Path):
+        import h5py
+
+        with h5py.File(root / locator["relpath"], "r") as h:
+            ref = h["rirs"][locator["fmt"]][locator["hi"], locator["ti"]]
+            x = np.asarray(h[ref][locator["k"]], dtype=np.float64)      # (4, 7200)
+        return x, self.FS

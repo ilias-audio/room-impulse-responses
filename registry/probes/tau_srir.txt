@@ -1,0 +1,149 @@
+# probe tau_srir
+# root: /gpfs/scratch/eey119/rir-data/raw/tau_srir/files
+
+13 files, 16.82 GB
+extensions: .mat 11, .txt 1, .md 1
+
+## tree
+TAU-SRIR_DB/  (11 files)
+  measinfo.mat  [0.00 MB]
+  rirdata.mat  [0.42 MB]
+  rirs_01_bomb_shelter.mat  [2801.50 MB]
+  rirs_02_gym.mat  [2852.22 MB]
+  rirs_03_pb132.mat  [2826.98 MB]
+  rirs_04_pc226.mat  [2828.85 MB]
+  ... 5 more files
+LICENSE.txt  [0.00 MB]
+README.md  [0.02 MB]
+
+## audio
+
+## mat (11 files; first 5)
+-- measinfo.mat: [('measinfo', (9, 1), 'struct')]
+-- rirdata.mat: [('rirdata', (1, 1), 'struct')]
+-- rirs_01_bomb_shelter.mat: MATLAB v7.3 (HDF5)
+-- rirs_01_bomb_shelter.mat
+   #refs#/
+   #refs#/A: (360, 4, 7200) float64
+   #refs#/B: (360, 4, 7200) float64
+   #refs#/C: (360, 4, 7200) float64
+   #refs#/D: (360, 4, 7200) float64
+   #refs#/E: (360, 4, 7200) float64
+   #refs#/F: (360, 4, 7200) float64
+   #refs#/G: (360, 4, 7200) float64
+   #refs#/H: (360, 4, 7200) float64
+   #refs#/I: (360, 4, 7200) float64
+   #refs#/J: (360, 4, 7200) float64
+   #refs#/K: (360, 4, 7200) float64
+   #refs#/a: (2,) uint64
+   #refs#/b: (360, 4, 7200) float64
+   #refs#/c: (360, 4, 7200) float64
+   #refs#/d: (360, 4, 7200) float64
+   #refs#/e: (360, 4, 7200) float64
+   #refs#/f: (360, 4, 7200) float64
+   #refs#/g: (360, 4, 7200) float64
+   #refs#/h: (360, 4, 7200) float64
+   #refs#/i: (360, 4, 7200) float64
+   #refs#/j: (360, 4, 7200) float64
+   #refs#/k: (360, 4, 7200) float64
+   #refs#/l: (360, 4, 7200) float64
+   #refs#/m: (360, 4, 7200) float64
+   #refs#/n: (360, 4, 7200) float64
+   #refs#/o: (360, 4, 7200) float64
+   #refs#/p: (360, 4, 7200) float64
+   #refs#/q: (360, 4, 7200) float64
+   #refs#/r: (360, 4, 7200) float64
+   #refs#/s: (360, 4, 7200) float64
+   #refs#/t: (360, 4, 7200) float64
+   #refs#/u: (360, 4, 7200) float64
+   #refs#/v: (360, 4, 7200) float64
+   #refs#/w: (360, 4, 7200) float64
+   #refs#/x: (360, 4, 7200) float64
+   #refs#/y: (360, 4, 7200) float64
+   #refs#/z: (360, 4, 7200) float64
+   rirs/
+   rirs/foa: (9, 2) object
+-- rirs_02_gym.mat: MATLAB v7.3 (HDF5)
+-- rirs_02_gym.mat
+   #refs#/
+   #refs#/A: (360, 4, 7200) float64
+   #refs#/B: (360, 4, 7200) float64
+   #refs#/C: (360, 4, 7200) float64
+   #refs#/D: (360, 4, 7200) float64
+   #refs#/E: (360, 4, 7200) float64
+   #refs#/F: (360, 4, 7200) float64
+   #refs#/G: (360, 4, 7200) float64
+   #refs#/H: (360, 4, 7200) float64
+   #refs#/I: (360, 4, 7200) float64
+   #refs#/J: (360, 4, 7200) float64
+   #refs#/K: (360, 4, 7200) float64
+   #refs#/a: (2,) uint64
+   #refs#/b: (360, 4, 7200) float64
+   #refs#/c: (360, 4, 7200) float64
+   #refs#/d: (360, 4, 7200) float64
+   #refs#/e: (360, 4, 7200) float64
+   #refs#/f: (360, 4, 7200) float64
+   #refs#/g: (360, 4, 7200) float64
+   #refs#/h: (360, 4, 7200) float64
+   #refs#/i: (360, 4, 7200) float64
+   #refs#/j: (360, 4, 7200) float64
+   #refs#/k: (360, 4, 7200) float64
+   #refs#/l: (360, 4, 7200) float64
+   #refs#/m: (360, 4, 7200) float64
+   #refs#/n: (360, 4, 7200) float64
+   #refs#/o: (360, 4, 7200) float64
+   #refs#/p: (360, 4, 7200) float64
+   #refs#/q: (360, 4, 7200) float64
+   #refs#/r: (360, 4, 7200) float64
+   #refs#/s: (360, 4, 7200) float64
+   #refs#/t: (360, 4, 7200) float64
+   #refs#/u: (360, 4, 7200) float64
+   #refs#/v: (360, 4, 7200) float64
+   #refs#/w: (360, 4, 7200) float64
+   #refs#/x: (360, 4, 7200) float64
+   #refs#/y: (360, 4, 7200) float64
+   #refs#/z: (360, 4, 7200) float64
+   rirs/
+   rirs/foa: (9, 2) object
+-- rirs_03_pb132.mat: MATLAB v7.3 (HDF5)
+-- rirs_03_pb132.mat
+   #refs#/
+   #refs#/A: (360, 4, 7200) float64
+   #refs#/B: (360, 4, 7200) float64
+   #refs#/C: (360, 4, 7200) float64
+   #refs#/D: (360, 4, 7200) float64
+   #refs#/E: (360, 4, 7200) float64
+   #refs#/F: (360, 4, 7200) float64
+   #refs#/G: (360, 4, 7200) float64
+   #refs#/H: (360, 4, 7200) float64
+   #refs#/I: (360, 4, 7200) float64
+   #refs#/J: (360, 4, 7200) float64
+   #refs#/K: (360, 4, 7200) float64
+   #refs#/a: (2,) uint64
+   #refs#/b: (360, 4, 7200) float64
+   #refs#/c: (360, 4, 7200) float64
+   #refs#/d: (360, 4, 7200) float64
+   #refs#/e: (360, 4, 7200) float64
+   #refs#/f: (360, 4, 7200) float64
+   #refs#/g: (360, 4, 7200) float64
+   #refs#/h: (360, 4, 7200) float64
+   #refs#/i: (360, 4, 7200) float64
+   #refs#/j: (360, 4, 7200) float64
+   #refs#/k: (360, 4, 7200) float64
+   #refs#/l: (360, 4, 7200) float64
+   #refs#/m: (360, 4, 7200) float64
+   #refs#/n: (360, 4, 7200) float64
+   #refs#/o: (360, 4, 7200) float64
+   #refs#/p: (360, 4, 7200) float64
+   #refs#/q: (360, 4, 7200) float64
+   #refs#/r: (360, 4, 7200) float64
+   #refs#/s: (360, 4, 7200) float64
+   #refs#/t: (360, 4, 7200) float64
+   #refs#/u: (360, 4, 7200) float64
+   #refs#/v: (360, 4, 7200) float64
+   #refs#/w: (360, 4, 7200) float64
+   #refs#/x: (360, 4, 7200) float64
+   #refs#/y: (360, 4, 7200) float64
+   #refs#/z: (360, 4, 7200) float64
+   rirs/
+   rirs/foa: (9, 2) object
