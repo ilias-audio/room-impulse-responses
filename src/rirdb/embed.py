@@ -90,7 +90,7 @@ def _ir_signal(row: dict, adapter, root: Path, d, cfg) -> np.ndarray | None:
     return (ir / peak).astype(np.float32) if peak > 0 else None
 
 
-def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda") -> Path:
+def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda", shard: int = 0, n_shards: int = 1) -> Path:
     import torch
 
     from rirdb.adapters import get_adapter
@@ -105,7 +105,7 @@ def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda") -> Pat
     idx = pd.read_parquet(paths.data_root() / "index" / "irs" / f"dataset={dataset_id}" / "part-0.parquet")
     done = pd.read_parquet(metrics_dir(dataset_id) / "wide.parquet", columns=["ir_id", "error"])
     ids = set(done.loc[done["error"].fillna("") == "", "ir_id"])
-    rows = idx[idx["ir_id"].isin(ids)].sort_values("ir_id").to_dict("records")
+    rows = idx[idx["ir_id"].isin(ids)].sort_values("ir_id").to_dict("records")[shard::n_shards]
 
     emb = Embedder(device)
     sources, sums = load_sources()
@@ -144,7 +144,7 @@ def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda") -> Pat
 
     out_dir = paths.data_root() / "embeddings" / MODEL.replace("/", "__")
     out_dir.mkdir(parents=True, exist_ok=True)
-    out = out_dir / f"{dataset_id}.npz"
+    out = out_dir / (f"{dataset_id}.npz" if n_shards == 1 else f"{dataset_id}.part{shard:03d}-of-{n_shards:03d}.npz")
     np.savez_compressed(out, ir_id=np.array(out_ids), source_sha256=json.dumps(sums),
                         **{k: np.concatenate(v).astype(np.float16) for k, v in store.items() if v})
     return out

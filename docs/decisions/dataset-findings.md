@@ -30,7 +30,7 @@ them. Methods decisions are in [analyzer-v1.md](analyzer-v1.md).
 | SRIRACHA | The 20 published HDF5 files hold 1,327,360 IRs (16 files x 1,024 sources x 64 mics + 4 dense-grid files x 1,089 x 64), half the 2,654,720 stated; IRs are 1 s at 32 kHz | index of all 20 checksum-verified files | expected count noted; T20 valid, T30 mostly not (1 s files) |
 | 3D meshgrid | IRs are 4,800 samples (0.1 s): EDT only | HDF5 probe | grade C by design |
 | MeshRIR | "4,410 RIRs" counts measurement points; with the 32-source subset there are 18,081 source-receiver IRs | npy shapes | indexed 18,081 |
-| RSoANU | 22 GB em32 zip written without proper ZIP64 records (offsets wrap at 4 GiB): Info-ZIP and 7-Zip fail on a checksum-verified file | unzip, 7z; zip -FF recovers all 810 files | extract.sh repairs with zip -FF automatically |
+| RSoANU | 22 GB em32 zip written without proper ZIP64 records (offsets wrap at 4 GiB): Info-ZIP and 7-Zip fail on a checksum-verified file | unzip, 7z; zip -FF recovers all 810 files | extract.sh repairs with zip -FF automatically; 6 B-format IRs in the authors' `Outlier/` folders are not indexed |
 | MIRACLE | IRs are 1,024 samples at 32 kHz (32 ms): direct sound + first reflections in a low-reverberation lab | HDF5 probe | indexed (856,128, exact) as `anechoic`; decay metrics not meaningful |
 
 ## Licence findings

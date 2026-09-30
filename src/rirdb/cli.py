@@ -196,12 +196,19 @@ def report_cards() -> None:
 
 
 @app.command()
-def embed(dataset_ids: list[str] = typer.Argument(...), batch: int = typer.Option(16)) -> None:
+def embed(
+    dataset_ids: list[str] = typer.Argument(...),
+    batch: int = typer.Option(16),
+    shard: str = typer.Option("0", help="Shard index, or 'auto' inside a SLURM array (one dataset)."),
+    n_shards: int = typer.Option(1),
+) -> None:
     """CLAP embeddings of analysed IRs (GPU job, `pixi run -e embed`)."""
     from rirdb.embed import embed_dataset
+    from rirdb.run import auto_shard
 
+    s, n = auto_shard() if shard == "auto" else (int(shard), n_shards)
     for d in dataset_ids:
-        console.print(f"wrote {embed_dataset(d, batch=batch)}")
+        console.print(f"wrote {embed_dataset(d, batch=batch, shard=s, n_shards=n)}")
 
 
 @app.command()
