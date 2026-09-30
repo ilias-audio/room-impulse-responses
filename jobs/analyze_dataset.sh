@@ -4,6 +4,7 @@
 #
 #   jobs/analyze_dataset.sh <dataset_id> <n_shards> [extra rirdb analyze args, e.g. --full]
 #   TASKS=50-79 jobs/analyze_dataset.sh arni 80     # re-run some shards of an 80-shard run
+#   EMBED_SHARDS=2 jobs/analyze_dataset.sh soundcam 4  # also CLAP embeddings (GPU array) after the merge
 #
 # The registry is copied at submission and the jobs read that copy (RIRDB_REGISTRY),
 # so editing registry/datasets.yaml cannot break queued or running tasks.
@@ -18,3 +19,9 @@ arr=$(sbatch --parsable --export=ALL,RIRDB_REGISTRY="$snap" --array=${tasks}%50 
 mrg=$(sbatch --parsable --export=ALL,RIRDB_REGISTRY="$snap" --dependency=afterok:${arr} -p computeshort -t 0:30:0 \
       -J "mg_${ds}" jobs/quick_cpu.sh pixi run rirdb merge "$ds")
 echo "$ds: analyze array $arr (tasks $tasks of $n shards), merge $mrg"
+if [ -n "${EMBED_SHARDS:-}" ]; then   # embeddings read the merged metrics (IRs analysed without error)
+    emb=$(PIXI_ENV=embed sbatch --parsable --export=ALL,RIRDB_REGISTRY="$snap" --dependency=afterok:${mrg} \
+          --array=0-$((EMBED_SHARDS - 1))%4 -J "emb_${ds}" jobs/gpu_array.sh \
+          pixi run -e embed rirdb embed "$ds" --shard auto --n-shards "$EMBED_SHARDS")
+    echo "$ds: embed array $emb ($EMBED_SHARDS shards)"
+fi
