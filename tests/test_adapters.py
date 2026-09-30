@@ -51,3 +51,48 @@ def test_ndarray_adapter_axes(tmp_path, layout, container):
         want = expect(*r.locator["idx"])
         assert x.shape == want.shape
         np.testing.assert_allclose(x, want, rtol=0, atol=0)
+
+
+def test_ndarray_channel_subset_and_source_records(tmp_path):
+    """UPV_RIR_DB layout: MATLAB v5 h_ctrl[time, sources, channels]; keep one ear pair, records = sources."""
+    import scipy.io
+
+    rng = np.random.default_rng(1)
+    a = rng.standard_normal((50, 8, 4))
+    d = tmp_path / "RC1" / "SC2"
+    d.mkdir(parents=True)
+    scipy.io.savemat(d / "DH_RC1_SC2_Z05_RIR.mat", {"h_ctrl": a})
+    params = {"glob": "**/DH_*_RIR.mat", "pattern": r"(?P<cond>RC\d)/(?P<src>SC\d)/DH_RC\d_SC\d_(?P<rcv>Z\d+)_RIR\.mat$",
+              "container": "mat", "array": "h_ctrl", "time_axis": 0, "channel_axis": 2, "record_axes": [1],
+              "record_is": "src", "channels": [2, 3], "roles": ["L", "R"], "fs": 44100}
+    ad = get_adapter("ndarray", params)
+    recs = list(ad.iter_records(_dataset(params), tmp_path))
+    assert len(recs) == 8
+    assert [r.src_key for r in recs[:2]] == ["SC2-0", "SC2-1"]
+    assert {r.rcv_key for r in recs} == {"Z05"} and {r.condition_key for r in recs} == {"RC1"}
+    assert recs[0].channel_roles == ("L", "R")
+    for r in recs:
+        x, fs = ad.load(r.locator, tmp_path)
+        assert fs == 44100
+        np.testing.assert_array_equal(x, a[:, r.locator["idx"][0], 2:4].T)
+
+
+def test_sofa_first_per_source(tmp_path):
+    """Repeated measurements (same SourcePosition) collapse to the first one, whatever the layout."""
+    ir = np.random.default_rng(2).standard_normal((6, 2, 20))
+    sp = np.array([[1, 0, 1.5], [1, 0, 1.5], [-2, 4, 0], [-2, 4, 0], [1, 0, 0], [1, 0, 0]], dtype=float)
+    with h5py.File(tmp_path / "pos_1.0X_0.0Y.sofa", "w") as h:
+        h["Data.IR"] = ir
+        h["Data.SamplingRate"] = np.array([48000.0])
+        h["SourcePosition"] = sp
+    params = {"glob": "*.sofa", "pattern": r"_(?P<rcv>-?[\d.]+X_-?[\d.]+Y)\.sofa$", "first_per_source": True,
+              "capture_format": "sdm_array", "reference_role": "mic_1"}
+    ds = SimpleNamespace(id="toy", ir_kinds=["room"], adapter=SimpleNamespace(name="sofa", params=params),
+                         analysis=SimpleNamespace(reference_role=None))
+    ad = get_adapter("sofa", params)
+    recs = list(ad.iter_records(ds, tmp_path))
+    assert [r.locator["m"] for r in recs] == [0, 2, 4]
+    assert len({r.src_key for r in recs}) == 3 and {r.rcv_key for r in recs} == {"1.0X_0.0Y"}
+    x, fs = ad.load(recs[1].locator, tmp_path)
+    assert fs == 48000
+    np.testing.assert_array_equal(x, ir[2])

@@ -630,13 +630,30 @@ datasets:
   year: 2026
   type: measured
   ir_kinds: [room]
-  capture_formats: [array_raw]
-  content: 166 multichannel RIR files (18,976 single IRs) measured in 3 rooms of the Universitat Politecnica de Valencia with explicit spatial metadata and calibrations.
-  expected: {n_irs: 18976, n_rooms: 3, note: "166 multichannel files"}
+  capture_formats: [array_raw, binaural]
+  content: 166 multichannel RIR files (18,976 single IRs) measured in 3 rooms of the Universitat Politecnica de Valencia with 8 JBL loudspeakers, a 4x4 B&K 4951 array (AR), a KU100 dummy head (DH) and in-ear mics on listeners (BI), under up to 4 room configurations (window curtain, reflective panel). IRs are 16,384 samples at 44.1 kHz (0.37 s), so late decay parameters are often out of range.
+  expected: {n_irs: 1328, n_rooms: 3, note: "records = file x loudspeaker: AR 61 x 8 (reference capsule), DH 51 x 8 (point P01 ear pair), BI 54 x 8; 18,976 single-channel IRs in total"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["19371528"]}
   wave: 2
+  adapter:
+    name: ndarray
+    # h_ctrl[16384, 8 loudspeakers, ch], fs 44.1 kHz (metadata general.process_factors.fs). Each zone Z has two
+    # points P01/P02 2.5 cm apart: AR ch = 2 x 16 capsules (reference ch 0); DH ch = [P01 ear pair, P02 ear pair]
+    # (pairs found by interaural cross-correlation: 1 and 3 lead and are louder for lateral sources; left/right order
+    # undocumented, IACC is symmetric); BI = one ear pair per listener direction (C/L/R) and participant (F/M).
+    params:
+      groups:
+        - {glob: "**/AR/AR_*_RIR.mat", container: mat, array: h_ctrl, time_axis: 0, channel_axis: 2, record_axes: [1],
+           record_is: src, fs: 44100, capture_format: array_raw, reference_role: mic_0,
+           pattern: '(?P<room>Room_[^/]+)_mat/[^/]+/(?P<cond>RC\d)/(?P<src>SC\d)/AR/AR_RC\d_SC\d_(?P<rcv>Z\d+)_RIR\.mat$'}
+        - {glob: "**/DH/DH_*_RIR.mat", container: mat, array: h_ctrl, time_axis: 0, channel_axis: 2, record_axes: [1],
+           record_is: src, fs: 44100, capture_format: binaural, channels: [0, 1], roles: [L, R],
+           pattern: '(?P<room>Room_[^/]+)_mat/[^/]+/(?P<cond>RC\d)/(?P<src>SC\d)/DH/DH_RC\d_SC\d_(?P<rcv>Z\d+)_RIR\.mat$'}
+        - {glob: "**/BI/BI_*_RIR.mat", container: mat, array: h_ctrl, time_axis: 0, channel_axis: 2, record_axes: [1],
+           record_is: src, fs: 44100, capture_format: binaural, roles: [L, R],
+           pattern: '(?P<room>Room_[^/]+)_mat/[^/]+/(?P<cond>RC\d)/(?P<src>SC\d)/BI/BI_RC\d_SC\d_(?P<rcv>Z\d+_[CLR]_[FM])_RIR\.mat$'}
   homepage: https://zenodo.org/records/19371528
   doi: 10.5281/zenodo.19371528
   status: planned
@@ -686,18 +703,25 @@ datasets:
   doi: 10.5281/zenodo.6382405
   status: planned
 
-- id: aalto_robot_coupled
-  name: "SRIR dataset: a robot's journey through coupled rooms"
+- id: tuil_robot_coupled
+  name: "TU Ilmenau SRIR dataset: a robot's journey through coupled rooms"
   year: 2024
   type: measured
   ir_kinds: [room]
-  capture_formats: [sma_raw]
-  content: SRIRs captured by a robot with a microphone array moving through coupled rooms (corridors, halls, an office) of a reverberant university building; two Zenodo parts (2024, 2026 office).
-  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  capture_formats: [sdm_array]
+  content: SRIRs measured by a robot carrying a 7-mic SDM array (6 EM258 capsules at r = 5 cm plus a centre Earthworks M30 omni) on a grid through coupled spaces of TU Ilmenau's Helmholtzbau (hallway, coffee corner, two staircases; 2024) and along 4 lines from an office into the hallway (office part). 754 positions; 2 or 3 loudspeakers, each measured 2-3 times (first repeat indexed).
+  expected: {n_irs: 2119, n_rooms: 8, note: "754 positions x 2-3 sources (first of the repeated measurements; count from the SOFA SourcePositions); rooms = measurement routes"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes, note: "Zenodo lists CC BY 4.0; the SOFA headers say CC BY-NC-SA 4.0. The Zenodo licence is recorded; use the stricter one when in doubt."}
   access: open
   source: {kind: zenodo, records: ["13987509", "22702503"], include: ["*.zip", "*.jpg", "*.png"]}
   keep_archive: false
   wave: 2
+  adapter:
+    name: sofa
+    # SingleRoomSRIR Data.IR[M, 7, N], fs 48 kHz, N = 4 s (grid) / 1 s (office lines). M = 6 or 9: 2-3 sources x
+    # 2-3 repeats (same SourcePosition, layout varies by file): first repeat per source. Receiver 6 = centre omni.
+    params: {glob: "**/*.sofa", pattern: '_(?P<rcv>-?[\d.]+X_-?[\d.]+Y)\.sofa$', room_from: parent,
+             capture_format: sdm_array, reference_role: mic_6, first_per_source: true}
   homepage: https://zenodo.org/records/13987509
   paper: {title: "Spatial Room Impulse Response Dataset: A Robot's Journey Through Coupled Rooms (DAGA 2024)", url: "https://pub.dega-akustik.de/DAGA_2024/files/upload/paper/453.pdf"}
   doi: 10.5281/zenodo.13987509

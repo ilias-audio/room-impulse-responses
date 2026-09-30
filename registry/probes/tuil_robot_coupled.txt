@@ -1,0 +1,105 @@
+# probe tuil_robot_coupled
+# root: /gpfs/scratch/eey119/rir-data/raw/tuil_robot_coupled/files
+
+771 files, 38.08 GB
+extensions: .sofa 754, .jpg 15, .png 2
+
+## tree
+13987509/  (491 files)
+  Helmholtzbau_OG2_HM_HS/  (143 files)
+    Helmholtzbau_OG2_HM_HS/  (143 files)
+      H-OG2-HM-HS_-0.5X_-0.5Y.sofa  [56.51 MB]
+      H-OG2-HM-HS_-0.5X_0.5Y.sofa  [56.59 MB]
+      H-OG2-HM-HS_-1.0X_0.0Y.sofa  [56.37 MB]
+      H-OG2-HM-HS_-10.0X_0.0Y.sofa  [56.37 MB]
+      H-OG2-HM-HS_-10.5X_-0.5Y.sofa  [56.44 MB]
+      H-OG2-HM-HS_-10.5X_0.5Y.sofa  [56.55 MB]
+      ... 137 more files
+  Helmholtzbau_OG2_SML_SSL_SSU/  (153 files)
+    Helmholtzbau_OG2_SML_SSL_SSU/  (153 files)
+      H-OG2-SML-SSL-SSU_-0.5X_-0.5Y.sofa  [56.51 MB]
+      H-OG2-SML-SSL-SSU_-0.5X_0.5Y.sofa  [84.70 MB]
+      H-OG2-SML-SSL-SSU_-1.0X_0.0Y.sofa  [56.52 MB]
+      H-OG2-SML-SSL-SSU_-1.5X_-0.5Y.sofa  [56.49 MB]
+      H-OG2-SML-SSL-SSU_-1.5X_0.5Y.sofa  [84.61 MB]
+      H-OG2-SML-SSL-SSU_-10.0X_0.0Y.sofa  [56.44 MB]
+      ... 147 more files
+  Helmholtzbau_OG2_SMU_SML_HM/  (88 files)
+    Helmholtzbau_OG2_SMU_SML_HM/  (88 files)
+      H-OG2-SMU-SML-HM_-17.6X_-0.5Y.sofa  [84.69 MB]
+      H-OG2-SMU-SML-HM_-17.6X_0.0Y.sofa  [84.71 MB]
+      H-OG2-SMU-SML-HM_-17.6X_0.5Y.sofa  [84.62 MB]
+      H-OG2-SMU-SML-HM_-17.85X_-0.5Y.sofa  [84.69 MB]
+      H-OG2-SMU-SML-HM_-17.85X_0.0Y.sofa  [84.68 MB]
+      H-OG2-SMU-SML-HM_-17.85X_0.5Y.sofa  [84.56 MB]
+      ... 82 more files
+  Helmholtzbau_OG2_SSU_SSL_HS/  (92 files)
+    Helmholtzbau_OG2_SSU_SSL_HS/  (92 files)
+      H-OG2-SSU-SSL-HS_15.75X_-0.25Y.sofa  [84.79 MB]
+      H-OG2-SSU-SSL-HS_15.75X_-0.5Y.sofa  [84.87 MB]
+      H-OG2-SSU-SSL-HS_15.75X_-0.75Y.sofa  [84.77 MB]
+      H-OG2-SSU-SSL-HS_15.75X_-1.0Y.sofa  [84.72 MB]
+      H-OG2-SSU-SSL-HS_15.75X_-1.25Y.sofa  [84.76 MB]
+      H-OG2-SSU-SSL-HS_15.75X_-1.5Y.sofa  [84.61 MB]
+      ... 86 more files
+  Pictures/  (11 files)
+    Pictures/  (11 files)
+      Measurement Overview.jpg  [0.76 MB]
+      Picture 1 Hallway.JPG  [18.66 MB]
+      Picture 2 Coffee Corner.JPG  [17.99 MB]
+      Picture 3 Small Staircase.JPG  [20.89 MB]
+      Picture 4 Big Staircase.JPG  [18.19 MB]
+      Picture 5 Hallway Corner.JPG  [20.30 MB]
+      ... 5 more files
+  General Overview.jpg  [1.12 MB]
+  Measurement Overview.jpg  [0.76 MB]
+  Pictures Overview.jpg  [14.14 MB]
+  Plot Reverberation Time.jpg  [0.33 MB]
+22702503/  (280 files)
+  Helmholtzbau_H3522_Line_01/  (72 files)
+    Helmholtzbau_H3522_Line_01/  (72 files)
+      H-OG2-H3522_L1_-2.38X_0.5Y.sofa  [21.45 MB]
+      H-OG2-H3522_L1_-2.48X_0.5Y.sofa  [21.44 MB]
+      H-OG2-H3522_L1_-2.58X_0.5Y.sofa  [21.44 MB]
+      H-OG2-H3522_L1_-2.68X_0.5Y.sofa  [21.45 MB]
+      H-OG2-H3522_L1_-2.78X_0.5Y.sofa  [21.45 MB]
+      H-OG2-H3522_L1_-2.88X_0.5Y.sofa  [21.45 MB]
+      ... 66 more files
+  Helmholtzbau_H3522_Line_02/  (34 files)
+    Helmholtzbau_H3522_Line_02/  (34 files)
+      H-OG2-H3522_L2_-6.48X_-0.1Y.sofa  [14.30 MB]
+      H-OG2-H3522_L2_-6.48X_-0.2Y.sofa  [14.30 MB]
+      H-OG2-H3522_L2_-6.48X_-0.3Y.sofa  [14.30 MB]
+      H-OG2-H3522_L2_-6.48X_-0.4Y.sofa  [14.29 MB]
+      H-OG2-H3522_L2_-6.48X_-0.5Y.sofa  [14.29 MB]
+      H-OG2-H3522_L2_-6.48X_0.0Y.sofa  [14.31 MB]
+      ... 28 more files
+  Helmholtzbau_H3522_Line_03/  (81 files)
+    Helmholtzbau_H3522_Line_03/  (81 files)
+      H-OG2-H3522_L3_-1.48X_0.0Y.sofa  [14.31 MB]
+      H-OG2-H3522_L3_-1.58X_0.0Y.sofa  [14.31 MB]
+      H-OG2-H3522_L3_-1.68X_0.0Y.sofa  [14.30 MB]
+      H-OG2-H3522_L3_-1.78X_0.0Y.sofa  [14.32 MB]
+      H-OG2-H3522_L3_-1.88X_0.0Y.sofa  [14.31 MB]
+      H-OG2-H3522_L3_-1.98X_0.0Y.sofa  [14.32 MB]
+      ... 75 more files
+  Helmholtzbau_H3522_Line_04/  (91 files)
+    Helmholtzbau_H3522_Line_04/  (91 files)
+      H-OG2-H3522_L4_-0.48X_-0.5Y.sofa  [14.30 MB]
+      H-OG2-H3522_L4_-0.58X_-0.5Y.sofa  [14.30 MB]
+      H-OG2-H3522_L4_-0.68X_-0.5Y.sofa  [14.30 MB]
+      H-OG2-H3522_L4_-0.78X_-0.5Y.sofa  [14.31 MB]
+      H-OG2-H3522_L4_-0.88X_-0.5Y.sofa  [14.30 MB]
+      H-OG2-H3522_L4_-0.98X_-0.5Y.sofa  [14.30 MB]
+      ... 85 more files
+  DRR_Speaker_B.png  [0.28 MB]
+  GeneralOverview.png  [9.38 MB]
+
+## audio
+
+## sofa (754 files; first 5)
+-- H-OG2-HM-HS_-0.5X_-0.5Y.sofa: SingleRoomSRIR v1.0; Data.IR (6, 7, 192000); fs 48000.0
+-- H-OG2-HM-HS_-0.5X_0.5Y.sofa: SingleRoomSRIR v1.0; Data.IR (6, 7, 192000); fs 48000.0
+-- H-OG2-HM-HS_-1.0X_0.0Y.sofa: SingleRoomSRIR v1.0; Data.IR (6, 7, 192000); fs 48000.0
+-- H-OG2-HM-HS_-10.0X_0.0Y.sofa: SingleRoomSRIR v1.0; Data.IR (6, 7, 192000); fs 48000.0
+-- H-OG2-HM-HS_-10.5X_-0.5Y.sofa: SingleRoomSRIR v1.0; Data.IR (6, 7, 192000); fs 48000.0

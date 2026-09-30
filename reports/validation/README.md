@@ -33,3 +33,15 @@
 
 ![T30 and EDT vs OpenAIR](openair_t30_edt.png)
 
+## ACE challenge ground truth
+
+220 comparisons over the ACE multichannel RIRs (Chromebook, Mobile, Crucif, Lin8Ch; 7 rooms x 2 positions; our first channel vs ACE channel 1). Published: ACE's ISO T30 (full band and 1/3-octave, compared with our octave bands) and full-band DRR (ACE's +-8 ms direct window, the convention adopted here).
+
+| metric | n | median ratio / diff | agreement |
+|---|---|---|---|
+| drr_bb | 44 | median diff -0.01 dB | MAE 0.22 dB; 95 % within 2 dB |
+| t30_1000 | 44 | 1.028 | 93 % within 10 % |
+| t30_2000 | 44 | 1.019 | 86 % within 10 % |
+| t30_500 | 44 | 1.021 | 75 % within 10 % |
+| t30_bb | 44 | 1.016 | 98 % within 10 % |
+

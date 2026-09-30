@@ -1,0 +1,9 @@
+room_key,category,ir_kind,room_label,volume_m3,note
+helmholtzbau-og2-hm-hs,circulation,room,TU Ilmenau Helmholtzbau OG2: hallway route HM-HS (coupled hallway and staircase),,robot grid; SOFA DatabaseName TUIL-AR-GRID-M-HBOG2_23
+helmholtzbau-og2-sml-ssl-ssu,stairwell,room,TU Ilmenau Helmholtzbau OG2: staircase route SML-SSL-SSU (coupled),,robot grid
+helmholtzbau-og2-smu-sml-hm,stairwell,room,TU Ilmenau Helmholtzbau OG2: staircase route SMU-SML-HM (coupled with hallway),,robot grid
+helmholtzbau-og2-ssu-ssl-hs,stairwell,room,TU Ilmenau Helmholtzbau OG2: staircase route SSU-SSL-HS (coupled with hallway),,robot grid
+helmholtzbau-h3522-line-01,office_meeting,room,TU Ilmenau office H3522 to hallway: line 1 (coupled),,robot line; sources in the office
+helmholtzbau-h3522-line-02,office_meeting,room,TU Ilmenau office H3522 to hallway: line 2 (coupled),,robot line; sources in the office
+helmholtzbau-h3522-line-03,office_meeting,room,TU Ilmenau office H3522 to hallway: line 3 (coupled),,robot line; sources in the office
+helmholtzbau-h3522-line-04,office_meeting,room,TU Ilmenau office H3522 to hallway: line 4 (coupled),,robot line; sources in the office

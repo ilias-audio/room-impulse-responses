@@ -30,7 +30,7 @@ tau_srir	2	planned	open	zenodo	6408611	-	TAU-SRIR_DB.z0*|TAU-SRIR_DB.zip|README.
 upv_rir_db	2	planned	open	zenodo	19371528	-	-	-	-	auto
 aalto_multiroom	2	planned	open	zenodo	11196820	-	-	-	-	auto
 arni_6dof_srir	2	planned	open	zenodo	6382405	-	-	-	-	0
-aalto_robot_coupled	2	planned	open	zenodo	13987509|22702503	-	*.zip|*.jpg|*.png	-	-	0
+tuil_robot_coupled	2	planned	open	zenodo	13987509|22702503	-	*.zip|*.jpg|*.png	-	-	0
 metu_sparg	2	planned	open	zenodo	2635758	-	-	-	-	auto
 homula_rir	2	planned	open	zenodo	10479726	-	-	-	-	auto
 flair	2	planned	open	zenodo	17037517	-	-	-	-	auto

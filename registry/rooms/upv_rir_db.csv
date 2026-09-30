@@ -1,0 +1,4 @@
+room_key,category,ir_kind,room_label,volume_m3,note
+room-teleco-4d26,,room,UPV Teleco room 4D26 (11.73 x 5.85 x 2.98 m),204.5,dimensions from config/mapping.json; room type not documented
+room-teleco-4p13,,room,UPV Teleco room 4P13 (7.80 x 8.57 x 2.85 m),190.5,dimensions from config/mapping.json; RC1-RC4 = window curtain x reflective panel
+room-iteam-8g4c,,room,UPV iTEAM room 8G4C (3.57 x 7.78 x 2.80 m),77.8,dimensions from config/mapping.json; room type not documented

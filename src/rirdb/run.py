@@ -1,7 +1,7 @@
 """Sharded analysis of indexed datasets (SLURM array friendly).
 
-  metrics/v1/<id>/shard-00000.parquet  one row per IR: index columns + scalars
-  features/v1/<id>/shard-00000.h5      fixed-shape arrays stacked per feature, row-aligned with `ir_id`
+  metrics/v1/<id>/shard-00000-of-00008.parquet  one row per IR: index columns + scalars
+  features/v1/<id>/shard-00000-of-00008.h5      fixed-shape arrays stacked per feature, row-aligned with `ir_id`
   metrics/v1/<id>/wide.parquet         merged shards (rirdb merge)
 """
 
@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import time
 import traceback
@@ -169,12 +170,33 @@ def _write_features(dataset_id: str, shard: int, n_shards: int, feats: list[dict
             h.create_dataset(name, data=stack, compression="gzip", compression_opts=4, shuffle=True)
 
 
+_SHARD_RE = re.compile(r"shard-(\d{5})-of-(\d{5})\.parquet$")
+
+
 def merge(dataset_id: str) -> Path:
+    """Merge one complete analysis run into wide.parquet.
+
+    The run is the shard count of the newest shard file; shards written by runs
+    with another count are ignored (reported, not deleted). Missing shards or
+    shards from different analyzer configs are errors, so a partly re-run
+    dataset never merges stale rows.
+    """
     mdir = metrics_dir(dataset_id)
-    shards = sorted(mdir.glob("shard-*.parquet"))
+    shards = [p for p in mdir.glob("shard-*.parquet") if _SHARD_RE.search(p.name)]
     if not shards:
         raise FileNotFoundError(f"no metric shards in {mdir}")
-    df = pd.concat([pd.read_parquet(p) for p in shards], ignore_index=True)
+    n = int(_SHARD_RE.search(max(shards, key=lambda p: p.stat().st_mtime).name).group(2))
+    current = sorted(p for p in shards if int(_SHARD_RE.search(p.name).group(2)) == n)
+    stale = sorted(set(mdir.glob("shard-*.parquet")) - set(current))
+    if stale:
+        print(f"{dataset_id}: ignoring {len(stale)} shard files from other runs, e.g. {stale[0].name}")
+    missing = sorted(set(range(n)) - {int(_SHARD_RE.search(p.name).group(1)) for p in current})
+    if missing:
+        raise RuntimeError(f"{dataset_id}: {len(missing)} of {n} shards missing, e.g. {missing[:5]}")
+    df = pd.concat([pd.read_parquet(p) for p in current], ignore_index=True)
+    configs = df["config_sha256"].dropna().unique() if "config_sha256" in df else []
+    if len(configs) > 1:
+        raise RuntimeError(f"{dataset_id}: shards mix analyzer configs {sorted(configs)}; re-run the stale shards")
     # older shards: index/analyzer column clashes came out as <col>_x / <col>_y; keep the index value
     for c in [c[:-2] for c in df.columns if c.endswith("_x") and f"{c[:-2]}_y" in df.columns]:
         df[c] = df.pop(f"{c}_x")

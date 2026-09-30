@@ -214,7 +214,8 @@ class SofaAdapter:
       glob (default **/*.sofa), pattern (regex on the file name: groups room, rcv, src, cond),
       room_from (pattern|file|parent), roles (list of R), capture_format, reference_role,
       sh_norm, orientation_known, m_select (list of m indices, e.g. [0] = frontal head
-      orientation for rotation-dense BRIR sets), ir_kind.
+      orientation for rotation-dense BRIR sets), first_per_source (keep only the first
+      measurement at each distinct SourcePosition: drops repeated measurements), ir_kind.
     Loading reads one slice lazily via h5py.
     """
 
@@ -261,6 +262,13 @@ class SofaAdapter:
                 else:
                     room = Path(rel).stem
                 ms = p.get("m_select") or range(M)
+                first_per_source = bool(p.get("first_per_source")) and src is not None and src.ndim == 2 \
+                    and src.shape[0] == M
+                if first_per_source:        # repeated measurements: the first m at each SourcePosition
+                    firsts: dict = {}
+                    for m in range(M):
+                        firsts.setdefault(tuple(np.round(src[m], 3)), m)
+                    ms = sorted(firsts.values())
                 es = range(E) if E else [None]
                 for m in ms:
                     if m >= M:
@@ -273,7 +281,9 @@ class SofaAdapter:
                             dataset_id=dataset.id, local_key=key, room_key=slug(room),
                             capture_format=p.get("capture_format", "array_raw"), channel_roles=tuple(roles), fs=fs,
                             n_samples=int(N), locator={"relpath": rel, "container": "sofa", "m": int(m), "e": e},
-                            src_key=f"e{e}" if e is not None else (g.get("src") or f"m{m}"),
+                            src_key=f"e{e}" if e is not None else (g.get("src") or (
+                                "src_" + "_".join(f"{v:g}" for v in np.round(src[m], 2)) if first_per_source
+                                else f"m{m}")),
                             rcv_key=g.get("rcv") or (f"m{m}" if e is not None else None),
                             condition_key=g.get("cond"), src_pos=sp, rcv_pos=lp, sh_norm=p.get("sh_norm"),
                             orientation_known=bool(p.get("orientation_known", True)),
@@ -361,6 +371,8 @@ class NdArrayAdapter:
       fs                   sampling rate, or fs_attr (HDF5 attribute path "dataset@attr" / "@attr")
       pattern              regex on the file name (groups room, cond, src, rcv)
       room_default, capture_format, roles, reference_role, ir_kind
+      channels             indices along channel_axis to keep (e.g. one ear pair of several)
+      record_is            rcv (default) | src: what the record index enumerates, for the position keys
       positions            {src|rcv: {array: path, axis_of: record axis index}} (optional, h5)
     Records are the Cartesian product of record-axis indices; loading slices lazily.
     """
@@ -438,12 +450,17 @@ class NdArrayAdapter:
         rec_axes = g.get("record_axes")
         rec_axes = [a % len(shape) for a in rec_axes] if rec_axes is not None else \
             [a for a in range(len(shape)) if a not in (t_ax, c_ax)]
-        n_ch = shape[c_ax] if c_ax is not None else 1
+        n_ch = len(g["channels"]) if g.get("channels") else (shape[c_ax] if c_ax is not None else 1)
         roles = g.get("roles") or (["omni"] if n_ch == 1 else [f"mic_{i}" for i in range(n_ch)])
         fs = self._fs(f, g)
         room = gd.get("room") or g.get("room_default") or dataset.id
         for idx in itertools.product(*[range(shape[a]) for a in rec_axes]):
             key = f"{rel}#" + (f"{array}#" if g.get("array_pattern") else "") + ",".join(map(str, idx))
+            if g.get("record_is") == "src":
+                src = "-".join(filter(None, [gd.get("src"), ",".join(map(str, idx))]))
+                rcv = gd.get("rcv")
+            else:
+                src, rcv = gd.get("src"), gd.get("rcv") or ",".join(map(str, idx))
             yield IRRecord(
                 dataset_id=dataset.id, local_key=key, room_key=slug(room),
                 capture_format=g.get("capture_format", "mono_omni" if n_ch == 1 else "array_raw"),
@@ -451,8 +468,7 @@ class NdArrayAdapter:
                 locator={"relpath": rel, "container": g.get("container", "h5"), "group": gi,
                          "idx": list(idx), "array": array},
                 condition_key=gd.get("cond") or (array if g.get("array_pattern") else None),
-                src_key=gd.get("src"),
-                rcv_key=gd.get("rcv") or ",".join(map(str, idx)),
+                src_key=src, rcv_key=rcv,
                 room_label=str(room).replace("_", " "), ir_kind=g.get("ir_kind", "room"),
                 extra={"reference_role": g.get("reference_role")})
 
@@ -478,6 +494,8 @@ class NdArrayAdapter:
                 x = x.reshape(1, -1)
             elif remaining.index(c_ax) > remaining.index(t_ax):
                 x = x.T
+            if g.get("channels"):
+                x = np.atleast_2d(x)[list(g["channels"])]
         finally:
             if h is not None:
                 h.close()
