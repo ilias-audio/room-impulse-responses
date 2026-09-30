@@ -498,6 +498,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["6985104"]}
+  adapter:
+    name: wav_tree
+    # IR_numClosed_<n>_numComb_<c>_mic_<m>_sweep_<s>.wav: first sweep only (the others repeat the same configuration)
+    params: {pattern: 'IR_(?P<cond>numClosed_\d+_numComb_\d+)_mic_(?P<rcv>\d)_sweep_1\.wav$', room_from: pattern,
+             room_default: arni}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/6985104
@@ -516,6 +521,16 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["4923187"], include: ["sh_rirs.zip", "metadata.zip", "3d_models.zip", "code.zip"]}
+  adapter:
+    name: wav_tree
+    # sh_rirs/<furniture config>_<loudspeaker>_sh_rirs.wav: 4th-order SH (25 ch); normalisation not documented -> no JLF
+    params:
+      pattern: 'sh_rirs/(?P<cond>\d{4})_(?P<src>\d)_sh_rirs\.wav$'
+      room_from: pattern
+      room_default: motus-room
+      roles: {25: [W, ACN1, ACN2, ACN3, ACN4, ACN5, ACN6, ACN7, ACN8, ACN9, ACN10, ACN11, ACN12, ACN13, ACN14, ACN15, ACN16, ACN17, ACN18, ACN19, ACN20, ACN21, ACN22, ACN23, ACN24]}
+      channel_formats: {25: hoa_sh}
+      orientation_known: false
   keep_archive: false
   wave: 2
   homepage: https://doi.org/10.5281/zenodo.4923187
@@ -534,6 +549,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["5562386"], include: ["dechorate_rir_processed.hdf5", "load_positions_and_plot.py"]}
+  adapter:
+    name: ndarray
+    # one array per room condition ("000000" ... "011111"): [20000 samples, 30 mics, 7 sources] at 48 kHz
+    params: {glob: "dechorate_rir_processed.hdf5", container: h5, array_pattern: '[01]{6}', time_axis: 0,
+             record_axes: [1, 2], fs: 48000, room_default: dechorate-room}
   wave: 2
   homepage: https://zenodo.org/records/5562386
   paper: {title: "dEchorate: a Calibrated Room Impulse Response Dataset for Echo-aware Signal Processing", url: "https://arxiv.org/abs/2104.13168"}
@@ -648,6 +668,17 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["6382405"]}
+  adapter:
+    name: sofa
+    # 5 absorption configurations; Eigenmike SH (4th order, 25 ch) preferred, Zylia SH kept
+    params:
+      groups:
+        - {glob: "6dof_SRIRs_eigenmike_SH/**/*.sofa", pattern: '_(?P<cond>\d+percent)_absorbers',
+           roles: [W, ACN1, ACN2, ACN3, ACN4, ACN5, ACN6, ACN7, ACN8, ACN9, ACN10, ACN11, ACN12, ACN13, ACN14, ACN15, ACN16, ACN17, ACN18, ACN19, ACN20, ACN21, ACN22, ACN23, ACN24],
+           capture_format: hoa_sh, room_from: dataset}
+        - {glob: "6dof_SRIRs_zylia_SH/**/*.sofa", pattern: '_(?P<cond>\d+percent)_absorbers',
+           roles: [W, ACN1, ACN2, ACN3, ACN4, ACN5, ACN6, ACN7, ACN8, ACN9, ACN10, ACN11, ACN12, ACN13, ACN14, ACN15],
+           capture_format: hoa_sh, room_from: dataset, preferred: false}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/6382405
@@ -683,6 +714,10 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["2635758"]}
+  adapter:
+    name: wav_tree
+    # alctron/<pos>.wav: omni reference mic at the em32 position (the 32 capsule files per position are not indexed yet)
+    params: {pattern: 'spargair/alctron/(?P<src>\d+)\.wav$', room_from: pattern, room_default: metu-classroom-s05}
   wave: 2
   homepage: http://www.sparg.ii.metu.edu.tr/code.html
   doi: 10.5281/zenodo.2635758
@@ -699,6 +734,16 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["10479726"]}
+  adapter:
+    name: wav_tree
+    # hom/row<r>/rir-S<s>-R<r>-HOM<h>.wav (8-capsule arrays, order-0 mean) and ula/rir[-_]S<s>-ULA.wav (64 ch)
+    params:
+      pattern: 'rir[-_](?P<src>S\d)-(?P<rcv>[^/]+)\.wav$'
+      room_from: pattern
+      room_default: polimi-seminar-room
+      roles: {8: [c1, c2, c3, c4, c5, c6, c7, c8]}
+      channel_formats: {8: sma_raw, 64: array_raw}
+      reference_roles: {8: mean, 64: ch32}
   wave: 2
   homepage: https://github.com/polimi-ispl/homula-rir
   paper: {title: "HOMULA-RIR: A Room Impulse Response Dataset for Teleconferencing and Spatial Audio Applications", url: "https://doi.org/10.1109/ICASSPW62465.2024.10626753"}
@@ -716,6 +761,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["17037517"]}
+  adapter:
+    name: ndarray
+    # data_FLAIR.mat (MATLAB v5): rirs[17873 samples, 135 mics, 2 loudspeakers]
+    params: {glob: "data_FLAIR.mat", container: mat, array: rirs, time_axis: 0, record_axes: [1, 2],
+             fs_var: fs, room_default: flair-room}
   wave: 2
   homepage: https://zenodo.org/records/17037517
   paper: {title: "Bayesian Sound Field Reconstruction Using Partial Boundary Information", url: "https://ieeexplore.ieee.org/document/11197648"}
@@ -732,6 +782,12 @@ datasets:
   license: {spdx: MIT, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["8340195"], include: ["rir.zip", "README.txt", "LICENSE", "Setup_Database.pdf", "pythonScripts.zip", "matlabScripts.zip"]}
+  adapter:
+    name: ndarray
+    # run-averaged files: data[42 ch, 96000]: 4 hearing-aid mics, in-ear L/R, 36 distributed omni mics (E1-E36)
+    params: {glob: "rir/rir/rev_*/RIR_av_*.mat", container: h5, array: data, time_axis: 1, record_axes: [0],
+             fs_dataset: fs, pattern: 'RIR_av_(?P<cond>low|medium|high)_DOA_(?P<src>-?\d+)deg\.mat$',
+             room_default: brudex-lab}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/8340195
@@ -749,6 +805,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["2641166"]}
+  adapter:
+    name: sofa
+    # SimpleFreeFieldHRIR [100 head orientations, 2 ears, 5 s] per position: frontal orientation only
+    params: {glob: "**/Binaural/SOFA/*.sofa", pattern: '(?P<rcv>[A-Z]\d+m)\.sofa$', roles: [L, R],
+             capture_format: binaural, m_select: [0], room_from: dataset}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/2641166
@@ -761,7 +822,7 @@ datasets:
   type: measured
   ir_kinds: [room]
   capture_formats: [array_raw]
-  content: 5,000 10-channel real-world RIRs in three rooms (treated lab, in-the-wild living room, conference room) with humans at positions throughout each room (preprocessed archives fetched).
+  content: 5,000 10-channel real-world RIRs in three rooms (treated lab, in-the-wild living room, conference room) with humans at positions throughout each room. Only the Conference Room archive is fetched for now.
   expected: {n_irs: 5000, n_rooms: 3}
   license: {spdx: MIT, redistribute_audio: yes}
   access: open
@@ -769,14 +830,12 @@ datasets:
     kind: http
     urls:
       - https://stacks.stanford.edu/file/druid:xq364hd5023/ConferenceRoom_preprocessed.tar.gz
-      - https://stacks.stanford.edu/file/druid:xq364hd5023/LivingRoom_preprocessed.tar.gz
-      - https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoom_preprocessed.tar.gz
-      - https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoomPanels_preprocessed.tar.gz
   keep_archive: false
   wave: 2
   homepage: https://sites.google.com/view/soundcam
   paper: {title: "SoundCam: A Dataset for Tasks in Tracking and Identifying Humans from Real Room Acoustics", url: "https://nips.cc/virtual/2023/poster/73471"}
   status: planned
+  notes: "Preprocessed archives total 413 GB (RIRs bundled with music recordings); Stanford serves ~2 MB/s. Only ConferenceRoom_preprocessed (51.7 GB) is fetched; LivingRoom (104 GB), TreatedRoom (211 GB) and TreatedRoomPanels (46 GB) are deferred until permanent storage."
 
 - id: ace_arrays
   name: ACE Challenge corpus (multichannel arrays)
@@ -790,6 +849,14 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["6257551"], include: ["ACE_Corpus_RIRN_Chromebook.tbz2", "ACE_Corpus_RIRN_Mobile.tbz2", "ACE_Corpus_RIRN_Crucif.tbz2", "ACE_Corpus_RIRN_Lin8Ch.tbz2", "ACE_Corpus_RIRN_EM32.tbz2"]}
+  adapter:
+    name: wav_tree
+    # <Config>/<room>/<position>/<Config>_<room>_<pos>_RIR.wav (noise recordings skipped); reference = first mic
+    params:
+      pattern: '(?P<cond>Chromebook|Mobile|Crucif|Lin8Ch|EM32)/(?P<room>[^/]+)/(?P<rcv>\d)/[^/]+_RIR\.wav$'
+      roles: {2: [mic_1, mic_2], 3: [mic_1, mic_2, mic_3], 4: [mic_1, mic_2, mic_3, mic_4], 5: [mic_1, mic_2, mic_3, mic_4, mic_5], 8: [mic_1, mic_2, mic_3, mic_4, mic_5, mic_6, mic_7, mic_8], 32: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32]}
+      channel_formats: {2: array_raw, 3: array_raw, 4: array_raw, 5: array_raw, 8: array_raw, 32: em32_raw}
+      reference_roles: {2: mic_1, 3: mic_1, 4: mic_1, 5: mic_1, 8: mic_1, 32: mean}
   keep_archive: false
   wave: 2
   homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
@@ -924,6 +991,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["11148712"]}
+  adapter:
+    name: ndarray
+    # S<n>_Mrir.npy = [1074 positions, 8 mics, 100096 samples] at 48 kHz (fs from Setup.npz)
+    params: {glob: "S*_Mrir.npy", container: npy, time_axis: 2, record_axes: [0, 1], fs: 48000,
+             pattern: '(?P<src>S\d)_Mrir\.npy$', room_default: mp-rir-room}
   wave: 3
   analysis: {scope: subsample_v1}
   homepage: https://zenodo.org/records/11148712

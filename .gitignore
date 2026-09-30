@@ -58,3 +58,4 @@ rir-data/
 
 # Local debug scripts (on GPFS so compute nodes can see them)
 .scratch/
+*.tmp

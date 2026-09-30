@@ -1,0 +1,86 @@
+# probe brudex
+# root: /gpfs/scratch/eey119/rir-data/raw/brudex/files
+
+156 files, 2.66 GB
+extensions: .mat 144, .m 6, .py 2, .txt 1, <none> 1, .pdf 1, .yml 1
+
+## tree
+matlabScripts/  (6 files)
+  loadNOISE.m  [0.00 MB]
+  loadNOISEshort.m  [0.00 MB]
+  loadRIR.m  [0.00 MB]
+  loadSPK.m  [0.00 MB]
+  loadSPKshort.m  [0.00 MB]
+  wrapper_loadDataFromDB.m  [0.00 MB]
+pythonScripts/  (3 files)
+  environment.yml  [0.00 MB]
+  main.py  [0.00 MB]
+  wrapper.py  [0.01 MB]
+rir/  (144 files)
+  rir/  (144 files)
+    rev_high/  (48 files)
+      RIR_av_high_DOA_-120deg.mat  [32.30 MB]
+      RIR_av_high_DOA_-150deg.mat  [32.30 MB]
+      RIR_av_high_DOA_-30deg.mat  [32.30 MB]
+      RIR_av_high_DOA_-60deg.mat  [32.30 MB]
+      RIR_av_high_DOA_-90deg.mat  [32.30 MB]
+      RIR_av_high_DOA_0deg.mat  [32.30 MB]
+      ... 42 more files
+    rev_low/  (48 files)
+      RIR_av_low_DOA_-120deg.mat  [32.30 MB]
+      RIR_av_low_DOA_-150deg.mat  [32.30 MB]
+      RIR_av_low_DOA_-30deg.mat  [32.30 MB]
+      RIR_av_low_DOA_-60deg.mat  [32.30 MB]
+      RIR_av_low_DOA_-90deg.mat  [32.30 MB]
+      RIR_av_low_DOA_0deg.mat  [32.30 MB]
+      ... 42 more files
+    rev_medium/  (48 files)
+      RIR_av_medium_DOA_-120deg.mat  [32.30 MB]
+      RIR_av_medium_DOA_-150deg.mat  [32.30 MB]
+      RIR_av_medium_DOA_-30deg.mat  [32.30 MB]
+      RIR_av_medium_DOA_-60deg.mat  [32.30 MB]
+      RIR_av_medium_DOA_-90deg.mat  [32.30 MB]
+      RIR_av_medium_DOA_0deg.mat  [32.30 MB]
+      ... 42 more files
+LICENSE  [0.00 MB]
+README.txt  [0.01 MB]
+Setup_Database.pdf  [0.05 MB]
+
+## audio
+
+## mat (144 files; first 5)
+-- RIR_av_high_DOA_-120deg.mat: MATLAB v7.3 (HDF5)
+-- RIR_av_high_DOA_-120deg.mat
+   DOA: (1, 1) float64
+   comment: (7, 1) uint16
+   data: (42, 96000) float64
+   fs: (1, 1) float64
+   revCond: (4, 1) uint16
+-- RIR_av_high_DOA_-150deg.mat: MATLAB v7.3 (HDF5)
+-- RIR_av_high_DOA_-150deg.mat
+   DOA: (1, 1) float64
+   comment: (7, 1) uint16
+   data: (42, 96000) float64
+   fs: (1, 1) float64
+   revCond: (4, 1) uint16
+-- RIR_av_high_DOA_-30deg.mat: MATLAB v7.3 (HDF5)
+-- RIR_av_high_DOA_-30deg.mat
+   DOA: (1, 1) float64
+   comment: (7, 1) uint16
+   data: (42, 96000) float64
+   fs: (1, 1) float64
+   revCond: (4, 1) uint16
+-- RIR_av_high_DOA_-60deg.mat: MATLAB v7.3 (HDF5)
+-- RIR_av_high_DOA_-60deg.mat
+   DOA: (1, 1) float64
+   comment: (7, 1) uint16
+   data: (42, 96000) float64
+   fs: (1, 1) float64
+   revCond: (4, 1) uint16
+-- RIR_av_high_DOA_-90deg.mat: MATLAB v7.3 (HDF5)
+-- RIR_av_high_DOA_-90deg.mat
+   DOA: (1, 1) float64
+   comment: (7, 1) uint16
+   data: (42, 96000) float64
+   fs: (1, 1) float64
+   revCond: (4, 1) uint16

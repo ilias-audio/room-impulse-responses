@@ -1,0 +1,23 @@
+# probe mp_rir
+# root: /gpfs/scratch/eey119/rir-data/raw/mp_rir/files
+
+10 files, 27.52 GB
+extensions: .npy 9, .npz 1
+
+## tree
+Mxyz.npy  [0.10 MB]
+S1_Mrir.npy  [3440.10 MB]
+S2_Mrir.npy  [3440.10 MB]
+S3_Mrir.npy  [3440.10 MB]
+S4_Mrir.npy  [3440.10 MB]
+S5_Mrir.npy  [3440.10 MB]
+... 4 more files
+
+## audio
+
+## npy (10 files; first 5)
+-- Mxyz.npy: (1074, 8, 3) float32
+-- S1_Mrir.npy: (1074, 8, 100096) float32
+-- S2_Mrir.npy: (1074, 8, 100096) float32
+-- S3_Mrir.npy: (1074, 8, 100096) float32
+-- S4_Mrir.npy: (1074, 8, 100096) float32

@@ -1,0 +1,63 @@
+# probe arni
+# root: /gpfs/scratch/eey119/rir-data/raw/arni/files
+
+132040 files, 55.91 GB
+extensions: .wav 132037, .pdf 1, .csv 1, .jpg 1
+
+## tree
+IR_Arni_upload_numClosed_0-5/  (11130 files)
+  IR_numClosed_0_numComb_1_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_0_numComb_1_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_0_numComb_1_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_0_numComb_1_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_0_numComb_1_mic_2_sweep_1.wav  [0.42 MB]
+  IR_numClosed_0_numComb_1_mic_2_sweep_2.wav  [0.42 MB]
+  ... 11124 more files
+IR_Arni_upload_numClosed_16-25/  (25052 files)
+  IR_numClosed_16_numComb_12_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_16_numComb_12_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_16_numComb_12_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_16_numComb_12_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_16_numComb_12_mic_1_sweep_5.wav  [0.42 MB]
+  IR_numClosed_16_numComb_12_mic_2_sweep_1.wav  [0.42 MB]
+  ... 25046 more files
+IR_Arni_upload_numClosed_26-35/  (24821 files)
+  IR_numClosed_26_numComb_2542_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_26_numComb_2542_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_26_numComb_2542_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_26_numComb_2542_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_26_numComb_2542_mic_1_sweep_5.wav  [0.42 MB]
+  IR_numClosed_26_numComb_2542_mic_2_sweep_1.wav  [0.42 MB]
+  ... 24815 more files
+IR_Arni_upload_numClosed_36-45/  (25036 files)
+  IR_numClosed_36_numComb_17_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_36_numComb_17_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_36_numComb_17_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_36_numComb_17_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_36_numComb_17_mic_1_sweep_5.wav  [0.42 MB]
+  IR_numClosed_36_numComb_17_mic_2_sweep_1.wav  [0.42 MB]
+  ... 25030 more files
+IR_Arni_upload_numClosed_46-55/  (21329 files)
+  IR_numClosed_46_numComb_4542_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_46_numComb_4542_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_46_numComb_4542_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_46_numComb_4542_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_46_numComb_4542_mic_1_sweep_5.wav  [0.42 MB]
+  IR_numClosed_46_numComb_4542_mic_2_sweep_1.wav  [0.42 MB]
+  ... 21323 more files
+IR_Arni_upload_numClosed_6-15/  (24669 files)
+  IR_numClosed_10_numComb_1000_mic_1_sweep_1.wav  [0.42 MB]
+  IR_numClosed_10_numComb_1000_mic_1_sweep_2.wav  [0.42 MB]
+  IR_numClosed_10_numComb_1000_mic_1_sweep_3.wav  [0.42 MB]
+  IR_numClosed_10_numComb_1000_mic_1_sweep_4.wav  [0.42 MB]
+  IR_numClosed_10_numComb_1000_mic_2_sweep_1.wav  [0.42 MB]
+  IR_numClosed_10_numComb_1000_mic_2_sweep_2.wav  [0.42 MB]
+  ... 24663 more files
+Arni_layout.jpg  [0.84 MB]
+Arni_panels_numbers.pdf  [0.02 MB]
+combinations_setup.csv  [1.21 MB]
+
+## audio
+audio headers read: 3000 of 132037 (0 unreadable)
+    3000 x  1 ch  44100 Hz  FLOAT
+  duration s: min 2.400  median 2.400  max 2.400

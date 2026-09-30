@@ -1,0 +1,13 @@
+# probe flair
+# root: /gpfs/scratch/eey119/rir-data/raw/flair/files
+
+1 files, 0.12 GB
+extensions: .mat 1
+
+## tree
+data_FLAIR.mat  [115.82 MB]
+
+## audio
+
+## mat (1 files; first 1)
+-- data_FLAIR.mat: [('boundary_normals', (3, 2924201), 'double'), ('boundary_points', (3, 2924201), 'double'), ('c', (1, 1), 'double'), ('fs', (1, 1), 'double'), ('mic_positions', (3, 135), 'double'), ('rirs', (17873, 135, 2), 'double'), ('spkr_positions', (3, 2), 'double')]

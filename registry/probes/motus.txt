@@ -1,0 +1,277 @@
+# probe motus
+# root: /gpfs/scratch/eey119/rir-data/raw/motus/files
+
+6649 files, 31.08 GB
+extensions: .wav 3320, .mat 830, .json 830, .skp 830, .fbx 830, .m 9
+
+## tree
+3d_models/  (1660 files)
+  fbx/  (830 files)
+    0001_3d_model.fbx  [0.08 MB]
+    0002_3d_model.fbx  [0.08 MB]
+    0003_3d_model.fbx  [0.73 MB]
+    0004_3d_model.fbx  [0.82 MB]
+    0005_3d_model.fbx  [0.91 MB]
+    0006_3d_model.fbx  [1.00 MB]
+    ... 824 more files
+  skp/  (830 files)
+    0001_3d_model.skp  [0.16 MB]
+    0002_3d_model.skp  [0.17 MB]
+    0003_3d_model.skp  [0.20 MB]
+    0004_3d_model.skp  [0.20 MB]
+    0005_3d_model.skp  [0.20 MB]
+    0006_3d_model.skp  [0.20 MB]
+    ... 824 more files
+code/  (9 files)
+  geom_util/  (2 files)
+    calculateRotationMatrix.m  [0.00 MB]
+    triArea3.m  [0.00 MB]
+  calculateAbsArea.m  [0.00 MB]
+  extractAllAbsAreas.m  [0.00 MB]
+  getObjQuantities.m  [0.00 MB]
+  plotRoom.m  [0.01 MB]
+  plotSphImg.m  [0.00 MB]
+  test_plotRoom.m  [0.00 MB]
+  ... 1 more files
+metadata/  (1660 files)
+  JSON/  (830 files)
+    0001_metadata.json  [0.03 MB]
+    0002_metadata.json  [0.03 MB]
+    0003_metadata.json  [0.35 MB]
+    0004_metadata.json  [0.38 MB]
+    0005_metadata.json  [0.41 MB]
+    0006_metadata.json  [0.44 MB]
+    ... 824 more files
+  mat/  (830 files)
+    0001_metadata.mat  [0.07 MB]
+    0002_metadata.mat  [0.08 MB]
+    0003_metadata.mat  [0.12 MB]
+    0004_metadata.mat  [0.13 MB]
+    0005_metadata.mat  [0.14 MB]
+    0006_metadata.mat  [0.14 MB]
+    ... 824 more files
+sh_rirs/  (3320 files)
+  0001_1_sh_rirs.wav  [9.00 MB]
+  0001_2_sh_rirs.wav  [9.00 MB]
+  0001_3_sh_rirs.wav  [9.00 MB]
+  0001_4_sh_rirs.wav  [9.00 MB]
+  0002_1_sh_rirs.wav  [9.00 MB]
+  0002_2_sh_rirs.wav  [9.00 MB]
+  ... 3314 more files
+
+## audio
+audio headers read: 3000 of 3320 (0 unreadable)
+    3000 x  25 ch  48000 Hz  PCM_24
+  duration s: min 2.500  median 2.500  max 2.500
+
+## mat (830 files; first 5)
+-- 0001_metadata.mat: MATLAB v7.3 (HDF5)
+-- 0001_metadata.mat
+   #refs#/
+   #refs#/a: (2,) uint64
+   #refs#/b/
+   #refs#/b/absCoeffs: (6, 1) float64
+   #refs#/b/absCoeffsBands: (6, 1) float64
+   #refs#/b/normals: (3, 37) float64
+   #refs#/b/quantity: (1, 1) float64
+   #refs#/b/surfs: (3, 37) float64
+   #refs#/b/type: (9, 1) uint16
+   #refs#/b/vertices: (3, 26) float64
+   #refs#/c/
+   #refs#/c/absCoeffs: (6, 1) float64
+   #refs#/c/absCoeffsBands: (6, 1) float64
+   #refs#/c/normals: (3, 28) float64
+   #refs#/c/quantity: (1, 1) float64
+   #refs#/c/surfs: (3, 28) float64
+   #refs#/c/type: (10, 1) uint16
+   #refs#/c/vertices: (3, 16) float64
+   #refs#/d/
+   #refs#/d/absCoeffs: (6, 1) float64
+   #refs#/d/absCoeffsBands: (6, 1) float64
+   #refs#/d/normals: (3, 72) float64
+   #refs#/d/quantity: (1, 1) float64
+   #refs#/d/surfs: (3, 72) float64
+   #refs#/d/type: (6, 1) uint16
+   #refs#/d/vertices: (3, 48) float64
+   #refs#/e/
+   #refs#/e/absCoeffs: (6, 1) float64
+   #refs#/e/absCoeffsBands: (6, 1) float64
+   #refs#/e/normals: (3, 6) float64
+   #refs#/e/quantity: (1, 1) float64
+   #refs#/e/surfs: (3, 6) float64
+   #refs#/e/type: (5, 1) uint16
+   #refs#/e/vertices: (3, 8) float64
+   #refs#/f/
+   #refs#/f/absCoeffs: (6, 1) float64
+   #refs#/f/absCoeffsBands: (6, 1) float64
+   #refs#/f/normals: (3, 2) float64
+   #refs#/f/quantity: (1, 1) float64
+   #refs#/f/surfs: (3, 2) float64
+-- 0002_metadata.mat: MATLAB v7.3 (HDF5)
+-- 0002_metadata.mat
+   #refs#/
+   #refs#/a: (2,) uint64
+   #refs#/b/
+   #refs#/b/absCoeffs: (6, 1) float64
+   #refs#/b/absCoeffsBands: (6, 1) float64
+   #refs#/b/normals: (3, 37) float64
+   #refs#/b/quantity: (1, 1) float64
+   #refs#/b/surfs: (3, 37) float64
+   #refs#/b/type: (9, 1) uint16
+   #refs#/b/vertices: (3, 26) float64
+   #refs#/c/
+   #refs#/c/absCoeffs: (6, 1) float64
+   #refs#/c/absCoeffsBands: (6, 1) float64
+   #refs#/c/normals: (3, 28) float64
+   #refs#/c/quantity: (1, 1) float64
+   #refs#/c/surfs: (3, 28) float64
+   #refs#/c/type: (10, 1) uint16
+   #refs#/c/vertices: (3, 16) float64
+   #refs#/d/
+   #refs#/d/absCoeffs: (6, 1) float64
+   #refs#/d/absCoeffsBands: (6, 1) float64
+   #refs#/d/normals: (3, 72) float64
+   #refs#/d/quantity: (1, 1) float64
+   #refs#/d/surfs: (3, 72) float64
+   #refs#/d/type: (6, 1) uint16
+   #refs#/d/vertices: (3, 48) float64
+   #refs#/e/
+   #refs#/e/absCoeffs: (6, 1) float64
+   #refs#/e/absCoeffsBands: (6, 1) float64
+   #refs#/e/normals: (3, 6) float64
+   #refs#/e/quantity: (1, 1) float64
+   #refs#/e/surfs: (3, 6) float64
+   #refs#/e/type: (5, 1) uint16
+   #refs#/e/vertices: (3, 8) float64
+   #refs#/f/
+   #refs#/f/absCoeffs: (6, 1) float64
+   #refs#/f/absCoeffsBands: (6, 1) float64
+   #refs#/f/normals: (3, 2) float64
+   #refs#/f/quantity: (1, 1) float64
+   #refs#/f/surfs: (3, 2) float64
+-- 0003_metadata.mat: MATLAB v7.3 (HDF5)
+-- 0003_metadata.mat
+   #refs#/
+   #refs#/a: (2,) uint64
+   #refs#/b/
+   #refs#/b/absCoeffs: (6, 1) float64
+   #refs#/b/absCoeffsBands: (6, 1) float64
+   #refs#/b/normals: (3, 37) float64
+   #refs#/b/quantity: (1, 1) float64
+   #refs#/b/surfs: (3, 37) float64
+   #refs#/b/type: (9, 1) uint16
+   #refs#/b/vertices: (3, 26) float64
+   #refs#/c/
+   #refs#/c/absCoeffs: (6, 1) float64
+   #refs#/c/absCoeffsBands: (6, 1) float64
+   #refs#/c/normals: (3, 28) float64
+   #refs#/c/quantity: (1, 1) float64
+   #refs#/c/surfs: (3, 28) float64
+   #refs#/c/type: (10, 1) uint16
+   #refs#/c/vertices: (3, 16) float64
+   #refs#/d/
+   #refs#/d/absCoeffs: (6, 1) float64
+   #refs#/d/absCoeffsBands: (6, 1) float64
+   #refs#/d/normals: (3, 72) float64
+   #refs#/d/quantity: (1, 1) float64
+   #refs#/d/surfs: (3, 72) float64
+   #refs#/d/type: (6, 1) uint16
+   #refs#/d/vertices: (3, 48) float64
+   #refs#/e/
+   #refs#/e/absCoeffs: (6, 1) float64
+   #refs#/e/absCoeffsBands: (6, 1) float64
+   #refs#/e/normals: (3, 6) float64
+   #refs#/e/quantity: (1, 1) float64
+   #refs#/e/surfs: (3, 6) float64
+   #refs#/e/type: (5, 1) uint16
+   #refs#/e/vertices: (3, 8) float64
+   #refs#/f/
+   #refs#/f/absCoeffs: (6, 1) float64
+   #refs#/f/absCoeffsBands: (6, 1) float64
+   #refs#/f/normals: (3, 2) float64
+   #refs#/f/quantity: (1, 1) float64
+   #refs#/f/surfs: (3, 2) float64
+-- 0004_metadata.mat: MATLAB v7.3 (HDF5)
+-- 0004_metadata.mat
+   #refs#/
+   #refs#/a: (2,) uint64
+   #refs#/b/
+   #refs#/b/absCoeffs: (6, 1) float64
+   #refs#/b/absCoeffsBands: (6, 1) float64
+   #refs#/b/normals: (3, 37) float64
+   #refs#/b/quantity: (1, 1) float64
+   #refs#/b/surfs: (3, 37) float64
+   #refs#/b/type: (9, 1) uint16
+   #refs#/b/vertices: (3, 26) float64
+   #refs#/c/
+   #refs#/c/absCoeffs: (6, 1) float64
+   #refs#/c/absCoeffsBands: (6, 1) float64
+   #refs#/c/normals: (3, 28) float64
+   #refs#/c/quantity: (1, 1) float64
+   #refs#/c/surfs: (3, 28) float64
+   #refs#/c/type: (10, 1) uint16
+   #refs#/c/vertices: (3, 16) float64
+   #refs#/d/
+   #refs#/d/absCoeffs: (6, 1) float64
+   #refs#/d/absCoeffsBands: (6, 1) float64
+   #refs#/d/normals: (3, 72) float64
+   #refs#/d/quantity: (1, 1) float64
+   #refs#/d/surfs: (3, 72) float64
+   #refs#/d/type: (6, 1) uint16
+   #refs#/d/vertices: (3, 48) float64
+   #refs#/e/
+   #refs#/e/absCoeffs: (6, 1) float64
+   #refs#/e/absCoeffsBands: (6, 1) float64
+   #refs#/e/normals: (3, 6) float64
+   #refs#/e/quantity: (1, 1) float64
+   #refs#/e/surfs: (3, 6) float64
+   #refs#/e/type: (5, 1) uint16
+   #refs#/e/vertices: (3, 8) float64
+   #refs#/f/
+   #refs#/f/absCoeffs: (6, 1) float64
+   #refs#/f/absCoeffsBands: (6, 1) float64
+   #refs#/f/normals: (3, 2) float64
+   #refs#/f/quantity: (1, 1) float64
+   #refs#/f/surfs: (3, 2) float64
+-- 0005_metadata.mat: MATLAB v7.3 (HDF5)
+-- 0005_metadata.mat
+   #refs#/
+   #refs#/a: (2,) uint64
+   #refs#/b/
+   #refs#/b/absCoeffs: (6, 1) float64
+   #refs#/b/absCoeffsBands: (6, 1) float64
+   #refs#/b/normals: (3, 37) float64
+   #refs#/b/quantity: (1, 1) float64
+   #refs#/b/surfs: (3, 37) float64
+   #refs#/b/type: (9, 1) uint16
+   #refs#/b/vertices: (3, 26) float64
+   #refs#/c/
+   #refs#/c/absCoeffs: (6, 1) float64
+   #refs#/c/absCoeffsBands: (6, 1) float64
+   #refs#/c/normals: (3, 28) float64
+   #refs#/c/quantity: (1, 1) float64
+   #refs#/c/surfs: (3, 28) float64
+   #refs#/c/type: (10, 1) uint16
+   #refs#/c/vertices: (3, 16) float64
+   #refs#/d/
+   #refs#/d/absCoeffs: (6, 1) float64
+   #refs#/d/absCoeffsBands: (6, 1) float64
+   #refs#/d/normals: (3, 72) float64
+   #refs#/d/quantity: (1, 1) float64
+   #refs#/d/surfs: (3, 72) float64
+   #refs#/d/type: (6, 1) uint16
+   #refs#/d/vertices: (3, 48) float64
+   #refs#/e/
+   #refs#/e/absCoeffs: (6, 1) float64
+   #refs#/e/absCoeffsBands: (6, 1) float64
+   #refs#/e/normals: (3, 6) float64
+   #refs#/e/quantity: (1, 1) float64
+   #refs#/e/surfs: (3, 6) float64
+   #refs#/e/type: (5, 1) uint16
+   #refs#/e/vertices: (3, 8) float64
+   #refs#/f/
+   #refs#/f/absCoeffs: (6, 1) float64
+   #refs#/f/absCoeffsBands: (6, 1) float64
+   #refs#/f/normals: (3, 2) float64
+   #refs#/f/quantity: (1, 1) float64
+   #refs#/f/surfs: (3, 2) float64

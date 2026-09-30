@@ -1,0 +1,60 @@
+# probe homula_rir
+# root: /gpfs/scratch/eey119/rir-data/raw/homula_rir/files
+
+79 files, 0.10 GB
+extensions: .wav 52, .csv 27
+
+## tree
+HOMULA-RIR/  (79 files)
+  hom/  (75 files)
+    row1/  (15 files)
+      pos-R1-HOM1.csv  [0.00 MB]
+      pos-R1-HOM2.csv  [0.00 MB]
+      pos-R1-HOM3.csv  [0.00 MB]
+      pos-R1-HOM4.csv  [0.00 MB]
+      pos-R1-HOM5.csv  [0.00 MB]
+      rir-S1-R1-HOM1.wav  [1.54 MB]
+      ... 9 more files
+    row2/  (15 files)
+      pos-R2-HOM1.csv  [0.00 MB]
+      pos-R2-HOM2.csv  [0.00 MB]
+      pos-R2-HOM3.csv  [0.00 MB]
+      pos-R2-HOM4.csv  [0.00 MB]
+      pos-R2-HOM5.csv  [0.00 MB]
+      rir-S1-R2-HOM1.wav  [1.54 MB]
+      ... 9 more files
+    row3/  (15 files)
+      pos-R3-HOM1.csv  [0.00 MB]
+      pos-R3-HOM2.csv  [0.00 MB]
+      pos-R3-HOM3.csv  [0.00 MB]
+      pos-R3-HOM4.csv  [0.00 MB]
+      pos-R3-HOM5.csv  [0.00 MB]
+      rir-S1-R3-HOM1.wav  [1.54 MB]
+      ... 9 more files
+    row4/  (15 files)
+      pos-R4-HOM1.csv  [0.00 MB]
+      pos-R4-HOM2.csv  [0.00 MB]
+      pos-R4-HOM3.csv  [0.00 MB]
+      pos-R4-HOM4.csv  [0.00 MB]
+      pos-R4-HOM5.csv  [0.00 MB]
+      rir-S1-R4-HOM1.wav  [1.54 MB]
+      ... 9 more files
+    row5/  (15 files)
+      pos-R5-HOM1.csv  [0.00 MB]
+      pos-R5-HOM2.csv  [0.00 MB]
+      pos-R5-HOM3.csv  [0.00 MB]
+      pos-R5-HOM4.csv  [0.00 MB]
+      pos-R5-HOM5.csv  [0.00 MB]
+      rir-S1-R5-HOM1.wav  [1.54 MB]
+      ... 9 more files
+  ula/  (3 files)
+    pos-ULA.csv  [0.00 MB]
+    rir-S1-ULA.wav  [12.29 MB]
+    rir_S2-ULA.wav  [12.29 MB]
+  pos-sources.csv  [0.00 MB]
+
+## audio
+audio headers read: 52 of 52 (0 unreadable)
+      50 x  8 ch  48000 Hz  FLOAT
+       2 x  64 ch  48000 Hz  FLOAT
+  duration s: min 1.000  median 1.000  max 1.000

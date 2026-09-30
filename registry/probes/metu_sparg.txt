@@ -1,0 +1,124 @@
+# probe metu_sparg
+# root: /gpfs/scratch/eey119/rir-data/raw/metu_sparg/files
+
+8054 files, 1.55 GB
+extensions: .wav 8052, .txt 1, .pdf 1
+
+## tree
+__MACOSX/  (1 files)
+  spargair/  (1 files)
+    ._documentation.pdf  [0.00 MB]
+spargair/  (8054 files)
+  alctron/  (244 files)
+    000.wav  [0.19 MB]
+    001.wav  [0.19 MB]
+    002.wav  [0.19 MB]
+    003.wav  [0.19 MB]
+    004.wav  [0.19 MB]
+    010.wav  [0.19 MB]
+    ... 238 more files
+  em32/  (7808 files)
+    000/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    001/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    002/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    003/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    004/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    010/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    011/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    012/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    013/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    014/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    020/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    021/  (32 files)
+      IR00001.wav  [0.19 MB]
+      IR00002.wav  [0.19 MB]
+      IR00003.wav  [0.19 MB]
+      IR00004.wav  [0.19 MB]
+      IR00005.wav  [0.19 MB]
+      IR00006.wav  [0.19 MB]
+      ... 26 more files
+    ... 232 more dirs
+  LICENSE.txt  [0.02 MB]
+  documentation.pdf  [0.73 MB]
+
+## audio
+audio headers read: 3000 of 8052 (0 unreadable)
+    3000 x  1 ch  48000 Hz  PCM_16
+  duration s: min 2.000  median 2.000  max 2.000

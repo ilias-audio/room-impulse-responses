@@ -252,8 +252,14 @@ class SofaAdapter:
                 if len(roles) != R:
                     roles = [f"mic_{i}" for i in range(R)]
                 room_from = p.get("room_from") or ("pattern" if g.get("room") else "file")
-                room = g.get("room") if room_from == "pattern" else (
-                    Path(rel).parent.name if room_from == "parent" else Path(rel).stem)
+                if room_from == "pattern":
+                    room = g.get("room")
+                elif room_from == "dataset":
+                    room = p.get("room_default") or dataset.id
+                elif room_from == "parent":
+                    room = Path(rel).parent.name
+                else:
+                    room = Path(rel).stem
                 ms = p.get("m_select") or range(M)
                 es = range(E) if E else [None]
                 for m in ms:
@@ -345,8 +351,10 @@ class NdArrayAdapter:
 
     Params (all per `groups` entry, or top level):
       glob                 files to read
-      container            h5 | npy
-      array                HDF5 dataset path (h5 only)
+
+      array                HDF5 dataset path (h5) or MATLAB v5 variable (mat)
+      array_pattern        regex: every matching top-level HDF5 array becomes a condition
+      container            h5 | npy | mat (MATLAB v5, loaded whole)
       time_axis            axis holding samples
       channel_axis         axis holding simultaneous channels of one record (optional)
       record_axes          axes enumerated into records (all remaining axes if omitted)
@@ -360,9 +368,20 @@ class NdArrayAdapter:
     def _groups(self, params):
         return params.get("groups") or [params]
 
-    def _open(self, path: Path, g: dict):
+    _mat_cache: dict = {}
+
+    def _open(self, path: Path, g: dict, array: str | None = None):
+        array = array or g.get("array")
         if g.get("container", "h5") == "npy":
             return np.load(path, mmap_mode="r"), None
+        if g["container"] == "mat":             # MATLAB v5: load once per file (small files)
+            key = (str(path), array)
+            if key not in self._mat_cache:
+                import scipy.io
+
+                self._mat_cache.clear()
+                self._mat_cache[key] = np.asarray(scipy.io.loadmat(str(path), variable_names=[array])[array])
+            return self._mat_cache[key], None
         import h5py
 
         try:
@@ -370,11 +389,15 @@ class NdArrayAdapter:
         except ImportError:
             pass
         h = h5py.File(path, "r")
-        return h[g["array"]], h
+        return h[array], h
 
     def _fs(self, path: Path, g: dict) -> int:
         if "fs" in g:
             return int(g["fs"])
+        if "fs_var" in g:                              # MATLAB v5 variable
+            import scipy.io
+
+            return int(np.ravel(scipy.io.loadmat(str(path), variable_names=[g["fs_var"]])[g["fs_var"]])[0])
         import h5py
 
         with h5py.File(path, "r") as h:
@@ -395,37 +418,48 @@ class NdArrayAdapter:
                     continue
                 gd = m_.groupdict() if m_ else {}
                 rel = f.relative_to(root).as_posix()
-                arr, h = self._open(f, g)
-                shape = arr.shape
-                if h is not None:
-                    h.close()
-                t_ax = g["time_axis"] % len(shape)
-                c_ax = g.get("channel_axis")
-                c_ax = None if c_ax is None else c_ax % len(shape)
-                rec_axes = g.get("record_axes")
-                rec_axes = [a % len(shape) for a in rec_axes] if rec_axes is not None else \
-                    [a for a in range(len(shape)) if a not in (t_ax, c_ax)]
-                n_ch = shape[c_ax] if c_ax is not None else 1
-                roles = g.get("roles") or (["omni"] if n_ch == 1 else [f"mic_{i}" for i in range(n_ch)])
-                fs = self._fs(f, g)
-                room = gd.get("room") or g.get("room_default") or dataset.id
-                for idx in itertools.product(*[range(shape[a]) for a in rec_axes]):
-                    key = f"{rel}#" + ",".join(map(str, idx))
-                    yield IRRecord(
-                        dataset_id=dataset.id, local_key=key, room_key=slug(room),
-                        capture_format=g.get("capture_format", "mono_omni" if n_ch == 1 else "array_raw"),
-                        channel_roles=tuple(roles), fs=fs, n_samples=int(shape[t_ax]),
-                        locator={"relpath": rel, "container": g.get("container", "h5"), "group": gi,
-                                 "idx": list(idx)},
-                        condition_key=gd.get("cond"), src_key=gd.get("src"),
-                        rcv_key=gd.get("rcv") or ",".join(map(str, idx)),
-                        room_label=str(room).replace("_", " "), ir_kind=g.get("ir_kind", "room"),
-                        extra={"reference_role": g.get("reference_role")})
+                arrays = [g.get("array")]
+                if g.get("array_pattern"):            # one HDF5 array per condition (e.g. dEchorate)
+                    import h5py
+
+                    with h5py.File(f, "r") as hh:
+                        arrays = sorted(k for k in hh.keys() if re.fullmatch(g["array_pattern"], k))
+                for array in arrays:
+                    yield from self._records(dataset, g, gi, f, rel, gd, array, itertools)
+
+    def _records(self, dataset, g, gi, f, rel, gd, array, itertools):
+        arr, h = self._open(f, g, array)
+        shape = arr.shape
+        if h is not None:
+            h.close()
+        t_ax = g["time_axis"] % len(shape)
+        c_ax = g.get("channel_axis")
+        c_ax = None if c_ax is None else c_ax % len(shape)
+        rec_axes = g.get("record_axes")
+        rec_axes = [a % len(shape) for a in rec_axes] if rec_axes is not None else \
+            [a for a in range(len(shape)) if a not in (t_ax, c_ax)]
+        n_ch = shape[c_ax] if c_ax is not None else 1
+        roles = g.get("roles") or (["omni"] if n_ch == 1 else [f"mic_{i}" for i in range(n_ch)])
+        fs = self._fs(f, g)
+        room = gd.get("room") or g.get("room_default") or dataset.id
+        for idx in itertools.product(*[range(shape[a]) for a in rec_axes]):
+            key = f"{rel}#" + (f"{array}#" if g.get("array_pattern") else "") + ",".join(map(str, idx))
+            yield IRRecord(
+                dataset_id=dataset.id, local_key=key, room_key=slug(room),
+                capture_format=g.get("capture_format", "mono_omni" if n_ch == 1 else "array_raw"),
+                channel_roles=tuple(roles), fs=fs, n_samples=int(shape[t_ax]),
+                locator={"relpath": rel, "container": g.get("container", "h5"), "group": gi,
+                         "idx": list(idx), "array": array},
+                condition_key=gd.get("cond") or (array if g.get("array_pattern") else None),
+                src_key=gd.get("src"),
+                rcv_key=gd.get("rcv") or ",".join(map(str, idx)),
+                room_label=str(room).replace("_", " "), ir_kind=g.get("ir_kind", "room"),
+                extra={"reference_role": g.get("reference_role")})
 
     def load(self, locator: dict, root: Path):
         g = self._groups(self._params)[locator.get("group", 0)]
         path = root / locator["relpath"]
-        arr, h = self._open(path, g)
+        arr, h = self._open(path, g, locator.get("array"))
         try:
             shape = arr.shape
             t_ax = g["time_axis"] % len(shape)

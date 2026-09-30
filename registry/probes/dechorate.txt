@@ -1,0 +1,25 @@
+# probe dechorate
+# root: /gpfs/scratch/eey119/rir-data/raw/dechorate/files
+
+2 files, 0.36 GB
+extensions: .py 1, .hdf5 1
+
+## tree
+dechorate_rir_processed.hdf5  [357.24 MB]
+load_positions_and_plot.py  [0.01 MB]
+
+## audio
+
+## hdf5 (1 files; first 1)
+-- dechorate_rir_processed.hdf5
+   000000: (20000, 30, 7) float64
+   000001: (20000, 30, 7) float64
+   000010: (20000, 30, 7) float64
+   000100: (20000, 30, 7) float64
+   001000: (20000, 30, 7) float64
+   010000: (20000, 30, 7) float64
+   011000: (20000, 30, 7) float64
+   011100: (20000, 30, 7) float64
+   011110: (20000, 30, 7) float64
+   011111: (20000, 30, 7) float64
+   020002: (20000, 30, 7) float64

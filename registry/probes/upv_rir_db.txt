@@ -1,0 +1,65 @@
+# probe upv_rir_db
+# root: /gpfs/scratch/eey119/rir-data/raw/upv_rir_db/files
+
+371 files, 2.32 GB
+extensions: .mat 245, .json 60, .jpg 54, .fig 7, .lock 3, .xlsx 1, .md 1
+
+## tree
+Room_Teleco_4D26_mat/  (223 files)
+  Room_Teleco_4D26_mat/  (223 files)
+    RC1/  (220 files)
+      SC1/  (220 files)
+    metadata_backups/  (0 files)
+    ROOM.LOCK  [0.00 MB]
+    Room_Teleco_4D26_mat_metadata.json  [0.17 MB]
+    Room_Teleco_4D26_mat_metadata.mat  [0.02 MB]
+Room_Teleco_4P13_mat/  (105 files)
+  Room_Teleco_4P13_mat/  (105 files)
+    RC1/  (25 files)
+      SC1/  (25 files)
+    RC2/  (25 files)
+      SC1/  (25 files)
+    RC3/  (25 files)
+      SC1/  (25 files)
+    RC4/  (25 files)
+      SC1/  (25 files)
+    metadata_backups/  (2 files)
+      Room_Teleco_4P13_mat_metadata_20250715_181647.json  [0.05 MB]
+      Room_Teleco_4P13_mat_metadata_20250715_181647.mat  [0.01 MB]
+    ROOM.LOCK  [0.00 MB]
+    Room_Teleco_4P13_mat_metadata.json  [0.07 MB]
+    Room_Teleco_4P13_mat_metadata.mat  [0.01 MB]
+Room_iTEAM_8G4C_mat/  (25 files)
+  Room_iTEAM_8G4C_mat/  (25 files)
+    RC1/  (22 files)
+      SC1/  (11 files)
+      SC2/  (11 files)
+    metadata_backups/  (0 files)
+    ROOM.LOCK  [0.00 MB]
+    Room_iTEAM_8G4C_mat_metadata.json  [0.05 MB]
+    Room_iTEAM_8G4C_mat_metadata.mat  [0.01 MB]
+calibrations/  (14 files)
+  calibrations/  (14 files)
+    16_MIC_Bruel_array_STUDIO_CAPTURE_2025_4_11_calibration.fig  [4.21 MB]
+    16_MIC_Bruel_array_STUDIO_CAPTURE_2025_4_11_calibration.mat  [0.00 MB]
+    16_MIC_Bruel_array_STUDIO_CAPTURE_2025_4_14_calibration.fig  [4.21 MB]
+    16_MIC_Bruel_array_STUDIO_CAPTURE_2025_4_14_calibration.mat  [0.00 MB]
+    2_MIC_Bruel_BIN_array_STUDIO_CAPTURE_2025_5_19_calibration.fig  [0.71 MB]
+    2_MIC_Bruel_BIN_array_STUDIO_CAPTURE_2025_5_19_calibration.mat  [0.00 MB]
+    ... 8 more files
+config/  (2 files)
+  config/  (2 files)
+    backups/  (0 files)
+    hardware_ref.json  [0.00 MB]
+    mapping.json  [0.00 MB]
+Master_coordinates.xlsx  [0.22 MB]
+README.md  [0.01 MB]
+
+## audio
+
+## mat (245 files; first 5)
+-- AR_RC1_SC1_Z01_RIR.mat: [('h_ctrl', (16384, 8, 32), 'double')]
+-- AR_RC1_SC1_Z02_RIR.mat: [('h_ctrl', (16384, 8, 32), 'double')]
+-- AR_RC1_SC1_Z03_RIR.mat: [('h_ctrl', (16384, 8, 32), 'double')]
+-- AR_RC1_SC1_Z04_RIR.mat: [('h_ctrl', (16384, 8, 32), 'double')]
+-- AR_RC1_SC1_Z05_RIR.mat: [('h_ctrl', (16384, 8, 32), 'double')]

@@ -1,0 +1,100 @@
+# probe huddersfield_360_brir
+# root: /gpfs/scratch/eey119/rir-data/raw/huddersfield_360_brir/files
+
+82 files, 6.57 GB
+extensions: .wav 26, .sofa 17, .mat 17, <none> 15, .pdf 1, .txt 1, .md 1, .png 1, .sample 1, .pack 1, .idx 1
+
+## tree
+360-BRIR-FOAIR-database/  (82 files)
+  .git/  (18 files)
+    hooks/  (1 files)
+      README.sample  [0.00 MB]
+    info/  (1 files)
+      exclude  [0.00 MB]
+    logs/  (3 files)
+      refs/  (2 files)
+      HEAD  [0.00 MB]
+    objects/  (6 files)
+      3f/  (1 files)
+      71/  (1 files)
+      c2/  (1 files)
+      f6/  (1 files)
+      info/  (0 files)
+      pack/  (2 files)
+    refs/  (2 files)
+      heads/  (1 files)
+      remotes/  (1 files)
+      tags/  (0 files)
+    FETCH_HEAD  [0.00 MB]
+    HEAD  [0.00 MB]
+    config  [0.00 MB]
+    description  [0.00 MB]
+    index  [0.00 MB]
+  Binaural/  (34 files)
+    MATLAB/  (17 files)
+      C1m.mat  [216.98 MB]
+      C2m.mat  [217.01 MB]
+      C4m.mat  [217.08 MB]
+      C6m.mat  [217.51 MB]
+      C8m.mat  [216.97 MB]
+      L2m.mat  [217.59 MB]
+      ... 11 more files
+    SOFA/  (17 files)
+      C1m.sofa  [163.17 MB]
+      C2m.sofa  [163.20 MB]
+      C4m.sofa  [163.10 MB]
+      C6m.sofa  [163.77 MB]
+      C8m.sofa  [163.14 MB]
+      L2m.sofa  [163.74 MB]
+      ... 11 more files
+  FOA/  (26 files)
+    A Format/  (13 files)
+      C1m.wav  [3.84 MB]
+      C2m.wav  [3.84 MB]
+      C4m.wav  [3.84 MB]
+      C6m.wav  [3.84 MB]
+      C8m.wav  [3.84 MB]
+      L2m.wav  [3.84 MB]
+      ... 7 more files
+    B Format (AmbiX)/  (13 files)
+      C1m.wav  [3.84 MB]
+      C2m.wav  [3.84 MB]
+      C4m.wav  [3.84 MB]
+      C6m.wav  [3.84 MB]
+      C8m.wav  [3.84 MB]
+      L2m.wav  [3.84 MB]
+      ... 7 more files
+  img/  (1 files)
+    Stage-Layout.png  [0.06 MB]
+  License.txt  [0.02 MB]
+  README.md  [0.00 MB]
+  README.pdf  [0.08 MB]
+__MACOSX/  (6 files)
+  360-BRIR-FOAIR-database/  (6 files)
+    Binaural/  (1 files)
+      MATLAB/  (1 files)
+    FOA/  (2 files)
+      A Format/  (1 files)
+      B Format (AmbiX)/  (1 files)
+    ._License.txt  [0.00 MB]
+    ._README.md  [0.00 MB]
+    ._README.pdf  [0.00 MB]
+
+## audio
+audio headers read: 26 of 26 (0 unreadable)
+      26 x  4 ch  48000 Hz  FLOAT
+  duration s: min 5.000  median 5.000  max 5.000
+
+## mat (17 files; first 5)
+-- C1m.mat: [('IR_L', (240000, 100), 'double'), ('IR_R', (240000, 100), 'double')]
+-- C2m.mat: [('IR_L', (240000, 100), 'double'), ('IR_R', (240000, 100), 'double')]
+-- C4m.mat: [('IR_L', (240000, 100), 'double'), ('IR_R', (240000, 100), 'double')]
+-- C6m.mat: [('IR_L', (240000, 100), 'double'), ('IR_R', (240000, 100), 'double')]
+-- C8m.mat: [('IR_L', (240000, 100), 'double'), ('IR_R', (240000, 100), 'double')]
+
+## sofa (17 files; first 5)
+-- C1m.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (100, 2, 240000); fs 48000.0
+-- C2m.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (100, 2, 240000); fs 48000.0
+-- C4m.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (100, 2, 240000); fs 48000.0
+-- C6m.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (100, 2, 240000); fs 48000.0
+-- C8m.sofa: SimpleFreeFieldHRIR v1.0; Data.IR (100, 2, 240000); fs 48000.0

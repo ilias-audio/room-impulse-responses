@@ -1,0 +1,5 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+sh_rirs.zip	https://zenodo.org/api/records/4923187/files/sh_rirs.zip/content	16121312508	md5	b38d29a9b2ebfc22c49812d267b55a0c	zenodo:4923187	2026-09-30T17:48:48Z
+code.zip	https://zenodo.org/api/records/4923187/files/code.zip/content	7731	md5	6a1613e0c41ede44eba119d6edf578cd	zenodo:4923187	2026-09-30T17:48:48Z
+3d_models.zip	https://zenodo.org/api/records/4923187/files/3d_models.zip/content	136003155	md5	eb3df759068ad1ef38b4c155d53b0676	zenodo:4923187	2026-09-30T17:48:48Z
+metadata.zip	https://zenodo.org/api/records/4923187/files/metadata.zip/content	71496267	md5	9d0bee4263664c1c12fdf1f05d908428	zenodo:4923187	2026-09-30T17:48:48Z

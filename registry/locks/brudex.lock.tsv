@@ -1,0 +1,7 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+rir.zip	https://zenodo.org/api/records/8340195/files/rir.zip/content	2548385959	md5	343a71bd5362e7c70932366b16911233	zenodo:8340195	2026-09-30T17:37:07Z
+LICENSE	https://zenodo.org/api/records/8340195/files/LICENSE/content	1146	md5	c6475e7d20df0a21b0b9897a09039084	zenodo:8340195	2026-09-30T17:37:07Z
+Setup_Database.pdf	https://zenodo.org/api/records/8340195/files/Setup_Database.pdf/content	51096	md5	b92654198fb251b3b989dcb4a4c6bba5	zenodo:8340195	2026-09-30T17:37:07Z
+matlabScripts.zip	https://zenodo.org/api/records/8340195/files/matlabScripts.zip/content	8212	md5	769eabccd14eccacf6c6ab82ff5498bd	zenodo:8340195	2026-09-30T17:37:07Z
+pythonScripts.zip	https://zenodo.org/api/records/8340195/files/pythonScripts.zip/content	3709	md5	d8f1c869c192d2b126e13f4313cf8d2e	zenodo:8340195	2026-09-30T17:37:07Z
+README.txt	https://zenodo.org/api/records/8340195/files/README.txt/content	9681	md5	7dd0e54768a55725de0f504052c51db0	zenodo:8340195	2026-09-30T17:37:07Z

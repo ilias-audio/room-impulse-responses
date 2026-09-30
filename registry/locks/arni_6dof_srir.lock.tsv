@@ -1,0 +1,10 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+eigenmike_rotation_compensation.mat	https://zenodo.org/api/records/6382405/files/eigenmike_rotation_compensation.mat/content	1691	md5	aae28aeb46862ee5fabe88e2503e4141	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_source_and_receiver_positions.pdf	https://zenodo.org/api/records/6382405/files/6dof_source_and_receiver_positions.pdf/content	244102	md5	9ff8b93d000785773d81887b1ae7dd3e	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_SRIRs_eigenmike_raw.zip	https://zenodo.org/api/records/6382405/files/6dof_SRIRs_eigenmike_raw.zip/content	2838201534	md5	4ae31c4d8040034b06d51d0791c4445e	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_frontal_source_noEcho_100percent_absorbers_enabled.wav	https://zenodo.org/api/records/6382405/files/6dof_frontal_source_noEcho_100percent_absorbers_enabled.wav/content	29670	md5	ee5fb61249e73ba8765dc1dbf3d94088	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_SRIRs_zylia_raw.zip	https://zenodo.org/api/records/6382405/files/6dof_SRIRs_zylia_raw.zip/content	1680935972	md5	74bc3faf38555fe04b1d42eb3d3ab058	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_SRIRs_zylia_SH.zip	https://zenodo.org/api/records/6382405/files/6dof_SRIRs_zylia_SH.zip/content	1415680948	md5	7d986770000197be730722d95427f8fe	zenodo:6382405	2026-09-30T18:10:58Z
+CompensationRotationForEigenmikeMeasurements.m	https://zenodo.org/api/records/6382405/files/CompensationRotationForEigenmikeMeasurements.m/content	1306	md5	3bad7698ed1d3952f0be4bd9ea3c5a2a	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_SRIRs_eigenmike_SH.zip	https://zenodo.org/api/records/6382405/files/6dof_SRIRs_eigenmike_SH.zip/content	2211211749	md5	8ec02a2c67494fbb8693fd4b7de8aed9	zenodo:6382405	2026-09-30T18:10:58Z
+6dof_source_and_receiver_positions.jpg	https://zenodo.org/api/records/6382405/files/6dof_source_and_receiver_positions.jpg/content	1190764	md5	c5807dd89c0c866ae64caf16b22a61eb	zenodo:6382405	2026-09-30T18:10:58Z

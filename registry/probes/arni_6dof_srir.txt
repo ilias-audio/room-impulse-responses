@@ -1,0 +1,55 @@
+# probe arni_6dof_srir
+# root: /gpfs/scratch/eey119/rir-data/raw/arni_6dof_srir/files
+
+25 files, 10.85 GB
+extensions: .sofa 20, .m 1, .pdf 1, .mat 1, .wav 1, .jpg 1
+
+## tree
+6dof_SRIRs_eigenmike_SH/  (5 files)
+  6dof_SRIRs_eigenmike_SH/  (5 files)
+    6DoF_SRIRs_eigenmike_SH_0percent_absorbers_enabled.sofa  [564.59 MB]
+    6DoF_SRIRs_eigenmike_SH_100percent_absorbers_enabled.sofa  [564.59 MB]
+    6DoF_SRIRs_eigenmike_SH_25percent_absorbers_enabled.sofa  [564.59 MB]
+    6DoF_SRIRs_eigenmike_SH_50percent_absorbers_enabled.sofa  [564.59 MB]
+    6DoF_SRIRs_eigenmike_SH_75percent_absorbers_enabled.sofa  [564.59 MB]
+6dof_SRIRs_eigenmike_raw/  (5 files)
+  6dof_SRIRs_eigenmike_raw/  (5 files)
+    6DoF_SRIRs_eigenmike_raw_0percent_absorbers_enabled.sofa  [705.73 MB]
+    6DoF_SRIRs_eigenmike_raw_100percent_absorbers_enabled.sofa  [705.73 MB]
+    6DoF_SRIRs_eigenmike_raw_25percent_absorbers_enabled.sofa  [705.73 MB]
+    6DoF_SRIRs_eigenmike_raw_50percent_absorbers_enabled.sofa  [705.73 MB]
+    6DoF_SRIRs_eigenmike_raw_75percent_absorbers_enabled.sofa  [705.73 MB]
+6dof_SRIRs_zylia_SH/  (5 files)
+  6dof_SRIRs_zylia_SH/  (5 files)
+    6DoF_SRIRs_zylia_SH_0percent_absorbers_enabled.sofa  [414.82 MB]
+    6DoF_SRIRs_zylia_SH_100percent_absorbers_enabled.sofa  [414.82 MB]
+    6DoF_SRIRs_zylia_SH_25percent_absorbers_enabled.sofa  [414.82 MB]
+    6DoF_SRIRs_zylia_SH_50percent_absorbers_enabled.sofa  [414.82 MB]
+    6DoF_SRIRs_zylia_SH_75percent_absorbers_enabled.sofa  [414.82 MB]
+6dof_SRIRs_zylia_raw/  (5 files)
+  6dof_SRIRs_zylia_raw/  (5 files)
+    6DoF_SRIRs_zylia_raw_0percent_absorbers_enabled.sofa  [483.94 MB]
+    6DoF_SRIRs_zylia_raw_100percent_absorbers_enabled.sofa  [483.94 MB]
+    6DoF_SRIRs_zylia_raw_25percent_absorbers_enabled.sofa  [483.94 MB]
+    6DoF_SRIRs_zylia_raw_50percent_absorbers_enabled.sofa  [483.94 MB]
+    6DoF_SRIRs_zylia_raw_75percent_absorbers_enabled.sofa  [483.94 MB]
+6dof_frontal_source_noEcho_100percent_absorbers_enabled.wav  [0.03 MB]
+6dof_source_and_receiver_positions.jpg  [1.19 MB]
+6dof_source_and_receiver_positions.pdf  [0.24 MB]
+CompensationRotationForEigenmikeMeasurements.m  [0.00 MB]
+eigenmike_rotation_compensation.mat  [0.00 MB]
+
+## audio
+audio headers read: 1 of 1 (0 unreadable)
+       1 x  25 ch  48000 Hz  PCM_24
+  duration s: min 0.008  median 0.008  max 0.008
+
+## mat (1 files; first 1)
+-- eigenmike_rotation_compensation.mat: [('R_ACN_o4', (25, 25), 'double'), ('R_zyx_euler', (3, 3), 'double')]
+
+## sofa (20 files; first 5)
+-- 6DoF_SRIRs_eigenmike_SH_0percent_absorbers_enabled.sofa: SingleRoomDRIR v0.3; Data.IR (21, 25, 120000); fs 48000.0
+-- 6DoF_SRIRs_eigenmike_SH_100percent_absorbers_enabled.sofa: SingleRoomDRIR v0.3; Data.IR (21, 25, 120000); fs 48000.0
+-- 6DoF_SRIRs_eigenmike_SH_25percent_absorbers_enabled.sofa: SingleRoomDRIR v0.3; Data.IR (21, 25, 120000); fs 48000.0
+-- 6DoF_SRIRs_eigenmike_SH_50percent_absorbers_enabled.sofa: SingleRoomDRIR v0.3; Data.IR (21, 25, 120000); fs 48000.0
+-- 6DoF_SRIRs_eigenmike_SH_75percent_absorbers_enabled.sofa: SingleRoomDRIR v0.3; Data.IR (21, 25, 120000); fs 48000.0

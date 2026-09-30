@@ -1,0 +1,8 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+README.md	https://zenodo.org/api/records/19371528/files/README.md/content	9915	md5	4a8d7c1a8eff47791606f5df27e981ff	zenodo:19371528	2026-09-30T17:33:58Z
+Master_coordinates.xlsx	https://zenodo.org/api/records/19371528/files/Master_coordinates.xlsx/content	219400	md5	3eb215fafa7e4b0ddb3e766f62b82850	zenodo:19371528	2026-09-30T17:33:58Z
+calibrations.zip	https://zenodo.org/api/records/19371528/files/calibrations.zip/content	12419994	md5	fb89b9b3c0316910010f5325a6816b86	zenodo:19371528	2026-09-30T17:33:58Z
+config.zip	https://zenodo.org/api/records/19371528/files/config.zip/content	1500	md5	e19bdc66187de7e3a577afbb6fbfb05d	zenodo:19371528	2026-09-30T17:33:58Z
+Room_Teleco_4P13_mat.zip	https://zenodo.org/api/records/19371528/files/Room_Teleco_4P13_mat.zip/content	1164626163	md5	3210c750061167d4b2744406beb806db	zenodo:19371528	2026-09-30T17:33:58Z
+Room_iTEAM_8G4C_mat.zip	https://zenodo.org/api/records/19371528/files/Room_iTEAM_8G4C_mat.zip/content	323751737	md5	3ff0762754eb3d038e57e4ee9a66ae9a	zenodo:19371528	2026-09-30T17:33:58Z
+Room_Teleco_4D26_mat.zip	https://zenodo.org/api/records/19371528/files/Room_Teleco_4D26_mat.zip/content	804398223	md5	fd4c785a1d274065cb240ce3da8566da	zenodo:19371528	2026-09-30T17:33:58Z

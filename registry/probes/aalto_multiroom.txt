@@ -1,0 +1,10 @@
+# probe aalto_multiroom
+# root: /gpfs/scratch/eey119/rir-data/raw/aalto_multiroom/files
+
+1 files, 1.55 GB
+extensions: .pkl 1
+
+## tree
+all_scenes_denoised.pkl  [1548.31 MB]
+
+## audio

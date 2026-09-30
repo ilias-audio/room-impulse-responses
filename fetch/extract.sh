@@ -97,6 +97,8 @@ extract_one() {
         else
             extract_archive "$a" "$files"
         fi
+        # some archives store directories without read/execute permission (e.g. Aalto robot set)
+        chmod -R u+rwX "$files" 2>/dev/null || true
         date -u +%FT%TZ >"$okdir/$rel.extracted"
     done < <(find "$arch" -type f ! -name '*.part' | sort)
     if [ "$keep" -eq 0 ]; then

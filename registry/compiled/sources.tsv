@@ -36,7 +36,7 @@ homula_rir	2	planned	open	zenodo	10479726	-	-	-	-	auto
 flair	2	planned	open	zenodo	17037517	-	-	-	-	auto
 brudex	2	planned	open	zenodo	8340195	-	rir.zip|README.txt|LICENSE|Setup_Database.pdf|pythonScripts.zip|matlabScripts.zip	-	-	0
 huddersfield_360_brir	2	planned	open	zenodo	2641166	-	-	-	-	0
-soundcam	2	planned	open	http	-	https://stacks.stanford.edu/file/druid:xq364hd5023/ConferenceRoom_preprocessed.tar.gz|https://stacks.stanford.edu/file/druid:xq364hd5023/LivingRoom_preprocessed.tar.gz|https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoom_preprocessed.tar.gz|https://stacks.stanford.edu/file/druid:xq364hd5023/TreatedRoomPanels_preprocessed.tar.gz	-	-	-	0
+soundcam	2	planned	open	http	-	https://stacks.stanford.edu/file/druid:xq364hd5023/ConferenceRoom_preprocessed.tar.gz	-	-	-	0
 ace_arrays	2	planned	open	zenodo	6257551	-	ACE_Corpus_RIRN_Chromebook.tbz2|ACE_Corpus_RIRN_Mobile.tbz2|ACE_Corpus_RIRN_Crucif.tbz2|ACE_Corpus_RIRN_Lin8Ch.tbz2|ACE_Corpus_RIRN_EM32.tbz2	-	-	0
 rsoanu	2	planned	open	zenodo	10720345	-	-	-	-	0
 gtu_rir	2	manual	manual	manual	-	-	-	-	-	auto
