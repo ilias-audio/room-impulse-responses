@@ -179,6 +179,14 @@ def report_corpus() -> None:
     console.print(f"wrote {build().relative_to(paths.REPO_ROOT)}")
 
 
+@report_app.command("validation")
+def report_validation() -> None:
+    """Compare with values published with the datasets -> reports/validation/."""
+    from rirdb.validate import build
+
+    console.print(f"wrote {build().relative_to(paths.REPO_ROOT)}")
+
+
 @report_app.command("cards")
 def report_cards() -> None:
     """One card per registry dataset -> docs/datasets/<id>.md."""

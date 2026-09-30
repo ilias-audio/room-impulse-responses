@@ -37,6 +37,7 @@ torchaudio = ">=2.4,<3"
 cuda-version = ">=12.6,<12.7"
 onnx = "*"
 onnxruntime = "*"
+openpyxl = ">=3.1.5,<4"
 
 [pypi-dependencies]
 pyfar = ">=0.8.1,<0.9"

@@ -143,3 +143,13 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
   flagged. The flag now also requires the pre-onset power to reach -55 dB re
   peak (`pre_onset_min_level_db`). Rochester's time-aliased tails (-39 to
   -47 dB) are still flagged.
+- **Cross-validation against OpenAIR's published tables** (49 spaces, per-space
+  medians of our valid values vs OpenAIR's own analysis; `reports/validation/`).
+  T30: median ratio 0.99-1.00 from 250 Hz to 4 kHz, 69-76 % of spaces within
+  10 %. EDT and C80/D50 (>= 500 Hz) unbiased but more scattered (single published
+  value vs position-dependent early parameters). **Known limitation:** C80 at
+  125 Hz is 3 dB lower than OpenAIR's (median). Likely the group delay of the
+  causal order-14 octave filter at low frequencies, which moves early energy past
+  80 ms; OpenAIR's filter implementation is undocumented. Candidate fix for v1.1:
+  compensate each band by its group delay at the centre frequency before the
+  energy ratios (decay times are unaffected by a pure delay).
