@@ -1,0 +1,35 @@
+# probe ok5
+# root: /gpfs/scratch/eey119/rir-data/raw/ok5/files
+
+26 files, 0.54 GB
+extensions: .sofa 25, .pdf 1
+
+## tree
+__MACOSX/  (26 files)
+  measurements/  (25 files)
+    ._E207d_meeting_room.sofa  [0.00 MB]
+    ._E306a_meeting_room.sofa  [0.00 MB]
+    ._E306b_meeting_room.sofa  [0.00 MB]
+    ._cerberus_meeting_room.sofa  [0.00 MB]
+    ._corridor_second_floor.sofa  [0.00 MB]
+    ._corridor_second_floor_2.sofa  [0.00 MB]
+    ... 19 more files
+  ._measurements  [0.00 MB]
+measurements/  (25 files)
+  E207d_meeting_room.sofa  [7.83 MB]
+  E306a_meeting_room.sofa  [7.67 MB]
+  E306b_meeting_room.sofa  [7.68 MB]
+  cerberus_meeting_room.sofa  [22.90 MB]
+  corridor_second_floor.sofa  [23.42 MB]
+  corridor_second_floor_2.sofa  [22.96 MB]
+  ... 19 more files
+floor_plan.pdf  [0.22 MB]
+
+## audio
+
+## sofa (25 files; first 5)
+-- E207d_meeting_room.sofa: SingleRoomSRIR v1.0; Data.IR (1, 6, 192000); fs 48000.0
+-- E306a_meeting_room.sofa: SingleRoomSRIR v1.0; Data.IR (1, 6, 192000); fs 48000.0
+-- E306b_meeting_room.sofa: SingleRoomSRIR v1.0; Data.IR (1, 6, 192000); fs 48000.0
+-- cerberus_meeting_room.sofa: SingleRoomSRIR v1.0; Data.IR (3, 6, 192000); fs 48000.0
+-- corridor_second_floor.sofa: SingleRoomSRIR v1.0; Data.IR (3, 6, 192000); fs 48000.0

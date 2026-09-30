@@ -1,0 +1,181 @@
+# probe openair
+# root: /gpfs/scratch/eey119/rir-data/raw/openair/files
+
+884 files, 5.34 GB
+extensions: .wav 773, .txt 56, .xlsx 49, .pdf 6
+
+## tree
+1st-baptist-nashville/  (5 files)
+  Data Tables/  (1 files)
+    1st-baptist-nashville.xlsx  [0.01 MB]
+  stereo/  (3 files)
+    1st_baptist_nashville_balcony.wav  [1.76 MB]
+    1st_baptist_nashville_far_close.wav  [1.76 MB]
+    1st_baptist_nashville_far_wide.wav  [2.05 MB]
+  Read Me.txt  [0.00 MB]
+Live Room (Physics and Electronic Engineering Buildings)/  (12 files)
+  B-Format/  (8 files)
+    S1R1_LiveRoom_IR_1.wav  [0.40 MB]
+    S1R2_LiveRoom_IR_1.wav  [0.40 MB]
+    S1R3_LiveRoom_IR_1.wav  [0.40 MB]
+    S1R4_LiveRoom_IR_1.wav  [0.40 MB]
+    S2R1_LiveRoom_IR_1.wav  [0.40 MB]
+    S2R2_LiveRoom_IR_1.wav  [0.40 MB]
+    ... 2 more files
+  Data Tables/  (1 files)
+    Acoustic Analysis Parameters.xlsx  [0.01 MB]
+  Examples/  (3 files)
+    singer_s1r1.wav  [1.49 MB]
+    singer_s1r4.wav  [1.49 MB]
+    singer_s2r1.wav  [1.49 MB]
+  Images/  (0 files)
+  Virtual Recreation/  (0 files)
+PL001/  (18 files)
+  PL001-3order-Ambisonic-16channels/  (8 files)
+    IR_EigenmikePL001B1_processed.wav  [5.99 MB]
+    IR_EigenmikePL001B2_processed.wav  [6.91 MB]
+    IR_EigenmikePL001F1_processed.wav  [6.91 MB]
+    IR_EigenmikePL001F2_processed.wav  [6.91 MB]
+    IR_EigenmikePL001L1_processed.wav  [4.32 MB]
+    IR_EigenmikePL001L2_processed.wav  [6.91 MB]
+    ... 2 more files
+  PL001-bformat/  (8 files)
+    IR_EigenmikePL001B1_processed_Bformat.wav  [1.50 MB]
+    IR_EigenmikePL001B2_processed_Bformat.wav  [1.73 MB]
+    IR_EigenmikePL001F1_processed_Bformat.wav  [1.73 MB]
+    IR_EigenmikePL001F2_processed_Bformat.wav  [1.73 MB]
+    IR_EigenmikePL001L1_processed_Bformat.wav  [1.08 MB]
+    IR_EigenmikePL001L2_processed_Bformat.wav  [1.73 MB]
+    ... 2 more files
+  Read Me.txt  [0.01 MB]
+  Richard Cully Project Report.pdf  [96.61 MB]
+Theatre41/  (38 files)
+  Averaged_Theatre41_IRs/  (3 files)
+    theatre41_CenterAVG_32_48.wav  [3.84 MB]
+    theatre41_LeftAVG_32_48.wav  [3.84 MB]
+    theatre41_RightAVG_32_48.wav  [3.84 MB]
+  ESS_20_20000/  (2 files)
+    Inverse_Sweep_20_to_20000_48000.wav  [2.19 MB]
+    Sweep_20_to_20000_48000.wav  [3.05 MB]
+  Individual_IR_Takes/  (15 files)
+    theatre41_C01_bformatIR_48k.wav  [3.84 MB]
+    theatre41_C02_bformatIR_48k.wav  [2.88 MB]
+    theatre41_C03_bformatIR_48k.wav  [2.88 MB]
+    theatre41_C04_bformatIR_48k.wav  [2.88 MB]
+    theatre41_C05_bformatIR_48k.wav  [2.88 MB]
+    theatre41_HL01_bformatIR_48k.wav  [2.88 MB]
+    ... 9 more files
+  Room_Sweeps/  (15 files)
+    theatre41_bformat_houseCenter01.wav  [10.98 MB]
+    theatre41_bformat_houseCenter02.wav  [10.98 MB]
+    theatre41_bformat_houseCenter03.wav  [10.98 MB]
+    theatre41_bformat_houseCenter04.wav  [10.98 MB]
+    theatre41_bformat_houseCenter05.wav  [10.98 MB]
+    theatre41_bformat_houseLeft01.wav  [10.60 MB]
+    ... 9 more files
+  Theatre41_Pics/  (0 files)
+  1_README_THEATRE41_JULY25.pdf  [0.05 MB]
+  theatre41_CenterAVG_32_48.wav  [0.72 MB]
+  voice_convolved.wav  [1.42 MB]
+air-museum/  (11 files)
+  b-format/  (8 files)
+    AM_spist_S2R1.wav  [3.18 MB]
+    AM_spist_S3R1.wav  [3.18 MB]
+    AM_spist_S4R2_1.wav  [3.18 MB]
+    AM_spist_S4R2_2.wav  [3.18 MB]
+    AR_bformat_S1R1_1.wav  [2.38 MB]
+    AR_bformat_S1R1_2.wav  [2.65 MB]
+    ... 2 more files
+  AM_AP.pdf  [0.02 MB]
+  Description.txt  [0.00 MB]
+  Read Me.txt  [0.00 MB]
+alcuin-college-university-york/  (27 files)
+  Data Tables/  (1 files)
+    alcuin-college-university-york.xlsx  [0.01 MB]
+  b-format/  (25 files)
+    alcuin_s1r1_bformat.wav  [5.76 MB]
+    alcuin_s1r1front_bformat.wav  [5.76 MB]
+    alcuin_s1r2_bformat.wav  [5.76 MB]
+    alcuin_s1r2front_bformat.wav  [5.76 MB]
+    alcuin_s1r3_bformat.wav  [5.76 MB]
+    alcuin_s1r3front_bformat.wav  [5.76 MB]
+    ... 19 more files
+  Read Me.txt  [0.00 MB]
+arthur-sykes-rymer-auditorium-university-york/  (8 files)
+  Data Tables/  (1 files)
+    arthur-sykes-rymer-auditorium-university-york.xlsx  [0.01 MB]
+  b-format/  (6 files)
+    s1r2.wav  [1.73 MB]
+    s1r4.wav  [1.73 MB]
+    s1r7.wav  [1.73 MB]
+    s2r4.wav  [1.73 MB]
+    s2r6.wav  [1.73 MB]
+    s2r7.wav  [1.73 MB]
+  Read Me.txt  [0.00 MB]
+central-hall-university-york/  (8 files)
+  Data Tables/  (1 files)
+    central-hall-university-york.xlsx  [0.01 MB]
+  b-format/  (6 files)
+    ir_centre_stalls.wav  [1.92 MB]
+    ir_row_1c_sl_front.wav  [1.92 MB]
+    ir_row_1l_sl_centre.wav  [1.92 MB]
+    ir_row_2l_diagonal_mid.wav  [1.92 MB]
+    ir_row_3c_centre_front.wav  [1.92 MB]
+    ir_row_3l_centre_mid.wav  [1.92 MB]
+  Read Me.txt  [0.00 MB]
+cliffords-tower/  (5 files)
+  clifford-tower-IR-Bformat/  (4 files)
+    clifford_tower_S1R1_Bformat.wav  [0.77 MB]
+    clifford_tower_S1R2_Bformat.wav  [0.77 MB]
+    clifford_tower_S1R3_Bformat.wav  [0.77 MB]
+    clifford_tower_S2R4_Bformat.wav  [0.77 MB]
+  Read Me.txt  [0.00 MB]
+creswell-crags/  (15 files)
+  Data Tables/  (1 files)
+    creswell-crags.xlsx  [0.01 MB]
+  b-format/  (13 files)
+    1_r_rhcbottom_s_rhc_bottom.wav  [1.16 MB]
+    1_s_mainlevel_r_mainlevel.wav  [0.77 MB]
+    1_s_mainlevel_r_mainlevel2.wav  [0.77 MB]
+    2_r_rhcbottom_s_rhc_mouth.wav  [0.95 MB]
+    2_s_mainlevel_r_mouth.wav  [0.77 MB]
+    3_r_rhcbottom_s_acrosswater.wav  [1.14 MB]
+    ... 7 more files
+  mono/  (0 files)
+  Read Me.txt  [0.00 MB]
+dixon-studio-theatre-university-york/  (7 files)
+  Data Tables/  (1 files)
+    dixon-studio-theatre-university-york.xlsx  [0.01 MB]
+  b-format/  (5 files)
+    r1_rir_bformat.wav  [2.30 MB]
+    r2_rir_bformat.wav  [2.30 MB]
+    r3_rir_bformat.wav  [2.30 MB]
+    r4_rir_bformat.wav  [2.30 MB]
+    r5_rir_bformat.wav  [2.30 MB]
+  Read Me.txt  [0.00 MB]
+elveden-hall-suffolk-england/  (6 files)
+  Data Tables/  (1 files)
+    elveden-hall-suffolk-england.xlsx  [0.01 MB]
+  stereo/  (4 files)
+    18a_smoking_room.wav  [1.40 MB]
+    1a_marble_hall.wav  [1.42 MB]
+    3a_hats_cloaks_the_lord.wav  [1.41 MB]
+    4a_hats_cloaks_visitors.wav  [1.41 MB]
+  Read Me.txt  [0.00 MB]
+... 47 more dirs
+
+## audio
+audio headers read: 773 of 773 (0 unreadable)
+     181 x  4 ch  96000 Hz  PCM_24
+      74 x  4 ch  44100 Hz  PCM_24
+      72 x  4 ch  48000 Hz  PCM_24
+      63 x  4 ch  96000 Hz  PCM_16
+      50 x  1 ch  96000 Hz  PCM_24
+      45 x  1 ch  44100 Hz  PCM_24
+      42 x  2 ch  44100 Hz  PCM_24
+      41 x  1 ch  48000 Hz  PCM_24
+      30 x  1 ch  96000 Hz  FLOAT
+      25 x  4 ch  96000 Hz  FLOAT
+      24 x  2 ch  96000 Hz  FLOAT
+      16 x  16 ch  48000 Hz  PCM_24
+  duration s: min 0.403  median 5.000  max 227.000

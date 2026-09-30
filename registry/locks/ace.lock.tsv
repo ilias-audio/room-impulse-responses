@@ -1,0 +1,6 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+ACE_Corpus_RIRN_Single.tbz2	https://zenodo.org/api/records/6257551/files/ACE_Corpus_RIRN_Single.tbz2/content	417202565	md5	d365026b3974a198ef58e8d3e647a415	zenodo:6257551	2026-09-30T15:21:02Z
+ACE_TASLP_ref.bib	https://zenodo.org/api/records/6257551/files/ACE_TASLP_ref.bib/content	374	md5	748b59d992db9c811c7c1ed7244403cc	zenodo:6257551	2026-09-30T15:21:02Z
+ACE_Corpus_Data.tbz2	https://zenodo.org/api/records/6257551/files/ACE_Corpus_Data.tbz2/content	1152953	md5	9d64e89b0e566022e00dfa7de9a5d7b7	zenodo:6257551	2026-09-30T15:21:02Z
+ACE_Corpus_instructions_v01.pdf	https://zenodo.org/api/records/6257551/files/ACE_Corpus_instructions_v01.pdf/content	77578	md5	7069d371c19a6812cea27f553864cbfd	zenodo:6257551	2026-09-30T15:21:02Z
+ACE_Corpus_Microphone_arrangements_v02.pdf	https://zenodo.org/api/records/6257551/files/ACE_Corpus_Microphone_arrangements_v02.pdf/content	3429301	md5	6e78f8a1b218dd2300ae06b1fb8710ad	zenodo:6257551	2026-09-30T15:21:02Z

@@ -83,5 +83,89 @@ def verify(
         raise typer.Exit(code=1)
 
 
+@app.command()
+def probe(dataset_ids: list[str] = typer.Argument(..., help="Datasets to probe.")) -> None:
+    """Summarise fetched files into registry/probes/<id>.txt (commit it)."""
+    from rirdb.probe import probe as run_probe
+
+    for d in dataset_ids:
+        out = run_probe(d)
+        console.print(f"wrote {out.relative_to(paths.REPO_ROOT)}")
+
+
+@app.command()
+def index(
+    dataset_ids: list[str] = typer.Argument(None),
+    wave: list[int] = typer.Option(None, "--wave"),
+    all_: bool = typer.Option(False, "--all"),
+) -> None:
+    """Build the canonical IR index for datasets with an adapter configured."""
+    from rirdb.index import build_index
+
+    table = Table("dataset", "IRs", "rooms", "subsample_v1", "fs", "channels", "expected")
+    for d in _select(dataset_ids, wave, all_):
+        if not d.adapter.name:
+            console.print(f"[yellow]skip {d.id}: no adapter configured[/yellow]")
+            continue
+        s = build_index(d)
+        exp = d.expected.n_irs
+        table.add_row(d.id, str(s["n_irs"]), str(s["n_rooms"]), str(s["n_subsample_v1"]),
+                      ",".join(map(str, s["fs"])), ",".join(map(str, s["channels"])), str(exp or "?"))
+    console.print(table)
+
+
+@app.command()
+def analyze(
+    dataset_id: str = typer.Option(..., "--dataset"),
+    shard: str = typer.Option("0", help="Shard index, or 'auto' inside a SLURM array."),
+    n_shards: int = typer.Option(1),
+    workers: int = typer.Option(0, help="Processes (0: SLURM_CPUS_PER_TASK or 4)."),
+    full: bool = typer.Option(False, help="Analyse all records, not only subsample_v1."),
+    limit: int = typer.Option(0, help="Only the first N records of the shard (smoke tests)."),
+) -> None:
+    """Analyse one shard of a dataset (metrics parquet + feature h5)."""
+    import os
+
+    from rirdb.run import analyze_shard, auto_shard
+
+    if shard == "auto":
+        s, n = auto_shard()
+    else:
+        s, n = int(shard), n_shards
+    w = workers or int(os.environ.get("SLURM_CPUS_PER_TASK", 4))
+    out = analyze_shard(dataset_id, s, n, w, full=full, limit=limit or None)
+    console.print(f"wrote {out}")
+
+
+@app.command()
+def merge(dataset_ids: list[str] = typer.Argument(...)) -> None:
+    """Merge metric shards into metrics/v1/<id>/wide.parquet."""
+    from rirdb.run import merge as run_merge
+
+    for d in dataset_ids:
+        console.print(f"wrote {run_merge(d)}")
+
+
+@app.command("query")
+def query_cmd(
+    where: str = typer.Argument(..., help="SQL predicate over the `corpus` view."),
+    columns: str = typer.Option("", help="Comma-separated columns (default: a core set)."),
+    limit: int = typer.Option(50),
+    order_by: str = typer.Option("", help="ORDER BY clause, e.g. 't30_mid DESC'."),
+    csv: str = typer.Option("", help="Also write the result to this CSV path."),
+) -> None:
+    """Pick IRs by constraints (DuckDB over the metrics Parquet)."""
+    import pandas as pd
+
+    from rirdb.query import query
+
+    df = query(where, [c.strip() for c in columns.split(",") if c.strip()] or None, limit, order_by or None)
+    with pd.option_context("display.width", 200, "display.max_columns", 40, "display.max_colwidth", 40):
+        console.print(df.to_string(index=False))
+    console.print(f"{len(df)} rows")
+    if csv:
+        df.to_csv(csv, index=False)
+
+
 if __name__ == "__main__":
     app()

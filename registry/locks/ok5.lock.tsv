@@ -1,0 +1,3 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+floor_plan.pdf	https://zenodo.org/api/records/18622201/files/floor_plan.pdf/content	221282	md5	488b62c0cad16de2de91a26efb76dd0a	zenodo:18622201	2026-09-30T15:09:46Z
+measurements.zip	https://zenodo.org/api/records/18622201/files/measurements.zip/content	541020037	md5	659c7b7c2e3ff865ccd263a79269242c	zenodo:18622201	2026-09-30T15:09:46Z

@@ -1,0 +1,21 @@
+# probe c4dm
+# root: /gpfs/scratch/eey119/rir-data/raw/c4dm/files
+
+301 files, 0.17 GB
+extensions: .wav 299, <none> 2
+
+## tree
+Omni/  (300 files)
+  .DS_Store  [0.01 MB]
+  00x00y.wav  [0.58 MB]
+  00x05y.wav  [0.58 MB]
+  00x10y.wav  [0.58 MB]
+  00x15y.wav  [0.58 MB]
+  00x20y.wav  [0.58 MB]
+  ... 294 more files
+LICENSE  [0.00 MB]
+
+## audio
+audio headers read: 299 of 299 (0 unreadable)
+     299 x  1 ch  96000 Hz  PCM_24
+  duration s: min 2.000  median 2.000  max 2.000

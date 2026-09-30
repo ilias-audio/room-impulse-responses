@@ -1,0 +1,84 @@
+# probe openslr28
+# root: /gpfs/scratch/eey119/rir-data/raw/openslr28/files
+
+61273 files, 3.78 GB
+extensions: .wav 61260, <none> 13
+
+## tree
+RIRS_NOISES/  (61273 files)
+  pointsource_noises/  (846 files)
+    ANNOTATIONS  [0.00 MB]
+    LICENSE  [0.00 MB]
+    noise-free-sound-0000.wav  [0.57 MB]
+    noise-free-sound-0001.wav  [1.30 MB]
+    noise-free-sound-0002.wav  [2.28 MB]
+    noise-free-sound-0003.wav  [0.46 MB]
+    ... 840 more files
+  real_rirs_isotropic_noises/  (419 files)
+    RVB2014_type1_noise_largeroom1_1.wav  [7.68 MB]
+    RVB2014_type1_noise_largeroom1_10.wav  [7.68 MB]
+    RVB2014_type1_noise_largeroom1_2.wav  [7.68 MB]
+    RVB2014_type1_noise_largeroom1_3.wav  [7.68 MB]
+    RVB2014_type1_noise_largeroom1_4.wav  [7.68 MB]
+    RVB2014_type1_noise_largeroom1_5.wav  [7.68 MB]
+    ... 413 more files
+  simulated_rirs/  (60007 files)
+    largeroom/  (20002 files)
+      Room001/  (100 files)
+      Room002/  (100 files)
+      Room003/  (100 files)
+      Room004/  (100 files)
+      Room005/  (100 files)
+      Room006/  (100 files)
+      Room007/  (100 files)
+      Room008/  (100 files)
+      Room009/  (100 files)
+      Room010/  (100 files)
+      Room011/  (100 files)
+      Room012/  (100 files)
+      ... 188 more dirs
+      rir_list  [2.32 MB]
+      room_info  [0.01 MB]
+    mediumroom/  (20002 files)
+      Room001/  (100 files)
+      Room002/  (100 files)
+      Room003/  (100 files)
+      Room004/  (100 files)
+      Room005/  (100 files)
+      Room006/  (100 files)
+      Room007/  (100 files)
+      Room008/  (100 files)
+      Room009/  (100 files)
+      Room010/  (100 files)
+      Room011/  (100 files)
+      Room012/  (100 files)
+      ... 188 more dirs
+      rir_list  [2.38 MB]
+      room_info  [0.01 MB]
+    smallroom/  (20002 files)
+      Room001/  (100 files)
+      Room002/  (100 files)
+      Room003/  (100 files)
+      Room004/  (100 files)
+      Room005/  (100 files)
+      Room006/  (100 files)
+      Room007/  (100 files)
+      Room008/  (100 files)
+      Room009/  (100 files)
+      Room010/  (100 files)
+      Room011/  (100 files)
+      Room012/  (100 files)
+      ... 188 more dirs
+      rir_list  [2.32 MB]
+      room_info  [0.01 MB]
+    README  [0.00 MB]
+  README  [0.00 MB]
+
+## audio
+audio headers read: 3000 of 61260 (0 unreadable)
+    2621 x  1 ch  16000 Hz  PCM_16
+     126 x  8 ch  16000 Hz  PCM_16
+     107 x  2 ch  16000 Hz  PCM_16
+      75 x  16 ch  16000 Hz  PCM_16
+      71 x  30 ch  16000 Hz  PCM_16
+  duration s: min 0.026  median 2.000  max 494.660

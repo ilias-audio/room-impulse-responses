@@ -7,7 +7,7 @@ preprocess:
   digital_silence_abs: 1.0e-9     # |x| below this (float files) counts as digital silence
   noise_tail_fraction: 0.1        # explicit noise estimate from the last 10 % of the *trimmed* IR
   min_duration_s: 0.3
-  pre_onset_guard_ms: 1.0         # pre-onset window ends this long before the onset
+  pre_onset_guard_ms: 5.0         # exclude direct-sound pre-ringing just before the onset
 
 bands:
   octave_centres_hz: [63, 125, 250, 500, 1000, 2000, 4000, 8000]
@@ -65,7 +65,7 @@ features:
 quality:
   clip_run_samples: 3
   dc_offset_db: -50
-  pre_onset_energy_db: -30
+  pre_onset_excess_db: 20         # pre-onset power (beyond the guard) this far above the tail noise: artefact (time aliasing, distortion products)
   low_fs_hz: 32000
   tail_truncated_fraction: 0.95
   # Air-absorption ceiling: T30(f) above 55.3 / (4 m(f) c) is physically implausible

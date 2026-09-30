@@ -1,0 +1,216 @@
+# probe rochester
+# root: /gpfs/scratch/eey119/rir-data/raw/rochester/files
+
+262 files, 0.11 GB
+extensions: .jpg 155, .wav 90, .jpeg 9, .pdf 4, .png 2, .rtf 1, .txt 1
+
+## tree
+Room001/  (17 files)
+  Room1_IRwavs/  (6 files)
+    Room1_Speak1_Mic1.wav  [0.57 MB]
+    Room1_Speak1_Mic2.wav  [0.57 MB]
+    Room1_Speak1_Mic3.wav  [0.57 MB]
+    Room1_Speak2_Mic1.wav  [0.57 MB]
+    Room1_Speak2_Mic2.wav  [0.57 MB]
+    Room1_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.12 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.07 MB]
+  Floorplan.jpg  [0.05 MB]
+  IR.jpg  [0.05 MB]
+  Magnitude.jpg  [0.07 MB]
+  ... 5 more files
+Room002/  (32 files)
+  withWindows/  (16 files)
+    Room2b_IRwavs/  (6 files)
+      Room2b_Speak1_Mic1.wav  [0.57 MB]
+      Room2b_Speak1_Mic2.wav  [0.57 MB]
+      Room2b_Speak1_Mic3.wav  [0.57 MB]
+      Room2b_Speak2_Mic1.wav  [0.57 MB]
+      Room2b_Speak2_Mic2.wav  [0.57 MB]
+      Room2b_Speak2_Mic3.wav  [0.57 MB]
+    Clarity.jpg  [0.11 MB]
+    EDC.jpg  [0.06 MB]
+    FFT.jpg  [0.08 MB]
+    Floorplan.jpg  [0.10 MB]
+    IR.jpg  [0.05 MB]
+    Mag.jpg  [0.09 MB]
+    ... 4 more files
+  withoutWindows/  (16 files)
+    Room2a_IRwavs/  (6 files)
+      Room2a_Speak1_Mic1.wav  [0.57 MB]
+      Room2a_Speak1_Mic2.wav  [0.57 MB]
+      Room2a_Speak1_Mic3.wav  [0.57 MB]
+      Room2a_Speak2_Mic1.wav  [0.57 MB]
+      Room2a_Speak2_Mic2.wav  [0.57 MB]
+      Room2a_Speak2_Mic3.wav  [0.57 MB]
+    Clarity.jpg  [0.11 MB]
+    EDC.jpg  [0.06 MB]
+    FFT.jpg  [0.08 MB]
+    Floorplan.jpg  [0.09 MB]
+    IR.jpg  [0.04 MB]
+    Mag.jpg  [0.08 MB]
+    ... 4 more files
+Room003/  (18 files)
+  Room3_IRwavs/  (6 files)
+    Room3_Speak1_Mic1.wav  [0.57 MB]
+    Room3_Speak1_Mic2.wav  [0.57 MB]
+    Room3_Speak1_Mic3.wav  [0.57 MB]
+    Room3_Speak2_Mic1.wav  [0.57 MB]
+    Room3_Speak2_Mic2.wav  [0.57 MB]
+    Room3_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.10 MB]
+  Floorplan.jpg  [0.08 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.09 MB]
+  ... 6 more files
+Room004/  (17 files)
+  Room4_IRwavs/  (6 files)
+    Room4_Speak1_Mic1.wav  [0.57 MB]
+    Room4_Speak1_Mic2.wav  [0.57 MB]
+    Room4_Speak1_Mic3.wav  [0.57 MB]
+    Room4_Speak2_Mic1.wav  [0.57 MB]
+    Room4_Speak2_Mic2.wav  [0.57 MB]
+    Room4_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.08 MB]
+  Floorplan.jpg  [0.07 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room005/  (17 files)
+  Room5_IRwavs/  (6 files)
+    Room5_Speak1_Mic1.wav  [0.57 MB]
+    Room5_Speak1_Mic2.wav  [0.57 MB]
+    Room5_Speak1_Mic3.wav  [0.57 MB]
+    Room5_Speak2_Mic1.wav  [0.57 MB]
+    Room5_Speak2_Mic2.wav  [0.57 MB]
+    Room5_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.05 MB]
+  FFT.jpg  [0.09 MB]
+  Floorplan.jpg  [0.09 MB]
+  IR.jpg  [0.04 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room006/  (17 files)
+  Room6_IRwavs/  (6 files)
+    Room6_Speak1_Mic1.wav  [0.57 MB]
+    Room6_Speak1_Mic2.wav  [0.57 MB]
+    Room6_Speak1_Mic3.wav  [0.57 MB]
+    Room6_Speak2_Mic1.wav  [0.57 MB]
+    Room6_Speak2_Mic2.wav  [0.57 MB]
+    Room6_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.07 MB]
+  Floorplan.jpg  [0.07 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room007/  (17 files)
+  Room7_IRwavs/  (6 files)
+    Room7_Speak1_Mic1.wav  [0.57 MB]
+    Room7_Speak1_Mic2.wav  [0.57 MB]
+    Room7_Speak1_Mic3.wav  [0.57 MB]
+    Room7_Speak2_Mic1.wav  [0.57 MB]
+    Room7_Speak2_Mic2.wav  [0.57 MB]
+    Room7_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.12 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.09 MB]
+  Floorplan.jpg  [0.11 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room008/  (17 files)
+  Room8_IRwavs/  (6 files)
+    Room8_Speak1_Mic1.wav  [0.57 MB]
+    Room8_Speak1_Mic2.wav  [0.57 MB]
+    Room8_Speak1_Mic3.wav  [0.57 MB]
+    Room8_Speak2_Mic1.wav  [0.57 MB]
+    Room8_Speak2_Mic2.wav  [0.57 MB]
+    Room8_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.12 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.09 MB]
+  Floorplan.jpg  [0.06 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.10 MB]
+  ... 5 more files
+Room009/  (17 files)
+  Room9_IRwavs/  (6 files)
+    Room9_Speak1_Mic1.wav  [0.57 MB]
+    Room9_Speak1_Mic2.wav  [0.57 MB]
+    Room9_Speak1_Mic3.wav  [0.57 MB]
+    Room9_Speak2_Mic1.wav  [0.57 MB]
+    Room9_Speak2_Mic2.wav  [0.57 MB]
+    Room9_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.10 MB]
+  Floorplan.jpg  [0.46 MB]
+  IR.jpg  [0.05 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room010/  (16 files)
+  Room10_IRwavs/  (6 files)
+    Room10_Speak1_Mic1.wav  [0.57 MB]
+    Room10_Speak1_Mic2.wav  [0.57 MB]
+    Room10_Speak1_Mic3.wav  [0.57 MB]
+    Room10_Speak2_Mic1.wav  [0.57 MB]
+    Room10_Speak2_Mic2.wav  [0.57 MB]
+    Room10_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.09 MB]
+  Floorplan.jpg  [0.09 MB]
+  IR.jpg  [0.10 MB]
+  Magnitude.jpg  [0.10 MB]
+  ... 4 more files
+Room011/  (17 files)
+  Room11_IRwavs/  (6 files)
+    Room11_Speak1_Mic1.wav  [0.57 MB]
+    Room11_Speak1_Mic2.wav  [0.57 MB]
+    Room11_Speak1_Mic3.wav  [0.57 MB]
+    Room11_Speak2_Mic1.wav  [0.57 MB]
+    Room11_Speak2_Mic2.wav  [0.57 MB]
+    Room11_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.12 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.09 MB]
+  IR.jpg  [0.05 MB]
+  Layout.jpeg  [0.38 MB]
+  Mag.jpg  [0.09 MB]
+  ... 5 more files
+Room012/  (17 files)
+  Room12_IRwavs/  (6 files)
+    Room12_Speak1_Mic1.wav  [0.57 MB]
+    Room12_Speak1_Mic2.wav  [0.57 MB]
+    Room12_Speak1_Mic3.wav  [0.57 MB]
+    Room12_Speak2_Mic1.wav  [0.57 MB]
+    Room12_Speak2_Mic2.wav  [0.57 MB]
+    Room12_Speak2_Mic3.wav  [0.57 MB]
+  Clarity.jpg  [0.11 MB]
+  EDC.jpg  [0.06 MB]
+  FFT.jpg  [0.10 MB]
+  Floorplan.jpg  [0.09 MB]
+  IR.jpg  [0.04 MB]
+  Mag.jpg  [0.10 MB]
+  ... 5 more files
+... 2 more dirs
+8104597.txt  [0.01 MB]
+MackieSRT215FreqResponseCurve.png  [0.16 MB]
+MackieSRT215Manual.pdf  [5.60 MB]
+MicCalibrationCurve.jpg  [0.04 MB]
+ReadMe.rtf  [0.00 MB]
+RoomImpulseResponseDataset_readme.pdf  [0.08 MB]
+... 2 more files
+
+## audio
+audio headers read: 90 of 90 (0 unreadable)
+      90 x  1 ch  48000 Hz  FLOAT
+  duration s: min 2.972  median 2.972  max 2.972

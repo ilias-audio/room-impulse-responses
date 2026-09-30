@@ -20,11 +20,15 @@ datasets:
   type: measured
   ir_kinds: [room, outdoor, vehicle]
   capture_formats: [mono_omni]
-  content: 271 mono RIRs, each recorded in a distinct everyday place (surveyed from daily-life locations of volunteers).
-  expected: {n_irs: 271, n_rooms: 271}
+  fs_hz: [32000]
+  content: 271 mono RIRs, each recorded in a distinct everyday place (surveyed from daily-life locations of volunteers); the public archive holds 270 (32 kHz, 24-bit).
+  expected: {n_irs: 270, n_rooms: 270, note: "paper reports 271; Audio.zip contains 270"}
   license: {spdx: LicenseRef-unspecified, redistribute_audio: unknown}
   access: open
   source: {kind: http, urls: ["https://mcdermottlab.mit.edu/Reverb/IRMAudio/Audio.zip"]}
+  adapter:
+    name: wav_tree
+    params: {pattern: 'Audio/h\d+_(?P<label>.+?)(_\w*tx\w*)?\.wav$', room_from: file}
   wave: 0
   homepage: https://mcdermottlab.mit.edu/Reverb/IR_Survey.html
   paper: {title: "Statistics of natural reverberation enable perceptual separation of sound and space", url: "https://www.pnas.org/content/113/48/E7856"}
@@ -39,10 +43,13 @@ datasets:
   capture_formats: [mono_omni]
   fs_hz: [48000]
   content: Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a wide range of RT60, clarity and EDT; room layouts and acoustic plots per room.
-  expected: {n_rooms: 14}
+  expected: {n_irs: 90, n_rooms: 14}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: figshare, records: ["26801089"]}
+  adapter:
+    name: wav_tree
+    params: {pattern: 'Room0*(?P<room>\d+)/.*_Speak(?P<src>\d+)_Mic(?P<rcv>\d+)\.wav$'}
   wave: 0
   homepage: https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089
   doi: 10.60593/ur.d.26801089
@@ -53,7 +60,10 @@ datasets:
   type: production
   ir_kinds: [room, outdoor, creative]
   capture_formats: [stereo]
+  fs_hz: [44100]
   content: Free stereo reverb IRs of real spaces and processed spaces distributed with Voxengo's convolution tools.
+  expected: {n_irs: 38}
+  adapter: {name: wav_tree, params: {glob: "*.wav", room_from: file}}
   license:
     spdx: LicenseRef-Voxengo-IR
     url: https://www.voxengo.com/impulses/
@@ -70,8 +80,16 @@ datasets:
   type: production
   ir_kinds: [room, outdoor]
   capture_formats: [stereo]
+  fs_hz: [44100]
   content: More than a hundred real-world spaces sampled around North America (caves, tunnels, stairwells, glaciers, bridges, ...), from SDSU Music Recording Technology.
-  expected: {note: "~115 spaces"}
+  expected: {n_irs: 115, n_rooms: 115}
+  adapter:
+    name: wav_tree
+    params:
+      pattern: 'EchoThiefImpulseResponseLibrary/(?P<cat>[^/]+)/(?P<label>[^/]+)\.wav$'
+      room_from: file
+      category_from: parent
+      ir_kind_from_regex: {'/Nature/': outdoor}
   license: {spdx: LicenseRef-unspecified, url: "https://www.echothief.com/downloads/", redistribute_audio: unknown, note: "Free download; no licence text published."}
   access: open
   source: {kind: http, urls: ["https://www.echothief.com/wp-content/uploads/2024/07/EchoThiefImpulseResponseLibrary.zip"]}

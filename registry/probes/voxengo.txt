@@ -1,0 +1,19 @@
+# probe voxengo
+# root: /gpfs/scratch/eey119/rir-data/raw/voxengo/files
+
+39 files, 0.01 GB
+extensions: .wav 38, .txt 1
+
+## tree
+Block Inside.wav  [0.25 MB]
+Bottle Hall.wav  [0.11 MB]
+Cement Blocks 1.wav  [0.27 MB]
+Cement Blocks 2.wav  [0.38 MB]
+Chateau de Logne, Outside.wav  [0.16 MB]
+Conic Long Echo Hall.wav  [0.71 MB]
+... 33 more files
+
+## audio
+audio headers read: 38 of 38 (0 unreadable)
+      38 x  2 ch  44100 Hz  PCM_16
+  duration s: min 0.017  median 1.746  max 7.986

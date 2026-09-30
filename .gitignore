@@ -55,3 +55,6 @@ rir-data/
 # ...except the small committed snapshots and tiny synthetic test fixtures
 !snapshots/*.parquet
 !tests/fixtures/**
+
+# Local debug scripts (on GPFS so compute nodes can see them)
+.scratch/

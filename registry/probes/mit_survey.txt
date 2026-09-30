@@ -1,0 +1,23 @@
+# probe mit_survey
+# root: /gpfs/scratch/eey119/rir-data/raw/mit_survey/files
+
+271 files, 0.02 GB
+extensions: .wav 270, <none> 1
+
+## tree
+Audio/  (271 files)
+  .DS_Store  [0.01 MB]
+  h001_Bedroom_65txts.wav  [0.05 MB]
+  h002_Bedroom_62txts.wav  [0.05 MB]
+  h003_Office_LargeBrickWalledOpenPlanOffice_56txts.wav  [0.02 MB]
+  h004_LivingRoom_Large_48txts.wav  [0.07 MB]
+  h005_Office_Small_44txts.wav  [0.05 MB]
+  ... 265 more files
+__MACOSX/  (1 files)
+  Audio/  (1 files)
+    ._.DS_Store  [0.00 MB]
+
+## audio
+audio headers read: 270 of 270 (0 unreadable)
+     270 x  1 ch  32000 Hz  PCM_24
+  duration s: min 0.095  median 0.561  max 1.999

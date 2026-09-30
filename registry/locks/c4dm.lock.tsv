@@ -1,0 +1,4 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+greathallOmni.zip	http://isophonics.net/files/irs/greathallOmni.zip	70938816	sha256	294cfe16cf616677beddc8e77d72b8601961745105f2d355c0361d00cb4e8fc1	etag="69aeaa73-43a70c0";last-modified=Mon, 09 Mar 2026 11:09:39 GMT	2026-09-30T15:22:37Z
+octagonOmni.zip	http://isophonics.net/files/irs/octagonOmni.zip	69523911	sha256	d116046cb08dcc97a143a01defaae313d07e5d597f926826c594a8d86a2cafc2	etag="69aeaa72-424d9c7";last-modified=Mon, 09 Mar 2026 11:09:38 GMT	2026-09-30T15:22:37Z
+classroomOmni.zip	http://isophonics.net/files/irs/classroomOmni.zip	54246190	sha256	182f9cbc0809a4a8e99374da2870479ce1d5ebb602df8074544033160eca335a	etag="69aeaa73-33bbb2e";last-modified=Mon, 09 Mar 2026 11:09:39 GMT	2026-09-30T15:22:37Z

@@ -1,0 +1,143 @@
+# probe detmold_srir
+# root: /gpfs/scratch/eey119/rir-data/raw/detmold_srir/files
+
+1085 files, 1.06 GB
+extensions: .wav 937, .jpg 67, .pdf 38, .png 24, .eps 12, .txt 4, .stl 2, .xlsx 1
+
+## tree
+MicArrays/  (5 files)
+  Binaural_OmniFig8.jpg  [1.21 MB]
+  OpenArray100mRender.PNG  [0.06 MB]
+  OpenArray100mm.jpg  [0.40 MB]
+  OpenArray100mm.stl  [0.07 MB]
+  OpenArray25mm.stl  [0.07 MB]
+RoomPlans/  (3 files)
+  Brahmssaal.png  [0.38 MB]
+  KonzertHaus.jpg  [0.25 MB]
+  SommerTheater.png  [0.53 MB]
+SetA_SingleSources/  (150 files)
+  Data/  (49 files)
+    Brahmssaal/  (16 files)
+      DummyHead/  (5 files)
+      OpenArray/  (11 files)
+    KonzertHaus/  (21 files)
+      OpenArray/  (21 files)
+    SommerTheater/  (12 files)
+      DummyHead/  (6 files)
+      OpenArray/  (6 files)
+  Documentation/  (40 files)
+    Publications/  (7 files)
+      Amengual_Kob_AES2017.pdf  [0.61 MB]
+      Amengual_etal_DAGA2016.pdf  [0.56 MB]
+      Amengual_etal_ISMRA2016.pdf  [0.69 MB]
+      Amengual_etal_ISRA2019.pdf  [2.37 MB]
+      Amengual_etal_SMC2017.pdf  [1.10 MB]
+      Dissertation_Amengual.pdf  [36.97 MB]
+      ... 1 more files
+    SpatialAnalysis/  (25 files)
+      Stage_Detailed/  (12 files)
+      Brahmssaal_C1S1R1.png  [1.37 MB]
+      Brahmssaal_C1S1R2.png  [1.28 MB]
+      Brahmssaal_C1S1R3.png  [1.21 MB]
+      Brahmssaal_C1S1R4.png  [1.32 MB]
+      Brahmssaal_C1S1R5.png  [1.42 MB]
+      Brahmssaal_C1S1R6.png  [1.45 MB]
+      ... 7 more files
+    BS_MeasurementInfo.txt  [0.00 MB]
+    Brahmssaal_POSITIONS.png  [0.34 MB]
+    DST_MeasurementInfo.txt  [0.00 MB]
+    DST_POSITIONS.png  [0.50 MB]
+    DetmoldKH_POSITIONS.png  [1.28 MB]
+    KH_Measurement_Info.txt  [0.00 MB]
+    ... 2 more files
+  Images/  (61 files)
+    Brahsmssaal/  (27 files)
+      C1S1R1.jpg  [1.13 MB]
+      C1S1R1_2.jpg  [1.20 MB]
+      C1S1R1_3.jpg  [1.02 MB]
+      C1S1R1_4.jpg  [1.02 MB]
+      C1S1R1_5.jpg  [0.63 MB]
+      C1S1R4.jpg  [1.07 MB]
+      ... 21 more files
+    KonzertHaus/  (18 files)
+      ArtificialReverbPresets.jpg  [0.33 MB]
+      CxS1R1.JPG  [4.32 MB]
+      CxS1R1_2.JPG  [5.10 MB]
+      CxS1R2.JPG  [4.14 MB]
+      CxS1R2_2.JPG  [4.21 MB]
+      CxS2R1.jpg  [1.09 MB]
+      ... 12 more files
+    SommerTheater/  (16 files)
+      C1S1R2.JPG  [1.07 MB]
+      C1S1R2_2.JPG  [1.37 MB]
+      C1S1R3.jpg  [1.01 MB]
+      C1S1R3_2.JPG  [1.24 MB]
+      C1S1R4.JPG  [1.09 MB]
+      C1S1R4_2.JPG  [1.13 MB]
+      ... 10 more files
+SetB_LSandWFSOrchestra/  (78 files)
+  Data/  (48 files)
+    OpenArray/  (48 files)
+      lps_R1/  (8 files)
+      lps_R2/  (8 files)
+      lps_R3/  (8 files)
+      wfs_R1/  (8 files)
+      wfs_R2/  (8 files)
+      wfs_R3/  (8 files)
+  Documentation/  (30 files)
+    Analysis/  (27 files)
+      DETMOLD_lps_R1.pdf  [0.02 MB]
+      DETMOLD_lps_R1_plan.pdf  [0.37 MB]
+      DETMOLD_lps_R1_sect.pdf  [0.20 MB]
+      DETMOLD_lps_R1_tra.pdf  [0.09 MB]
+      DETMOLD_lps_R2.pdf  [0.02 MB]
+      DETMOLD_lps_R2_plan.pdf  [0.37 MB]
+      ... 21 more files
+    Publications/  (1 files)
+      Amengual_etal_JAES2016.pdf  [0.18 MB]
+    MeasurementInfo.txt  [0.00 MB]
+    MeasurementPlan_withDistances.png  [0.44 MB]
+SetC_DenseKH_LSOrchestra/  (848 files)
+  Data/  (840 files)
+    DummyHead/  (280 files)
+      S1R10.wav  [0.58 MB]
+      S1R121.wav  [0.58 MB]
+      S1R126.wav  [0.58 MB]
+      S1R131.wav  [0.58 MB]
+      S1R158.wav  [0.58 MB]
+      S1R163.wav  [0.58 MB]
+      ... 274 more files
+    Fig8/  (280 files)
+      S1R10.wav  [0.29 MB]
+      S1R121.wav  [0.29 MB]
+      S1R126.wav  [0.29 MB]
+      S1R131.wav  [0.29 MB]
+      S1R158.wav  [0.29 MB]
+      S1R163.wav  [0.29 MB]
+      ... 274 more files
+    Omni/  (280 files)
+      S1R10.wav  [0.29 MB]
+      S1R121.wav  [0.29 MB]
+      S1R126.wav  [0.29 MB]
+      S1R131.wav  [0.29 MB]
+      S1R158.wav  [0.29 MB]
+      S1R163.wav  [0.29 MB]
+      ... 274 more files
+  Documentation/  (8 files)
+    Publications/  (2 files)
+      Sahin_MScThesis_2017.pdf  [27.28 MB]
+      Sahin_etal_DAGA2017.pdf  [0.94 MB]
+    DetmoldKH_POSITIONS_Dense.png  [0.72 MB]
+    Fig8_Directivity.png  [0.09 MB]
+    Loudspeaker_Orchestra.jpg  [1.57 MB]
+    MicArray.png  [0.69 MB]
+    OmniFig8Array.jpg  [1.34 MB]
+    OmniFig8Calibration.jpg  [1.11 MB]
+MainDocumentation_v02.pdf  [9.10 MB]
+
+## audio
+audio headers read: 937 of 937 (0 unreadable)
+     560 x  1 ch  48000 Hz  FLOAT
+     291 x  2 ch  48000 Hz  FLOAT
+      86 x  6 ch  48000 Hz  FLOAT
+  duration s: min 1.500  median 1.500  max 10.923

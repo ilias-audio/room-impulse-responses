@@ -1,0 +1,24 @@
+# probe aachen_air
+# root: /gpfs/scratch/eey119/rir-data/raw/aachen_air/files
+
+219 files, 0.20 GB
+extensions: .mat 214, .txt 2, .m 2, .zip 1
+
+## tree
+AIR_1_4/  (219 files)
+  AIR_wav_files.zip  [27.14 MB]
+  air_binaural_aula_carolina_0_1_1_90_3.mat  [3.69 MB]
+  air_binaural_aula_carolina_0_1_2_90_3.mat  [3.69 MB]
+  air_binaural_aula_carolina_0_1_3_0_3.mat  [3.69 MB]
+  air_binaural_aula_carolina_0_1_3_135_3.mat  [3.69 MB]
+  air_binaural_aula_carolina_0_1_3_180_3.mat  [3.69 MB]
+  ... 213 more files
+
+## audio
+
+## mat (214 files; first 5)
+-- air_binaural_aula_carolina_0_1_1_90_3.mat: [('air_info', (1, 1), 'struct'), ('h_air', (1, 479376), 'double')]
+-- air_binaural_aula_carolina_0_1_2_90_3.mat: [('air_info', (1, 1), 'struct'), ('h_air', (1, 479376), 'double')]
+-- air_binaural_aula_carolina_0_1_3_0_3.mat: [('air_info', (1, 1), 'struct'), ('h_air', (1, 479376), 'double')]
+-- air_binaural_aula_carolina_0_1_3_135_3.mat: [('air_info', (1, 1), 'struct'), ('h_air', (1, 479376), 'double')]
+-- air_binaural_aula_carolina_0_1_3_180_3.mat: [('air_info', (1, 1), 'struct'), ('h_air', (1, 479376), 'double')]

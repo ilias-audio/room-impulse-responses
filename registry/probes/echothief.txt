@@ -1,0 +1,152 @@
+# probe echothief
+# root: /gpfs/scratch/eey119/rir-data/raw/echothief/files
+
+125 files, 0.04 GB
+extensions: .wav 115, <none> 9, .pdf 1
+
+## tree
+EchoThiefImpulseResponseLibrary/  (125 files)
+  Brutalism/  (12 files)
+    .DS_Store  [0.01 MB]
+    BiomedicalSciences.wav  [0.14 MB]
+    CarpenterCenter.wav  [0.40 MB]
+    GalbraithHall.wav  [0.15 MB]
+    GeiselLibrary.wav  [0.17 MB]
+    GraffitiHallway.wav  [0.38 MB]
+    ... 6 more files
+  Miscellaneous/  (27 files)
+    .DS_Store  [0.01 MB]
+    AcademicQuadrangle.wav  [0.49 MB]
+    Amaranth.wav  [0.31 MB]
+    BarMonsieurRicard.wav  [0.30 MB]
+    CPMC264.wav  [0.53 MB]
+    CastilloDeLosTresReyesDelMorro.wav  [0.10 MB]
+    ... 21 more files
+  Nature/  (12 files)
+    .DS_Store  [0.01 MB]
+    ByronGlacier.wav  [0.11 MB]
+    CliffOfTheDawn.wav  [0.06 MB]
+    DevilsPunchbowl.wav  [0.20 MB]
+    DivorceBeach.wav  [0.26 MB]
+    FatMansMisery.wav  [0.10 MB]
+    ... 6 more files
+  Recreation/  (8 files)
+    .DS_Store  [0.01 MB]
+    Cranbrook Art Museum.wav  [0.40 MB]
+    HaleHolisticYogaStudio.wav  [0.49 MB]
+    Natatorium.wav  [0.44 MB]
+    OutbackClimbingCenter.wav  [0.39 MB]
+    RacquetballCourt.wav  [0.60 MB]
+    ... 2 more files
+  Stairwells/  (8 files)
+    .DS_Store  [0.01 MB]
+    3000CStreetGarageStairwell.wav  [0.73 MB]
+    CCRMAStairwell.wav  [0.60 MB]
+    CPMCNorthStairwell.wav  [0.58 MB]
+    ConventionCenterSteps.wav  [0.18 MB]
+    ExerciseAndNutritionSciences.wav  [0.38 MB]
+    ... 2 more files
+  Underground/  (26 files)
+    .DS_Store  [0.01 MB]
+    Batcave.wav  [0.20 MB]
+    BatteryBenson.wav  [0.48 MB]
+    BatteryBrannan.wav  [0.63 MB]
+    BatteryPowell.wav  [0.33 MB]
+    BatteryQuarles.wav  [0.50 MB]
+    ... 20 more files
+  Underpasses/  (24 files)
+    .DS_Store  [0.01 MB]
+    5UnderpassValencia.wav  [0.33 MB]
+    ArroyoEnsenada.wav  [0.19 MB]
+    Avenue52UnderpassLARiver.wav  [0.38 MB]
+    Avenue60UnderpassLARiver.wav  [0.39 MB]
+    BoulevardRosemontUnderpass.wav  [0.20 MB]
+    ... 18 more files
+  Venues/  (6 files)
+    .DS_Store  [0.01 MB]
+    ConradPrebysConcertHallSeatF111.wav  [0.38 MB]
+    MillsGreekTheater.wav  [0.14 MB]
+    NaumburgBandshell.wav  [0.09 MB]
+    Space4ArtGallery.wav  [0.44 MB]
+    SteinmanHall.wav  [0.31 MB]
+  .DS_Store  [0.02 MB]
+  EchoThief License.pdf  [0.29 MB]
+__MACOSX/  (134 files)
+  EchoThiefImpulseResponseLibrary/  (133 files)
+    Brutalism/  (12 files)
+      ._.DS_Store  [0.00 MB]
+      ._BiomedicalSciences.wav  [0.00 MB]
+      ._CarpenterCenter.wav  [0.00 MB]
+      ._GalbraithHall.wav  [0.00 MB]
+      ._GeiselLibrary.wav  [0.00 MB]
+      ._GraffitiHallway.wav  [0.00 MB]
+      ... 6 more files
+    Miscellaneous/  (27 files)
+      ._.DS_Store  [0.00 MB]
+      ._AcademicQuadrangle.wav  [0.00 MB]
+      ._Amaranth.wav  [0.00 MB]
+      ._BarMonsieurRicard.wav  [0.00 MB]
+      ._CPMC264.wav  [0.00 MB]
+      ._CastilloDeLosTresReyesDelMorro.wav  [0.00 MB]
+      ... 21 more files
+    Nature/  (12 files)
+      ._.DS_Store  [0.00 MB]
+      ._ByronGlacier.wav  [0.00 MB]
+      ._CliffOfTheDawn.wav  [0.00 MB]
+      ._DevilsPunchbowl.wav  [0.00 MB]
+      ._DivorceBeach.wav  [0.00 MB]
+      ._FatMansMisery.wav  [0.00 MB]
+      ... 6 more files
+    Recreation/  (8 files)
+      ._.DS_Store  [0.00 MB]
+      ._Cranbrook Art Museum.wav  [0.00 MB]
+      ._HaleHolisticYogaStudio.wav  [0.00 MB]
+      ._Natatorium.wav  [0.00 MB]
+      ._OutbackClimbingCenter.wav  [0.00 MB]
+      ._RacquetballCourt.wav  [0.00 MB]
+      ... 2 more files
+    Stairwells/  (8 files)
+      ._.DS_Store  [0.00 MB]
+      ._3000CStreetGarageStairwell.wav  [0.00 MB]
+      ._CCRMAStairwell.wav  [0.00 MB]
+      ._CPMCNorthStairwell.wav  [0.00 MB]
+      ._ConventionCenterSteps.wav  [0.00 MB]
+      ._ExerciseAndNutritionSciences.wav  [0.00 MB]
+      ... 2 more files
+    Underground/  (26 files)
+      ._.DS_Store  [0.00 MB]
+      ._Batcave.wav  [0.00 MB]
+      ._BatteryBenson.wav  [0.00 MB]
+      ._BatteryBrannan.wav  [0.00 MB]
+      ._BatteryPowell.wav  [0.00 MB]
+      ._BatteryQuarles.wav  [0.00 MB]
+      ... 20 more files
+    Underpasses/  (24 files)
+      ._.DS_Store  [0.00 MB]
+      ._5UnderpassValencia.wav  [0.00 MB]
+      ._ArroyoEnsenada.wav  [0.00 MB]
+      ._Avenue52UnderpassLARiver.wav  [0.00 MB]
+      ._Avenue60UnderpassLARiver.wav  [0.00 MB]
+      ._BoulevardRosemontUnderpass.wav  [0.00 MB]
+      ... 18 more files
+    Venues/  (6 files)
+      ._.DS_Store  [0.00 MB]
+      ._ConradPrebysConcertHallSeatF111.wav  [0.00 MB]
+      ._MillsGreekTheater.wav  [0.00 MB]
+      ._NaumburgBandshell.wav  [0.00 MB]
+      ._Space4ArtGallery.wav  [0.00 MB]
+      ._SteinmanHall.wav  [0.00 MB]
+    ._.DS_Store  [0.00 MB]
+    ._Brutalism  [0.00 MB]
+    ._EchoThief License.pdf  [0.00 MB]
+    ._Miscellaneous  [0.00 MB]
+    ._Nature  [0.00 MB]
+    ._Recreation  [0.00 MB]
+    ... 4 more files
+  ._EchoThiefImpulseResponseLibrary  [0.00 MB]
+
+## audio
+audio headers read: 115 of 115 (0 unreadable)
+     101 x  2 ch  44100 Hz  PCM_24
+      14 x  2 ch  44100 Hz  PCM_16
+  duration s: min 0.222  median 1.242  max 4.128
