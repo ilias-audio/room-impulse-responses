@@ -1,0 +1,75 @@
+# probe miracle
+# root: /gpfs/scratch/eey119/rir-data/raw/miracle/files
+
+6 files, 3.53 GB
+extensions: .h5 5, .pdf 1
+
+## tree
+A1.h5  [1074.81 MB]
+A2.h5  [1074.81 MB]
+D1.h5  [302.31 MB]
+MIRACLE-preprint.pdf  [3.92 MB]
+R2.h5  [1074.81 MB]
+loudspeaker.h5  [0.47 MB]
+
+## audio
+
+## hdf5 (5 files; first 5)
+-- A1.h5
+   @date = 2023-10-10 10:19:55
+   data/
+   data/impulse_response: (4096, 64, 1024) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (4096, 3) float32
+   data/location/source_raw: (4096, 3) float32
+   metadata/
+   metadata/c0: (4096,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (4096,) float32
+-- A2.h5
+   @date = 2023-10-10 10:19:55
+   data/
+   data/impulse_response: (4096, 64, 1024) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (4096, 3) float32
+   data/location/source_raw: (4096, 3) float32
+   metadata/
+   metadata/c0: (4096,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (4096,) float32
+-- D1.h5
+   @date = 2023-10-10 10:19:55
+   data/
+   data/impulse_response: (1089, 64, 1024) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1089, 3) float32
+   data/location/source_raw: (1089, 3) float32
+   metadata/
+   metadata/c0: (1089,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1089,) float32
+-- R2.h5
+   @date = 2023-10-10 10:19:55
+   data/
+   data/impulse_response: (4096, 64, 1024) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (4096, 3) float32
+   data/location/source_raw: (4096, 3) float32
+   metadata/
+   metadata/c0: (4096,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (4096,) float32
+-- loudspeaker.h5
+   @date = 2023-10-10 10:19:55
+   data/
+   data/angle: (73,) float32
+   data/impulse_response: (73, 1024) float32
+   metadata/
+   metadata/directivity: (73, 513) float32
+   metadata/directivity_index: (513,) float64
+   metadata/fftfreq: (513,) float64
+   metadata/sampling_rate: () int64

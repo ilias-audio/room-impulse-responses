@@ -337,3 +337,114 @@ class MatArrayAdapter:
             if t_ax > r_ax:
                 t_ax -= 1
         return np.moveaxis(a, (c_ax, t_ax), (0, 1)).astype(np.float64), int(p["fs"])
+
+
+# ---------------------------------------------------------------- N-d arrays (HDF5 / NPY)
+class NdArrayAdapter:
+    """Dense IR tensors in HDF5 datasets or .npy files (MIRACLE, SRIRACHA, MeshRIR, MP-RIR, ...).
+
+    Params (all per `groups` entry, or top level):
+      glob                 files to read
+      container            h5 | npy
+      array                HDF5 dataset path (h5 only)
+      time_axis            axis holding samples
+      channel_axis         axis holding simultaneous channels of one record (optional)
+      record_axes          axes enumerated into records (all remaining axes if omitted)
+      fs                   sampling rate, or fs_attr (HDF5 attribute path "dataset@attr" / "@attr")
+      pattern              regex on the file name (groups room, cond, src, rcv)
+      room_default, capture_format, roles, reference_role, ir_kind
+      positions            {src|rcv: {array: path, axis_of: record axis index}} (optional, h5)
+    Records are the Cartesian product of record-axis indices; loading slices lazily.
+    """
+
+    def _groups(self, params):
+        return params.get("groups") or [params]
+
+    def _open(self, path: Path, g: dict):
+        if g.get("container", "h5") == "npy":
+            return np.load(path, mmap_mode="r"), None
+        import h5py
+
+        try:
+            import hdf5plugin  # noqa: F401
+        except ImportError:
+            pass
+        h = h5py.File(path, "r")
+        return h[g["array"]], h
+
+    def _fs(self, path: Path, g: dict) -> int:
+        if "fs" in g:
+            return int(g["fs"])
+        import h5py
+
+        with h5py.File(path, "r") as h:
+            if "fs_dataset" in g:                     # scalar dataset, e.g. metadata/sampling_rate
+                return int(np.ravel(h[g["fs_dataset"]][()])[0])
+            ds, _, attr = g["fs_attr"].partition("@")
+            obj = h[ds] if ds else h
+            return int(np.ravel(obj.attrs[attr])[0])
+
+    def iter_records(self, dataset, root: Path) -> Iterator[IRRecord]:
+        import itertools
+
+        for gi, g in enumerate(self._groups(dataset.adapter.params)):
+            pattern = re.compile(g["pattern"]) if g.get("pattern") else None
+            for f in sorted(root.glob(g["glob"])):
+                m_ = pattern.search(f.name) if pattern else None
+                if pattern is not None and m_ is None:
+                    continue
+                gd = m_.groupdict() if m_ else {}
+                rel = f.relative_to(root).as_posix()
+                arr, h = self._open(f, g)
+                shape = arr.shape
+                if h is not None:
+                    h.close()
+                t_ax = g["time_axis"] % len(shape)
+                c_ax = g.get("channel_axis")
+                c_ax = None if c_ax is None else c_ax % len(shape)
+                rec_axes = g.get("record_axes")
+                rec_axes = [a % len(shape) for a in rec_axes] if rec_axes is not None else \
+                    [a for a in range(len(shape)) if a not in (t_ax, c_ax)]
+                n_ch = shape[c_ax] if c_ax is not None else 1
+                roles = g.get("roles") or (["omni"] if n_ch == 1 else [f"mic_{i}" for i in range(n_ch)])
+                fs = self._fs(f, g)
+                room = gd.get("room") or g.get("room_default") or dataset.id
+                for idx in itertools.product(*[range(shape[a]) for a in rec_axes]):
+                    key = f"{rel}#" + ",".join(map(str, idx))
+                    yield IRRecord(
+                        dataset_id=dataset.id, local_key=key, room_key=slug(room),
+                        capture_format=g.get("capture_format", "mono_omni" if n_ch == 1 else "array_raw"),
+                        channel_roles=tuple(roles), fs=fs, n_samples=int(shape[t_ax]),
+                        locator={"relpath": rel, "container": g.get("container", "h5"), "group": gi,
+                                 "idx": list(idx)},
+                        condition_key=gd.get("cond"), src_key=gd.get("src"),
+                        rcv_key=gd.get("rcv") or ",".join(map(str, idx)),
+                        room_label=str(room).replace("_", " "), ir_kind=g.get("ir_kind", "room"),
+                        extra={"reference_role": g.get("reference_role")})
+
+    def load(self, locator: dict, root: Path):
+        g = self._groups(self._params)[locator.get("group", 0)]
+        path = root / locator["relpath"]
+        arr, h = self._open(path, g)
+        try:
+            shape = arr.shape
+            t_ax = g["time_axis"] % len(shape)
+            c_ax = g.get("channel_axis")
+            c_ax = None if c_ax is None else c_ax % len(shape)
+            rec_axes = g.get("record_axes")
+            rec_axes = [a % len(shape) for a in rec_axes] if rec_axes is not None else \
+                [a for a in range(len(shape)) if a not in (t_ax, c_ax)]
+            sl = [slice(None)] * len(shape)
+            for a, i in zip(rec_axes, locator["idx"]):
+                sl[a] = i
+            x = np.asarray(arr[tuple(sl)], dtype=np.float64)
+            # remaining axes keep their relative order: put channels first, time last
+            remaining = [a for a in range(len(shape)) if a not in rec_axes]
+            if c_ax is None:
+                x = x.reshape(1, -1)
+            elif remaining.index(c_ax) > remaining.index(t_ax):
+                x = x.T
+        finally:
+            if h is not None:
+                h.close()
+        return np.atleast_2d(x), self._fs(path, g)

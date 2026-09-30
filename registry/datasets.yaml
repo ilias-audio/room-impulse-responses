@@ -906,12 +906,18 @@ datasets:
   license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
   access: open
   source: {kind: depositonce, records: ["b079fd1c-999f-42cb-afd2-bcd34de6180b"]}
+  adapter:
+    name: ndarray
+    # data/impulse_response[source, 64 mics, 1024 samples]: one record per source position x mic
+    params: {glob: "[ADR][12].h5", container: h5, array: data/impulse_response, time_axis: 2,
+             record_axes: [0, 1], fs_dataset: metadata/sampling_rate, pattern: '(?P<cond>[ADR]\d)\.h5$',
+             room_default: miracle-lab, ir_kind: anechoic}
   wave: 3
   analysis: {scope: subsample_v1}
   homepage: https://depositonce.tu-berlin.de/items/b079fd1c-999f-42cb-afd2-bcd34de6180b
   paper: {title: "MIRACLE - Microphone Array Impulse Response Dataset for Acoustic Learning", url: "https://doi.org/10.1186/s13636-024-00352-8"}
   status: planned
-  notes: Possibly near-anechoic; decay metrics may be mostly invalid. Verify at probe.
+  notes: "IRs are 1024 samples (~21 ms): direct sound and first reflections in a low-reverberation lab (probe 2026-09-30). Indexed with positions (ir_kind anechoic); decay metrics are not meaningful, so only the subsample is analysed."
 
 - id: sriracha
   name: SRIRACHA

@@ -64,7 +64,7 @@ class Embedder:
         self.proc = ClapProcessor.from_pretrained(MODEL)
 
     def __call__(self, audios: list[np.ndarray]) -> np.ndarray:
-        inp = self.proc(audios=audios, sampling_rate=SR, return_tensors="pt")
+        inp = self.proc(audio=audios, sampling_rate=SR, return_tensors="pt")
         inp = {k: v.to(self.device) for k, v in inp.items()}
         with self.torch.no_grad():
             e = self.model.get_audio_features(**inp)
