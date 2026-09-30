@@ -25,6 +25,9 @@ them. Methods decisions are in [analyzer-v1.md](analyzer-v1.md).
 | OpenSLR 28 | Its AIR copies are 16 kHz duplicates of Aachen AIR; RWCP includes anechoic-chamber IRs | names | AIR copies skipped; RWCP `ane` tagged `anechoic` |
 | BUT ReverbDB | "RIR-only" archive also holds 60 s silence recordings; room metadata (type, volume, materials) in `env_meta.txt` | probe | adapter picks `RIR/*.v00.wav`; metadata ingested into `rooms` |
 | Surrey BRIRs | Includes an anechoic reference set alongside rooms A-D | file names | tagged `anechoic` |
+| MYRiAD | v1 (Zenodo 7322755) is one 31 GB zip (RIRs + hours of recordings) that Info-ZIP rejects as a "zip bomb" (false positive on large ZIP64); v2 (7389996) adds a 200 MB "econ" zip with exactly the 1,214 RIRs + coordinates | md5 OK, unzip heuristic; econ listing | pinned to v2 econ; zip-bomb heuristic disabled for checksum-verified archives |
+| Aalto robot coupled rooms | Zenodo 10708306 was superseded by 13987509 (2024-10-24): all four data archives changed | Zenodo versions API; md5 differ | pinned to 13987509 |
+| MIRACLE | IRs are 1,024 samples at 32 kHz (32 ms): direct sound + first reflections in a low-reverberation lab | HDF5 probe | indexed (856,128, exact) as `anechoic`; decay metrics not meaningful |
 
 ## Licence findings
 

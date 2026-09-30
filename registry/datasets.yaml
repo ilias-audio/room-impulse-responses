@@ -547,11 +547,11 @@ datasets:
   ir_kinds: [room]
   capture_formats: [binaural, array_raw]
   fs_hz: [44100]
-  content: 1214 RIRs from two rooms (SONORA lab, RT 2.1 s; Alamire Interactive Lab, RT 0.5 s) with in-ear/behind-ear dummy-head mics, circular arrays and distributed mics (archive also holds speech/music/noise recordings).
+  content: 1214 RIRs from two rooms (SONORA lab, RT 2.1 s; Alamire Interactive Lab, RT 0.5 s) with in-ear/behind-ear dummy-head mics, circular arrays and distributed mics (V2 "econ" archive: all RIRs + coordinates, without the long recordings).
   expected: {n_irs: 1214, n_rooms: 2}
   license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
   access: open
-  source: {kind: zenodo, records: ["7322755"]}
+  source: {kind: zenodo, records: ["7389996"], include: ["MYRiAD_V2_econ.zip"]}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/7322755
@@ -655,12 +655,12 @@ datasets:
   content: SRIRs captured by a robot with a microphone array moving through coupled rooms (corridors, halls, an office) of a reverberant university building; two Zenodo parts (2024, 2026 office).
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
-  source: {kind: zenodo, records: ["10708306", "22702503"], include: ["*.zip", "*.jpg", "*.png"]}
+  source: {kind: zenodo, records: ["13987509", "22702503"], include: ["*.zip", "*.jpg", "*.png"]}
   keep_archive: false
   wave: 2
-  homepage: https://zenodo.org/records/10708306
+  homepage: https://zenodo.org/records/13987509
   paper: {title: "Spatial Room Impulse Response Dataset: A Robot's Journey Through Coupled Rooms (DAGA 2024)", url: "https://pub.dega-akustik.de/DAGA_2024/files/upload/paper/453.pdf"}
-  doi: 10.5281/zenodo.10708306
+  doi: 10.5281/zenodo.13987509
   status: planned
 
 - id: metu_sparg

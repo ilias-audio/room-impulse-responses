@@ -1,0 +1,7 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+TAU-SRIR_DB.z02	https://zenodo.org/api/records/6408611/files/TAU-SRIR_DB.z02/content	4294967296	md5	3bb4bf28755250a170642ff64cb1b25e	zenodo:6408611	2026-09-30T16:35:12Z
+TAU-SRIR_DB.z03	https://zenodo.org/api/records/6408611/files/TAU-SRIR_DB.z03/content	4294967296	md5	1a7f1ce10c5501dda6bdf6ad1e5a4e24	zenodo:6408611	2026-09-30T16:35:12Z
+TAU-SRIR_DB.z01	https://zenodo.org/api/records/6408611/files/TAU-SRIR_DB.z01/content	4294967296	md5	c57dd9b1e6fdae85aa4af3ce6af61d43	zenodo:6408611	2026-09-30T16:35:12Z
+README.md	https://zenodo.org/api/records/6408611/files/README.md/content	19060	md5	f42fbe2ccbe933c974818a80b8d68bb4	zenodo:6408611	2026-09-30T16:35:12Z
+LICENSE.txt	https://zenodo.org/api/records/6408611/files/LICENSE.txt/content	1557	md5	b93a2731871de0c62e1216d0152b3802	zenodo:6408611	2026-09-30T16:35:12Z
+TAU-SRIR_DB.zip	https://zenodo.org/api/records/6408611/files/TAU-SRIR_DB.zip/content	3920131466	md5	32315cfddc2fd6d732f27b4323f9fd1c	zenodo:6408611	2026-09-30T16:35:12Z

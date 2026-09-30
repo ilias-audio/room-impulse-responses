@@ -11,6 +11,11 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/lib_common.sh"
 
+# Archives are checksum-verified against the provider before extraction, so Info-ZIP's
+# zip-bomb heuristic (false positives on large ZIP64 archives, e.g. MYRiAD v1) is disabled;
+# genuinely truncated archives still fail on their missing bytes.
+export UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE
+
 AUTO_KEEP_MAX_BYTES=$((5 * 1024 * 1024 * 1024))
 
 extract_archive() { # archive files_dir
