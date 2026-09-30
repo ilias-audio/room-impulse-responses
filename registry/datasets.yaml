@@ -659,19 +659,41 @@ datasets:
   status: planned
 
 - id: aalto_multiroom
-  name: Aalto Multi-Room Transition dataset
+  name: Multi-Room Transition Dataset (MRTD)
   year: 2024
   type: measured
   ir_kinds: [room]
-  capture_formats: [binaural, stereo]
-  content: 4,032 RIRs across 3 multi-room (coupled) environments measured along transitions between rooms with a KEMAR dummy head and a Zoom H3.
-  expected: {n_irs: 4032, n_rooms: 3}
+  capture_formats: [binaural, tetra_raw]
+  content: RIRs measured along paths through 3 complex multi-room environments (hallways + lecture hall, offices, workshops) with 4 fixed loudspeakers and a mobile platform carrying a GRAS 45BB KEMAR and a Zoom H3-VR tetrahedral array; 48 kHz. Aimed at multi-slope energy decay.
+  expected: {n_rooms: 3, note: "4,032 single-channel RIRs as published = 168 positions x 4 loudspeakers x (2 KEMAR + 4 Zoom channels)"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
-  source: {kind: zenodo, records: ["11196820"]}
+  # v3 (2024-08-19) adds SOFA files next to the pickled DataFrame: fetch the SOFA files only
+  source: {kind: zenodo, records: ["13341566"], include: ["*.sofa"]}
   wave: 2
-  homepage: https://zenodo.org/records/11196820
-  doi: 10.5281/zenodo.11196820
+  homepage: https://zenodo.org/records/13341566
+  paper: {title: "A Multi-Room Transition Dataset for Blind Estimation of Energy Decay (IWAENC 2024)", url: "https://research.aalto.fi/en/publications/a-multi-room-transition-dataset-for-blind-estimation-of-energy-de"}
+  doi: 10.5281/zenodo.13341566
+  status: planned
+
+- id: mckenzie_rtd
+  name: Room Transition Dataset (coupled rooms, Eigenmike)
+  year: 2021
+  type: measured
+  ir_kinds: [room]
+  capture_formats: [em32_raw]
+  content: Spatial RIRs for 4 transitions between coupled rooms at Aalto (meeting room-hallway, office-anechoic chamber, office-kitchen, office-stairwell), 101 positions at 5 cm steps from 2.5 m inside one room to 2.5 m inside the other, 4 source positions each (LOS / no LOS, both rooms); Genelec 8331A, mh acoustics Eigenmike em32.
+  expected: {n_irs: 1616, n_rooms: 4, note: "4 transitions x 4 sources x 101 positions"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  # v1.3 = last raw release (v1.4 is denoised: modelled tails would bias decay metrics); WAV zip only (the SOFA
+  # zips hold the same SRIRs, 20 GB)
+  source: {kind: zenodo, records: ["6375520"], include: ["*WAV.zip"]}
+  keep_archive: false
+  wave: 2
+  homepage: https://zenodo.org/records/6375520
+  paper: {title: "Acoustic Analysis and Dataset of Transitions between Coupled Rooms (ICASSP 2021)", url: "https://doi.org/10.1109/ICASSP39728.2021.9415122"}
+  doi: 10.5281/zenodo.6375520
   status: planned
 
 - id: arni_6dof_srir
@@ -1089,6 +1111,23 @@ datasets:
   homepage: https://huggingface.co/datasets/treble-technologies/Treble10-RIR
   paper: {title: "Treble10: A high-quality dataset for far-field speech recognition, dereverberation, and enhancement", url: "https://arxiv.org/abs/2510.23141"}
   status: deferred
+
+- id: ertd
+  name: Extended Room Transition Dataset (ERTD)
+  year: 2024
+  type: simulated
+  ir_kinds: [room]
+  capture_formats: [mono_omni]
+  content: 2,833 FDTD-simulated RIRs per variant on a 0.2 m grid over a meeting room coupled to a hallway (the geometry of McKenzie's Room Transition Dataset, NLOS source), at 1.55 m height; ERTD1 absorption matched to the measurements, ERTD2 with a strongly absorbing hallway wall.
+  expected: {n_irs: 5666, n_rooms: 2, note: "2 variants x 2833"}
+  license: {spdx: CC-BY-4.0, redistribute_audio: yes}
+  access: open
+  source: {kind: zenodo, records: ["12169116"]}
+  wave: 4
+  homepage: https://zenodo.org/records/12169116
+  paper: {title: "Common-slope modeling of late reverberation (IEEE/ACM TASLP 31, 2023)", url: "https://doi.org/10.1109/TASLP.2023.3317572"}
+  doi: 10.5281/zenodo.12169116
+  status: planned
 
 - id: acousticrooms
   name: AcousticRooms

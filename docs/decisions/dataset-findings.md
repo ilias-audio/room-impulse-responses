@@ -26,8 +26,12 @@ them. Methods decisions are in [analyzer-v1.md](analyzer-v1.md).
 | BUT ReverbDB | "RIR-only" archive also holds 60 s silence recordings; room metadata (type, volume, materials) in `env_meta.txt` | probe | adapter picks `RIR/*.v00.wav`; metadata ingested into `rooms` |
 | Surrey BRIRs | Includes an anechoic reference set alongside rooms A-D | file names | tagged `anechoic` |
 | MYRiAD | v1 (Zenodo 7322755) is one 31 GB zip (RIRs + hours of recordings) that Info-ZIP rejects as a "zip bomb" (false positive on large ZIP64); v2 (7389996) adds a 200 MB "econ" zip with exactly the 1,214 RIRs + coordinates | md5 OK, unzip heuristic; econ listing | pinned to v2 econ; zip-bomb heuristic disabled for checksum-verified archives |
-| Aalto robot coupled rooms | Zenodo 10708306 was superseded by 13987509 (2024-10-24): all four data archives changed | Zenodo versions API; md5 differ | pinned to 13987509 |
+| TU Ilmenau robot SRIRs (id was `aalto_robot_coupled`) | Zenodo 10708306 was superseded by 13987509 (2024-10-24): all four data archives changed | Zenodo versions API; md5 differ | pinned to 13987509 |
 | SRIRACHA | The 20 published HDF5 files hold 1,327,360 IRs (16 files x 1,024 sources x 64 mics + 4 dense-grid files x 1,089 x 64), half the 2,654,720 stated; IRs are 1 s at 32 kHz | index of all 20 checksum-verified files | expected count noted; T20 valid, T30 mostly not (1 s files) |
+| TU Ilmenau robot SRIRs | The data is TU Ilmenau's (SOFA `Organization`, `AuthorContact`), not Aalto's. Each file holds 6 or 9 measurements = 2-3 sources measured 2-3 times, and the repeat layout varies by file (triples in some, pairs in 308 of 754) | `SourcePosition` of every file | renamed `tuil_robot_coupled`; SOFA adapter `first_per_source` keeps the first measurement per source position: 2,119 IRs |
+| UPV_RIR_DB | IRs are 16,384 samples at 44.1 kHz (0.37 s) although the rooms' published T30 reaches 0.8 s: EDC only falls 25-37 dB by 0.3 s. Channel layout undocumented: AR = 2 points x 16 capsules, DH = 2 points x 2 ears | `h_ctrl` shapes; `metadata.json`; interaural cross-correlation (DH channels 1 and 3 lead and are louder for lateral sources) | early parameters (EDT, C, D, DRR) usable, T30 mostly out of range; DH point P01 (channels 0, 1) as the binaural pair |
+| Multi-Room Transition Dataset (Aalto) | v1/v2 (Zenodo 11196820, 11388246) contain only a pickled pandas DataFrame (loading a pickle executes code); v3 (13341566) adds 24 SOFA files with the same RIRs | opcode scan of the pickle (pandas/numpy only); Zenodo versions API | re-pinned to v3, SOFA files only; the pickle is never loaded by the pipeline |
+| ACE | The ground-truth DRR uses a +-8 ms direct window on the full-band IR (CSV columns `DRR direct +/-: 0.008` in all 21,000 rows), not the +-2.5 ms often quoted | ACE measurement CSV | analyzer DRR follows it (see analyzer-v1.md amendment); median diff to ACE -0.01 dB |
 | 3D meshgrid | IRs are 4,800 samples (0.1 s): EDT only | HDF5 probe | grade C by design |
 | MeshRIR | "4,410 RIRs" counts measurement points; with the 32-source subset there are 18,081 source-receiver IRs | npy shapes | indexed 18,081 |
 | RSoANU | 22 GB em32 zip written without proper ZIP64 records (offsets wrap at 4 GiB): Info-ZIP and 7-Zip fail on a checksum-verified file | unzip, 7z; zip -FF recovers all 810 files | extract.sh repairs with zip -FF automatically; 6 B-format IRs in the authors' `Outlier/` folders are not indexed |
@@ -42,6 +46,7 @@ them. Methods decisions are in [analyzer-v1.md](analyzer-v1.md).
 | MYRiAD, trajectoRIR, MIRACLE, C4DM, DRR-scaled | CC BY-NC(-SA): non-commercial research only | `training_use: allowed` (non-commercial) |
 | TAU-SRIR | Zenodo licence "other-nc" | `redistribute_audio: unaltered_only` |
 | C4DM | Licence version (3.0 vs 4.0) unverified | noted in registry |
+| TU Ilmenau robot SRIRs | Zenodo lists CC BY 4.0; the SOFA headers say CC BY-NC-SA 4.0 | Zenodo licence recorded, conflict noted in the registry; treat as NC-SA when in doubt |
 
 `training_use` is carried into the index, so a training-set query can require
 `training_use = 'allowed'`.

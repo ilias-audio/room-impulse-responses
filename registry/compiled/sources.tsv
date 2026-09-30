@@ -28,7 +28,8 @@ myriad	2	planned	open	zenodo	7389996	-	MYRiAD_V2_econ.zip	-	-	0
 trajectorir	2	planned	open	zenodo	15564430	-	-	-	-	0
 tau_srir	2	planned	open	zenodo	6408611	-	TAU-SRIR_DB.z0*|TAU-SRIR_DB.zip|README.md|LICENSE.txt	-	-	0
 upv_rir_db	2	planned	open	zenodo	19371528	-	-	-	-	auto
-aalto_multiroom	2	planned	open	zenodo	11196820	-	-	-	-	auto
+aalto_multiroom	2	planned	open	zenodo	13341566	-	*.sofa	-	-	auto
+mckenzie_rtd	2	planned	open	zenodo	6375520	-	*WAV.zip	-	-	0
 arni_6dof_srir	2	planned	open	zenodo	6382405	-	-	-	-	0
 tuil_robot_coupled	2	planned	open	zenodo	13987509|22702503	-	*.zip|*.jpg|*.png	-	-	0
 metu_sparg	2	planned	open	zenodo	2635758	-	-	-	-	auto
@@ -47,6 +48,7 @@ mp_rir	3	planned	open	zenodo	11148712	-	-	-	-	auto
 miracle	3	planned	open	depositonce	b079fd1c-999f-42cb-afd2-bcd34de6180b	-	-	-	-	auto
 sriracha	3	planned	open	depositonce	d9d4b747-2f3e-4b21-b32e-48863e9af876	-	-	-	-	auto
 treble10	4	deferred	open	hf	treble-technologies/Treble10-RIR@main	-	-	-	-	auto
+ertd	4	planned	open	zenodo	12169116	-	-	-	-	auto
 acousticrooms	4	deferred	open	github	facebookresearch/AcousticRooms@main	-	-	-	-	auto
 bird	4	deferred	open	zenodo	4139416	-	-	-	-	auto
 spadenrir	4	deferred	open	zenodo	21618947	-	-	-	-	auto
