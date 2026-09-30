@@ -35,7 +35,7 @@ extract_archive() { # archive files_dir
 }
 
 archive_stem() {
-    local b; b=$(basename "$1")
+    local b=$1   # keep any record prefix directory
     for ext in .tar.gz .tar.bz2 .tar.xz .tgz .tbz2 .tar .zip; do
         case "$b" in *"$ext") echo "${b%"$ext"}"; return ;; esac
     done

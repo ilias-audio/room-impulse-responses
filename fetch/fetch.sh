@@ -87,6 +87,15 @@ fetch_one() {
         if ! download "$url" "$dest.part"; then
             log "  FAILED $relpath"; failures=$((failures + 1)); continue
         fi
+        # Servers/firewalls sometimes answer 200 with an HTML error page: never
+        # accept (or trust-on-first-use) HTML in place of a data file.
+        case "$relpath" in
+            *.html|*.htm|*.txt|*.md|*.csv|*.bib) ;;
+            *) if head -c 512 "$dest.part" | tr 'A-Z' 'a-z' | grep -qE '^[[:space:]]*<(!doctype|html|head|body)'; then
+                   log "  REJECTED $relpath: server returned an HTML page ($(head -c 120 "$dest.part" | tr -d '\n'))"
+                   rm -f "$dest.part"; failures=$((failures + 1)); continue
+               fi ;;
+        esac
         if [ "$size" != "-" ] && [ "$(stat -c %s "$dest.part")" != "$size" ]; then
             log "  SIZE MISMATCH $relpath: got $(stat -c %s "$dest.part"), expected $size"
             rm -f "$dest.part"; failures=$((failures + 1)); continue

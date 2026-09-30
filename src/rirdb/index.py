@@ -17,6 +17,7 @@ import pandas as pd
 from rirdb import paths
 from rirdb.adapters import get_adapter
 from rirdb.registry import Dataset
+from rirdb.rooms import enrich_rooms
 
 
 def index_dir() -> Path:
@@ -52,13 +53,6 @@ def subsample_mask(df: pd.DataFrame, d: Dataset) -> pd.Series:
     return keep
 
 
-def _curated_rooms(dataset_id: str) -> pd.DataFrame | None:
-    p = paths.REGISTRY_DIR / "rooms" / f"{dataset_id}.csv"
-    if not p.exists():
-        return None
-    return pd.read_csv(p, dtype=str).fillna("")
-
-
 def build_index(d: Dataset) -> dict:
     adapter = get_adapter(d.adapter.name)
     root = paths.files_dir(d.id)
@@ -66,6 +60,12 @@ def build_index(d: Dataset) -> dict:
     if not rows:
         raise RuntimeError(f"{d.id}: adapter found no IR records under {root}")
     df = pd.DataFrame(rows)
+    import json
+
+    extras = df["extra"].map(json.loads)
+    # one preferred representation per position (e.g. OpenAIR mono is usually W of the B-format)
+    df["preferred"] = extras.map(lambda e: bool(e.get("preferred", True)))
+    df["reference_role"] = extras.map(lambda e: e.get("reference_role")).fillna(d.analysis.reference_role or "")
     df["type"] = d.type
     df["measured"] = d.type == "measured"
     df["license_spdx"] = d.license.spdx
@@ -82,18 +82,12 @@ def build_index(d: Dataset) -> dict:
                     n_irs=("ir_id", "size"))
                .reset_index())
     rooms["dataset_id"] = d.id
-    rooms["category"] = ""
-    cur = _curated_rooms(d.id)
-    if cur is not None:
-        rooms = rooms.drop(columns=[c for c in ("category",) if c in cur.columns])
-        rooms = rooms.merge(cur, on="room_key", how="left", suffixes=("", "_curated"))
-        for col in ("room_label", "ir_kind"):
-            cc = f"{col}_curated"
-            if cc in rooms:
-                rooms[col] = rooms[cc].where(rooms[cc].fillna("") != "", rooms[col])
-                rooms = rooms.drop(columns=[cc])
-        rooms["category"] = rooms.get("category", "").fillna("")
-
+    rooms = enrich_rooms(d.id, rooms)
+    # room-level corrections (e.g. an "outdoor" space in a room dataset) apply to its IRs,
+    # unless the adapter already set a more specific kind for the record
+    kind = rooms.set_index("room_id")["ir_kind"]
+    default = d.ir_kinds[0] if d.ir_kinds else "room"
+    df["ir_kind"] = [kind.get(rid, k) if k == default else k for rid, k in zip(df["room_id"], df["ir_kind"])]
     for path, frame in ((irs_path(d.id), df), (rooms_path(d.id), rooms)):
         path.parent.mkdir(parents=True, exist_ok=True)
         frame.to_parquet(path, index=False)

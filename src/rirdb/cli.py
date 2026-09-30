@@ -167,5 +167,17 @@ def query_cmd(
         df.to_csv(csv, index=False)
 
 
+report_app = typer.Typer(no_args_is_help=True, help="Generate reports.")
+app.add_typer(report_app, name="report")
+
+
+@report_app.command("corpus")
+def report_corpus() -> None:
+    """Per-dataset tables + IR-space figures -> reports/corpus/README.md."""
+    from rirdb.report.corpus import build
+
+    console.print(f"wrote {build().relative_to(paths.REPO_ROOT)}")
+
+
 if __name__ == "__main__":
     app()

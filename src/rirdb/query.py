@@ -29,7 +29,9 @@ def connect() -> duckdb.DuckDBPyConnection:
                                                         union_by_name = true);
         CREATE VIEW metrics AS SELECT * FROM read_parquet('{root}/metrics/v1/*/wide.parquet', union_by_name = true);
         CREATE VIEW corpus AS
-            SELECT m.*, r.category, r.room_label, i.locator, i.fs AS fs_file, i.duration_s AS duration_file_s
+            -- ir_kind / preferred come from the current index, so room curation needs no re-analysis
+            SELECT m.* EXCLUDE (ir_kind, preferred), i.ir_kind, i.preferred, r.category, r.room_label,
+                   r.volume_m3, i.locator, i.fs AS fs_file, i.duration_s AS duration_file_s
             FROM metrics m
             LEFT JOIN rooms r USING (room_id)
             LEFT JOIN irs i USING (ir_id);

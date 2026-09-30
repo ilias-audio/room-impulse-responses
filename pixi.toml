@@ -45,6 +45,7 @@ sofar = ">=1.2,<2"
 hdf5plugin = ">=4.1"
 soxr = ">=0.3"
 rirdb = { path = ".", editable = true }
+pypdf = ">=4"
 
 [system-requirements]
 cuda = "12.6"

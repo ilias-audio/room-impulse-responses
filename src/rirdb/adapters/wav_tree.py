@@ -4,6 +4,7 @@ Registry parameters (adapter.params), all optional:
   glob:        file pattern relative to files/ (default "**/*.wav")
   exclude:     regex on the relative path (default: macOS junk)
   pattern:     regex with named groups room, src, rcv, cond, label (on the relpath)
+  room_default: room used when the pattern has no room match
   room_from:   "pattern" | "parent" | "file" | "dataset"  (default: pattern if it
                has a room group, else "file": every file is its own space)
   category_from: "parent" | "grandparent" | None  -> category_hint
@@ -56,7 +57,7 @@ class WavTreeAdapter:
             g = m.groupdict() if m else {}
             stem = Path(rel).stem
             if room_from == "pattern":
-                room = g.get("room") or "unknown"
+                room = g.get("room") or p.get("room_default") or "unknown"
             elif room_from == "parent":
                 room = Path(rel).parent.name
             elif room_from == "dataset":

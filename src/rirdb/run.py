@@ -27,7 +27,7 @@ from rirdb.analysis.config import load_config
 from rirdb.index import load_irs
 from rirdb.registry import get_dataset
 
-INDEX_COLUMNS = ["ir_id", "dataset_id", "room_id", "local_key", "condition_key", "src_key", "rcv_key",
+INDEX_COLUMNS = ["ir_id", "dataset_id", "room_id", "local_key", "condition_key", "src_key", "rcv_key", "preferred",
                  "capture_format", "channel_roles", "ir_kind", "type", "measured", "license_spdx",
                  "redistribute_audio", "src_x", "src_y", "src_z", "rcv_x", "rcv_y", "rcv_z"]
 
@@ -49,9 +49,19 @@ def _git_sha() -> str:
 
 
 def _select_channels(x: np.ndarray, roles: tuple[str, ...], reference_role: str | None):
-    """Keep the channels the analysis needs: pairs/B-format whole, arrays -> one reference channel."""
-    if ("L" in roles and "R" in roles) or ("SL" in roles and "SR" in roles) or "W" in roles:
+    """Keep the channels the analysis needs: pairs/B-format whole, arrays -> one reference channel.
+
+    reference_role "mean" averages all capsules: the order-0 spherical-harmonic
+    (omni) component of a rigid spherical array. Open arrays of omni capsules
+    use a single capsule instead (averaging spaced capsules low-passes the direct sound).
+    """
+    if ("L" in roles and "R" in roles) or ("SL" in roles and "SR" in roles):
         return x, roles
+    if "W" in roles:                     # Ambisonics: only the first-order channels are used
+        keep = [i for i, r in enumerate(roles) if r in ("W", "X", "Y", "Z")]
+        return x[keep], tuple(roles[i] for i in keep)
+    if reference_role == "mean":
+        return x.mean(axis=0, keepdims=True), ("omni_mean",)
     i = roles.index(reference_role) if reference_role in roles else 0
     return x[i:i + 1], (roles[i],)
 
@@ -74,7 +84,7 @@ def _analyze_row(row: dict) -> tuple[dict, dict]:
         x, fs = adapter.load(json.loads(row["locator"]), root)
         roles = tuple(row["channel_roles"].split(","))
         content_sha1 = hashlib.sha1(np.ascontiguousarray(x, dtype=np.float32).tobytes()).hexdigest()
-        xs, rs = _select_channels(x, roles, d.analysis.reference_role)
+        xs, rs = _select_channels(x, roles, row.get("reference_role") or d.analysis.reference_role)
         a = analyze_ir(xs, fs, roles=rs, capture_format=row["capture_format"], sh_norm=row.get("sh_norm"),
                        orientation_known=bool(row.get("orientation_known", True)), cfg=cfg)
         s = a.scalars
@@ -110,6 +120,7 @@ def analyze_shard(dataset_id: str, shard: int, n_shards: int, workers: int, full
 
     scal = pd.DataFrame([r[0] for r in results])
     meta = rows[[c for c in INDEX_COLUMNS if c in rows.columns]].reset_index(drop=True)
+    scal = scal.drop(columns=[c for c in scal.columns if c in meta.columns and c != "ir_id"])
     out = meta.merge(scal, on="ir_id", how="left")
     out["pyrato_version"] = version("pyrato")
     out["pyfar_version"] = version("pyfar")
@@ -164,6 +175,10 @@ def merge(dataset_id: str) -> Path:
     if not shards:
         raise FileNotFoundError(f"no metric shards in {mdir}")
     df = pd.concat([pd.read_parquet(p) for p in shards], ignore_index=True)
+    # older shards: index/analyzer column clashes came out as <col>_x / <col>_y; keep the index value
+    for c in [c[:-2] for c in df.columns if c.endswith("_x") and f"{c[:-2]}_y" in df.columns]:
+        df[c] = df.pop(f"{c}_x")
+        df.pop(f"{c}_y")
     df = df.drop_duplicates("ir_id", keep="last").sort_values("ir_id")
     out = mdir / "wide.parquet"
     df.to_parquet(out, index=False)

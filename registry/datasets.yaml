@@ -105,13 +105,14 @@ datasets:
   ir_kinds: [room, outdoor, scale_model]
   capture_formats: [mono_omni, stereo, foa_fuma, binaural]
   content: Ambisonic B-format (and mono/stereo) RIRs recorded in over 46 (still increasing) environments, with per-space data tables. Includes a few non-room entries (scale model, slinky, simulated auralizations) tagged by ir_kind.
-  expected: {note: "46+ environments"}
+  expected: {n_irs: 690, n_rooms: 58, note: "IR folders only; sweeps, auralizations and examples skipped"}
   license: {spdx: CC-BY-4.0, url: "https://www.openairlib.net/", redistribute_audio: unknown, note: "Per-IR terms vary; confirm from the per-space tables before serving audio."}
   access: open
   source:
     kind: wget_mirror
     urls: ["https://webfiles.york.ac.uk/OPENAIR/IRs/"]
     accept: ["*.wav", "*.WAV", "*.csv", "*.txt", "*.xlsx", "*.pdf"]
+  adapter: {name: openair}
   keep_archive: false
   wave: 1
   homepage: https://www.openairlib.net/
@@ -129,6 +130,7 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["18622201"], include: ["measurements.zip", "floor_plan.pdf"]}
+  adapter: {name: sofa, params: {glob: "measurements/*.sofa", capture_format: sdm_array, reference_role: mic_0}}
   wave: 1
   homepage: https://zenodo.org/records/18622201
   doi: 10.5281/zenodo.18622201
@@ -141,10 +143,11 @@ datasets:
   ir_kinds: [room]
   capture_formats: [binaural, mono_omni]
   content: 344 binaural RIRs measured with a dummy head in 5 environments including a church (release 1.4, full-bandwidth .mat files).
-  expected: {n_irs: 344, n_rooms: 5}
+  expected: {n_irs: 107, n_rooms: 12, note: "release 1.4: 214 single-ear .mat files = 107 L/R records (binaural + phone mock-up); the paper counts 344"}
   license: {spdx: MIT, redistribute_audio: unknown}
   access: open
   source: {kind: http, urls: ["https://www.iks.rwth-aachen.de/fileadmin/user_upload/downloads/forschung/tools-downloads/air_database_release_1_4.zip"]}
+  adapter: {name: air_mat}
   wave: 1
   homepage: http://www.iks.rwth-aachen.de/en/research/tools-downloads/databases/aachen-impulse-response-database/
   paper: {title: "A Binaural Room Impulse Response Database for the Evaluation of Dereverberation Algorithms", url: "https://ieeexplore.ieee.org/abstract/document/5201259"}
@@ -158,10 +161,11 @@ datasets:
   capture_formats: [array_raw, mono_omni]
   fs_hz: [16000]
   content: "Real RIRs bundled by OpenSLR 28 at 16 kHz: RWCP Sound Scene Database (2000; 143 multi-channel RIRs in 14 rooms) and REVERB Challenge (2013; 24 8-channel RIRs in small/medium/large rooms). Its AIR copy is de-duplicated against aachen_air; noises and simulated RIRs are not indexed."
-  expected: {n_irs: 325, note: "OpenSLR count incl. AIR copies"}
+  expected: {n_irs: 200, note: "RWCP + REVERB records; OpenSLR lists 325 files incl. 107 AIR copies (skipped)"}
   license: {spdx: Apache-2.0, url: "https://www.openslr.org/28/", redistribute_audio: unknown, note: "Bundle is Apache-2.0; RWCP and REVERB components keep their own terms."}
   access: open
   source: {kind: http, urls: ["https://www.openslr.org/resources/28/rirs_noises.zip"]}
+  adapter: {name: openslr28}
   wave: 1
   homepage: https://www.openslr.org/28/
   paper: {title: "Sound scene data collection in real acoustical environments (RWCP)", url: "https://library.naist.jp/dspace/bitstream/handle/10061/7746/JourAcouSocJaE_20_3_225.pdf?sequence=1"}
@@ -179,6 +183,9 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: http, urls: ["http://merlin.fit.vutbr.cz/ReverbDB/BUT_ReverbDB_rel_19_06_RIR-Only.tgz"]}
+  adapter:
+    name: wav_tree
+    params: {pattern: '(?P<room>[^/]+)/(?P<rcv>MicID\d+)/SpkID(?P<src>\d+)_[^/]+/(?P<label>\d+)/RIR/[^/]+\.v00\.wav$'}
   keep_archive: false
   wave: 1
   homepage: https://speech.fit.vutbr.cz/software/but-speech-fit-reverb-database
@@ -200,6 +207,9 @@ datasets:
     kind: zenodo
     records: ["6257551"]
     include: ["ACE_Corpus_RIRN_Single.tbz2", "ACE_Corpus_Data.tbz2", "ACE_Corpus_instructions_v01.pdf", "ACE_Corpus_Microphone_arrangements_v02.pdf", "ACE_TASLP_ref.bib"]
+  adapter:
+    name: wav_tree
+    params: {pattern: 'Single/(?P<room>[^/]+)/(?P<rcv>\d)/Single_[^/]+_RIR\.wav$'}
   wave: 1
   homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
   paper: {title: "Estimation of room acoustic parameters: The ACE challenge", url: "https://ieeexplore.ieee.org/document/7336912"}
@@ -222,6 +232,9 @@ datasets:
       - http://isophonics.net/files/irs/greathallOmni.zip
       - http://isophonics.net/files/irs/octagonOmni.zip
       - http://isophonics.net/files/irs/classroomOmni.zip
+  adapter:
+    name: wav_tree
+    params: {pattern: '(?P<room>[a-z]+)Omni/Omni/(?P<rcv>[^/]+)\.wav$'}
   wave: 1
   homepage: http://isophonics.net/content/room-impulse-response-data-set
   paper: {title: "Database of Omnidirectional and B-Format Impulse Responses", url: "https://ieeexplore.ieee.org/document/5496083"}
@@ -234,10 +247,17 @@ datasets:
   ir_kinds: [room]
   capture_formats: [sdm_array, binaural, array_raw]
   content: About 600 multichannel SRIRs from 3 performance spaces (Konzerthaus ~600 seats, Brahmssaal ~100 seats, Sommertheater ~300 seats), stage and audience positions, open SDM array and dummy head; incl. orchestra loudspeaker setups.
-  expected: {n_rooms: 3, note: "~600 multichannel RIRs"}
+  expected: {n_irs: 657, n_rooms: 3, note: "~600 multichannel RIRs; figure-8 files of set C not indexed"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["4116247"]}
+  adapter:
+    name: wav_tree
+    params:
+      pattern: 'Set(?P<set>[ABC])_[^/]+/Data/(?:(?P<room>Brahmssaal|KonzertHaus|SommerTheater)/)?(?P<mic>DummyHead|OpenArray|Omni)/(?:(?P<cond>[^/]+)/)?(?P<rcv>[^/]+)\.wav$'
+      room_default: KonzertHaus
+      roles: {1: [omni], 2: [L, R], 6: [mic_0, mic_1, mic_2, mic_3, mic_4, mic_5]}
+      channel_formats: {1: mono_omni, 2: binaural, 6: sdm_array}
   wave: 1
   homepage: https://zenodo.org/records/4116247
   doi: 10.5281/zenodo.4116247
@@ -289,23 +309,14 @@ datasets:
   content: 234 8-channel RIRs recorded in the same room with 3 levels of reverberation (0.16/0.36/0.61 s) and 3 microphone array spacings (.mat files).
   expected: {n_irs: 234, n_rooms: 1, note: "1 room x 3 reverberation settings"}
   license: {spdx: ODC-By-1.0, redistribute_audio: unknown}
-  access: open
+  access: manual
   source:
-    kind: http
-    urls:
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_3-3-3-8-3-3-3.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_4-4-4-8-4-4-4.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.160s)_8-8-8-8-8-8-8.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_3-3-3-8-3-3-3.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_4-4-4-8-4-4-4.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.360s)_8-8-8-8-8-8-8.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_3-3-3-8-3-3-3.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_4-4-4-8-4-4-4.zip"
-      - "https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_0.610s)_8-8-8-8-8-8-8.zip"
+    kind: manual
+    instructions: "The Bar-Ilan web firewall rejects scripted requests for these archives (any URL containing parentheses returns an HTML \"Request Rejected\" page with HTTP 200; checked 2026-09-30). Download the nine Impulse_response_Acoustic_Lab_Bar-Ilan_University_(Reverberation_*)_*.zip files from https://www.eng.biu.ac.il/~gannot/RIR_DATABASE/ in a browser into $RIRDB_ROOT/raw/_inbox/mird/, then run `sbatch jobs/download.sh fetch/adopt_manual.sh mird`."
   wave: 1
   homepage: https://www.eng.biu.ac.il/gannot/downloads/
   paper: {title: "Multichannel audio database in various acoustic environments", url: "https://ieeexplore.ieee.org/document/6954309"}
-  status: planned
+  status: manual
 
 - id: iosr_listening_room_brirs
   name: IoSR listening room multichannel BRIRs
@@ -741,7 +752,7 @@ datasets:
   access: manual
   source:
     kind: manual
-    instructions: "SharePoint link returns 403 to scripts. Download RIR.pickle.dat via a browser from the link in https://github.com/mehmetpekmezci/gtu-rir and place it in $RIRDB_ROOT/raw/_inbox/gtu_rir/, then run `rirdb adopt-manual gtu_rir`. Only unpickle inside a job, after the checksum is recorded."
+    instructions: "SharePoint link returns 403 to scripts. Download RIR.pickle.dat via a browser from the link in https://github.com/mehmetpekmezci/gtu-rir and place it in $RIRDB_ROOT/raw/_inbox/gtu_rir/, then run `sbatch jobs/download.sh fetch/adopt_manual.sh gtu_rir`. Only unpickle inside a job, after the checksum is recorded."
   wave: 2
   homepage: https://github.com/mehmetpekmezci/gtu-rir
   status: manual
@@ -972,7 +983,7 @@ datasets:
   content: RIRs and BRIRs recorded in several rooms at the University of Surrey (S3A programme) with two dummy heads and arrays.
   license: {spdx: LicenseRef-S3A-academic, redistribute_audio: no, note: "Academic use only; registered users; must not be redistributed."}
   access: registration
-  source: {kind: manual, instructions: "Register at http://cvssp.org/data/s3a/ and place the downloaded files in $RIRDB_ROOT/raw/_inbox/s3a/, then `rirdb adopt-manual s3a`."}
+  source: {kind: manual, instructions: "Register at http://cvssp.org/data/s3a/ and place the downloaded files in $RIRDB_ROOT/raw/_inbox/s3a/, then `sbatch jobs/download.sh fetch/adopt_manual.sh s3a`."}
   homepage: http://cvssp.org/data/s3a/
   doi: 10.15126/surreydata.00808465
   status: manual

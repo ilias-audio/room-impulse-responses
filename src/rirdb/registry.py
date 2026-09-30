@@ -26,6 +26,8 @@ IRKind = Literal[
     "spring",        # spring reverb units
     "digital_reverb",  # hardware / software algorithmic reverbs
     "creative",      # processed / effect IRs
+    "anechoic",      # anechoic-chamber measurements (kept, excluded from room statistics)
+    "virtual",       # computer models, auralizations, virtual reconstructions inside measured datasets
 ]
 CaptureFormat = Literal[
     "mono_omni",

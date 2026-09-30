@@ -3,10 +3,15 @@
 from __future__ import annotations
 
 from rirdb.adapters.base import Adapter, IRRecord, make_ir_id, slug
+from rirdb.adapters.custom import AirMatAdapter, OpenAirAdapter, OpenSLR28Adapter, SofaAdapter
 from rirdb.adapters.wav_tree import WavTreeAdapter
 
 ADAPTERS: dict[str, type] = {
     "wav_tree": WavTreeAdapter,
+    "sofa": SofaAdapter,
+    "openair": OpenAirAdapter,
+    "air_mat": AirMatAdapter,
+    "openslr28": OpenSLR28Adapter,
 }
 
 

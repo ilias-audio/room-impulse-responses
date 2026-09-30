@@ -2,7 +2,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH -t 6:0:0
-#SBATCH --mem-per-cpu=4G
+#SBATCH --mem-per-cpu=6G
 #SBATCH -o qlogs/arr_%A_%a.out
 #SBATCH -e qlogs/arr_%A_%a.err
 

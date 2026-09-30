@@ -7,6 +7,7 @@ preprocess:
   digital_silence_abs: 1.0e-9     # |x| below this (float files) counts as digital silence
   noise_tail_fraction: 0.1        # explicit noise estimate from the last 10 % of the *trimmed* IR
   min_duration_s: 0.3
+  max_duration_s: 15.0            # analyse at most this long after the onset (memory; any decay reaches noise well before)
   pre_onset_guard_ms: 5.0         # exclude direct-sound pre-ringing just before the onset
 
 bands:

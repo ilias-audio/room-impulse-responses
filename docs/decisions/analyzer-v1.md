@@ -48,12 +48,20 @@ pyrato 1.1.0, pyfar 0.8.1 (pinned `<1.2`, `<0.9`).
    (smoothed peak level minus noise level, same smoothing window as Lundeby:
    800/f + 10 ms, or 30 ms broadband) is at least 20 dB (EDT), 35 dB (T20) or
    45 dB (T30): the bottom of the evaluation range stays >= 10 dB above noise.
-4. **IRs without a noise floor.** Production IRs are often faded or truncated
-   before any noise floor, which makes Lundeby fail by construction. If the last
-   20 % of the band energy is still decaying (> 3 dB over four segments), the
-   plain Schroeder integral is used (`edc_mode = schroeder_nofloor`), the decay
-   range is measured against the energy at the end of the file, and the fit
-   range must end before the last 5 % of the file.
+4. **IRs without a noise floor.** Some IRs end before any noise floor: files
+   cut short (C4DM: 2 s files for a 2.4 s hall) or faded/zero-padded production
+   IRs. There Lundeby fails by construction and the plain Schroeder integral is
+   correct (`edc_mode = schroeder_nofloor`); the decay range is measured against
+   the energy at the end of the file and the fit range must end before the last
+   5 % of it. The test is a decay *rate*: the band is "still decaying" if the
+   slope of its smoothed envelope over the last 20 % is at least half the early
+   decay rate (0 to -10 dB). A first design used tail *flatness* (spread < 4.5 dB);
+   on real data it sent 70-100 % of ACE, OK5 and Detmold bands down the no-floor
+   path, because real floors fluctuate by 3-6 dB between 100 ms segments (ACE
+   500 Hz, Detmold), drift slowly (ACE 2 kHz: -8 dB over 2 s, far slower than
+   the 120 dB/s decay) or end with a rising artefact (OK5). Tests now cover
+   modulated, drifting and rising floors (all must use Lundeby) and a truncated
+   decay (must use plain Schroeder).
 5. **"Broadband"** is the IR band-limited to the octave span (4th-order causal
    Butterworth, 44.5 Hz to min(11.3 kHz, 0.9 fs/2)), so DC offsets and sub-audio
    noise cannot distort Lundeby. Causal, like the octave filters: a zero-phase

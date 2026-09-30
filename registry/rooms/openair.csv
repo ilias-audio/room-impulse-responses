@@ -1,0 +1,27 @@
+room_key,category,ir_kind,room_label,note
+slinky-ir,device,device,Slinky spring,a slinky toy used as a spring reverb
+house-of-commons-auralizations,virtual,virtual,House of Commons (auralizations),auralizations from a computer model
+waveguide-web-example-audio,virtual,virtual,Waveguide web (example),digital waveguide mesh example
+virtual-membranes,virtual,virtual,Virtual membranes,synthetic
+st-marys-abbey-reconstruction,virtual,virtual,St Mary's Abbey (virtual reconstruction),acoustic model of a ruin
+st-patricks-church-patrington-model,virtual,virtual,St Patrick's Church Patrington (model),computer model of the measured church
+forest-scale-model,scale_model,scale_model,Forest (scale model),
+tvisongur-sound-sculpture-iceland-model,large_structure,room,Tvisongur sound sculpture (Iceland),concrete domes; OpenAIR folder labelled model (unverified)
+koli-national-park-summer,outdoor,outdoor,Koli National Park (summer),
+koli-national-park-winter,outdoor,outdoor,Koli National Park (winter),
+wheldrake-wood,outdoor,outdoor,Wheldrake Wood,
+trollers-gill,outdoor,outdoor,Trollers Gill (limestone gorge),
+tyndall-bruce-monument,outdoor,outdoor,Tyndall Bruce Monument,open monument
+cliffords-tower,large_structure,room,Clifford's Tower (roofless keep),open to the sky
+jack-lyons-concert-hall-university-york,concert_hall,,,
+usina-del-arte-symphony-hall,concert_hall,,,
+elveden-hall-suffolk-england,large_structure,,,stately home hall
+central-hall-university-york,theatre_auditorium,,,lecture/concert hall
+arthur-sykes-rymer-auditorium-university-york,theatre_auditorium,,,
+dixon-studio-theatre-university-york,theatre_auditorium,,,
+theatre41,theatre_auditorium,,,
+r1-nuclear-reactor-hall,industrial,,,
+hoffmann-lime-kiln-langcliffeuk,industrial,,,
+gill-heads-mine,underground,,,
+hamilton-mausoleum,large_structure,,,
+pl001,unknown,,,

@@ -12,7 +12,7 @@ Per band (and broadband):
      the EDC must actually reach it. pyrato silently fits a shorter range
      otherwise, so this module never calls it without that check.
 
-IRs without a stationary noise floor (digitally faded or zero-padded
+IRs without a noise floor (digitally faded, zero-padded or truncated
 production IRs) make Lundeby fail by construction; for those the plain
 Schroeder integral is the correct EDC and the decay range is measured
 against the energy at the end of the file.
@@ -58,15 +58,44 @@ def _moving_average(e: np.ndarray, n: int) -> np.ndarray:
     return (c[n:] - c[:-n]) / n
 
 
-def _tail_is_stationary(e: np.ndarray, fs: int, win_s: float) -> bool:
-    """True if the last 20 % of the energy envelope looks like a noise floor
-    (no systematic decay > 3 dB across four consecutive segments)."""
+def _tail_rate(e: np.ndarray, fs: int, win_s: float) -> float:
+    """Slope (dB/s) of the smoothed envelope over the last 20 % of the band."""
+    sm = _moving_average(e, win_s * fs)
+    tail = sm[int(0.8 * sm.size):]
+    if tail.size < 4:
+        return float("nan")
+    return float(np.polyfit(np.arange(tail.size) / fs, 10 * np.log10(tail + 1e-300), 1)[0])
+
+
+def _tail_still_decaying(e: np.ndarray, fs: int, win_s: float) -> bool:
+    """True if the end of the IR is still reverberation (the file was truncated
+    or faded before any noise floor), False if it ends in a noise floor.
+
+    Criterion: the level slope over the last 20 % of the smoothed envelope is at
+    least half the early decay rate (0 to -10 dB of the plain Schroeder curve).
+    Real noise floors fluctuate by several dB and may drift slowly (processed
+    measurements), which a flatness test misreads as decay (evidence: ACE,
+    Detmold and OK5 tails, docs/decisions/analyzer-v1.md); a decay-rate test does not.
+    """
     n = e.size
-    seg = n // 20
-    if seg < max(int(win_s * fs), 8):
+    if n < 16:
+        return True
+    s = np.flip(np.cumsum(np.flip(e)))
+    if s[0] <= 0:
         return False
-    levels = [10 * np.log10(np.mean(e[n - (k + 1) * seg: n - k * seg]) + 1e-300) for k in range(4)][::-1]
-    return (levels[0] - levels[-1]) < 3.0 and (max(levels) - min(levels)) < 4.5
+    edc_db = 10 * np.log10(s / s[0] + 1e-300)
+    k10 = int(np.argmax(edc_db <= -10.0))
+    if k10 <= 0:
+        return True                      # never decays by 10 dB: nothing to call a floor
+    early_rate = -10.0 / (k10 / fs)      # dB/s, negative
+    sm = _moving_average(e, win_s * fs)
+    m = sm.size
+    tail = sm[int(0.8 * m):]
+    if tail.size < 4:
+        return True
+    t = np.arange(tail.size) / fs
+    tail_rate = np.polyfit(t, 10 * np.log10(tail + 1e-300), 1)[0]
+    return bool(tail_rate <= 0.5 * early_rate)
 
 
 def _regression_r2(t: np.ndarray, y: np.ndarray) -> float:
@@ -92,9 +121,9 @@ def analyze_decay(y: np.ndarray, fs: int, labels: list, noise_init: np.ndarray, 
     for b in range(n_b):
         sig = pf.Signal(y[b], fs)
         win = _smoothing_s(labels[b])
-        stationary = _tail_is_stationary(e[b], fs, win)
+        has_floor = not _tail_still_decaying(e[b], fs, win)
         ok = False
-        if stationary:
+        if has_floor:
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 try:
@@ -111,7 +140,12 @@ def analyze_decay(y: np.ndarray, fs: int, labels: list, noise_init: np.ndarray, 
                         it[b], noise[b], mode[b], ok = it_b, noise_b, "lundeby", True
                 except (ValueError, IndexError, np.linalg.LinAlgError):
                     ok = False
-        if not ok and not stationary:
+        # Lundeby found no floor although the tail decays slower than half the
+        # early rate: a decay that slows down (e.g. LF in large halls) cut by the
+        # file end. If the tail still clearly falls, it is decay, not floor.
+        if not ok and has_floor and _tail_rate(e[b], fs, win) < -3.0:
+            has_floor = False
+        if not ok and not has_floor:
             # no noise floor: plain Schroeder integral is the correct EDC
             s = np.flip(np.cumsum(np.flip(e[b])))
             if s[0] > 0:

@@ -95,6 +95,9 @@ def prepare(x: np.ndarray, fs: int, cfg: Config) -> Prepared:
     guard = int(round(pc.pre_onset_guard_ms * 1e-3 * fs))
     pre = xt[:, : max(onset - guard, 0)]
     xc = xt[:, onset:]
+    n_max = int(pc.max_duration_s * fs)
+    stats["cropped_to_max_duration"] = bool(xc.shape[1] > n_max)
+    xc = xc[:, :n_max]
     stats["duration_s"] = xc.shape[1] / fs
     flags["short"] = bool(stats["duration_s"] < pc.min_duration_s)
     flags["low_fs"] = bool(fs < cfg.quality.low_fs_hz)

@@ -1,0 +1,4 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+RSoANU_Documentation_v2.pdf	https://zenodo.org/api/records/10720345/files/RSoANU_Documentation_v2.pdf/content	25089115	md5	b23123bb17ceba6a8502df1bfc2382c3	zenodo:10720345	2026-09-30T15:56:16Z
+RSoANU_RIRs_Bformat_RodeNTSF1.zip	https://zenodo.org/api/records/10720345/files/RSoANU_RIRs_Bformat_RodeNTSF1.zip/content	3127340019	md5	f7beb63bf995a538022b97063ee65560	zenodo:10720345	2026-09-30T15:56:16Z
+RSoANU_RIRs_em32Eigenmike.zip	https://zenodo.org/api/records/10720345/files/RSoANU_RIRs_em32Eigenmike.zip/content	23017344617	md5	1640980bf4c8ad0629e388e84c6d0651	zenodo:10720345	2026-09-30T15:56:16Z

@@ -12,6 +12,12 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/lib_common.sh"
 
+# Datasets drawing on several records get record-prefixed paths (files with the
+# same name, e.g. Documentation.pdf, exist in more than one record).
+rel_for() { # record name
+    if [ "$(split_list "$D_RECORDS" | wc -l)" -gt 1 ]; then echo "${1:0:8}/$2"; else echo "$2"; fi
+}
+
 emit() { # relpath url size algo checksum version
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" "$5" "$6" "$RESOLVED_AT"
 }
@@ -27,7 +33,7 @@ resolve_zenodo() {
         jq -r --arg rec "$rec" '.files[] | [.key, .links.self, (.size|tostring), .checksum, "zenodo:\($rec)"] | @tsv' <<<"$json" \
         | while IFS=$'\t' read -r key url size checksum version; do
             selected "$key" || continue
-            emit "$key" "$url" "$size" "${checksum%%:*}" "${checksum#*:}" "$version"
+            emit "$(rel_for "$rec" "$key")" "$url" "$size" "${checksum%%:*}" "${checksum#*:}" "$version"
         done
     done
 }
@@ -42,7 +48,7 @@ resolve_depositonce() {
                      (.checkSum.checkSumAlgorithm|ascii_downcase), .checkSum.value, "depositonce:\($item)"] | @tsv' \
             | while IFS=$'\t' read -r name url size algo checksum version; do
                 selected "$name" || continue
-                emit "$name" "$url" "$size" "$algo" "$checksum" "$version"
+                emit "$(rel_for "$item" "$name")" "$url" "$size" "$algo" "$checksum" "$version"
             done
         done
     done
@@ -55,7 +61,7 @@ resolve_figshare() {
         | jq -r --arg art "$art" '. as $a | .files[] | [.name, .download_url, (.size|tostring), "md5", .computed_md5, "figshare:\($art):v\($a.version)"] | @tsv' \
         | while IFS=$'\t' read -r name url size algo checksum version; do
             selected "$name" || continue
-            emit "$name" "$url" "$size" "$algo" "$checksum" "$version"
+            emit "$(rel_for "$art" "$name")" "$url" "$size" "$algo" "$checksum" "$version"
         done
     done
 }

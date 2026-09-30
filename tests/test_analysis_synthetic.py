@@ -240,3 +240,42 @@ def test_real_fixture_theatre41():
     assert r["valid_t30_bb"]
     assert rel(r["t30_bb"], 0.73) < 0.08
     assert not r["flag_implausible_hf_decay"]
+
+
+def _with_floor(clean, fs, pnr_db, shape, seed):
+    """Append 2 s of tail and add a non-ideal noise floor of the given shape."""
+    rng = np.random.default_rng(seed)
+    x = np.concatenate([clean, np.zeros(2 * fs)])
+    t = np.arange(x.size) / fs
+    sigma = np.sqrt(np.max(clean ** 2) / 10 ** (pnr_db / 10))
+    if shape == "modulated":        # +-4 dB slow level fluctuation (environmental noise)
+        env = 10 ** (4 * np.sin(2 * np.pi * 0.7 * t) / 20)
+    elif shape == "drifting":       # floor falls 8 dB over the file (processed measurements)
+        env = 10 ** (-8 * t / t[-1] / 20)
+    else:                           # "rising": end-of-file artefact 10 dB above the floor
+        env = np.ones_like(t)
+        env[-int(0.1 * x.size):] = 10 ** (10 / 20)
+    return x + rng.standard_normal(x.size) * sigma * env
+
+
+@pytest.mark.parametrize("shape", ["modulated", "drifting", "rising"])
+def test_real_world_noise_floors_use_lundeby(shape):
+    fs = 48000
+    s = exp_decay_ir(fs=fs, t60=0.6, duration=1.0, seed=30)
+    clean = run(s.clean, fs)
+    r = run(_with_floor(s.clean, fs, 75.0, shape, seed=31), fs)
+    for b in (250, 500, 1000, 2000, "bb"):
+        assert r[f"edc_mode_{b}"] == "lundeby", (shape, b, r[f"edc_mode_{b}"])
+        for name in ("t30", "t20"):
+            if r[f"valid_{name}_{b}"]:
+                assert rel(r[f"{name}_{b}"], clean[f"{name}_{b}"]) < 0.05, (shape, b, name)
+    assert r["valid_t20_1000"]
+
+
+def test_truncated_decay_uses_plain_schroeder():
+    """An IR cut before reaching any floor (e.g. C4DM: 2 s files, T = 2.4 s) is still decaying."""
+    fs = 48000
+    s = exp_decay_ir(fs=fs, t60=2.4, duration=2.0, seed=32)
+    r = run(s.x, fs)
+    assert r["edc_mode_1000"] == "schroeder_nofloor"
+    assert r["valid_edt_1000"]
