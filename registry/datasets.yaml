@@ -547,7 +547,7 @@ datasets:
   ir_kinds: [room]
   capture_formats: [binaural, array_raw]
   fs_hz: [44100]
-  content: 1214 RIRs from two rooms (SONORA lab, RT 2.1 s; Alamire Interactive Lab, RT 0.5 s) with in-ear/behind-ear dummy-head mics, circular arrays and distributed mics (V2 "econ" archive: all RIRs + coordinates, without the long recordings).
+  content: '1214 RIRs from two rooms (SONORA lab, RT 2.1 s; Alamire Interactive Lab, RT 0.5 s) with in-ear/behind-ear dummy-head mics, circular arrays and distributed mics (V2 "econ" archive: all RIRs + coordinates, without the long recordings).'
   expected: {n_irs: 1214, n_rooms: 2}
   license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
   access: open

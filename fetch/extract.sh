@@ -15,6 +15,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib_common.sh"
 # zip-bomb heuristic (false positives on large ZIP64 archives, e.g. MYRiAD v1) is disabled;
 # genuinely truncated archives still fail on their missing bytes.
 export UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE
+SEVENZIP="$REPO_ROOT/.pixi/envs/default/bin/7z"
 
 AUTO_KEEP_MAX_BYTES=$((5 * 1024 * 1024 * 1024))
 
@@ -31,7 +32,13 @@ extract_archive() { # archive files_dir
                 unzip -DD -q -o "$joined/joined.zip" -d "$files"
                 rm -rf "$joined"
             else
-                unzip -DD -q -o "$a" -d "$files"
+                # Info-ZIP 6.0 cannot read some ZIP64 archives (e.g. RSoANU: "start of central
+                # directory not found" on a checksum-verified file); fall back to 7-Zip.
+                if ! unzip -DD -q -o "$a" -d "$files"; then
+                    log "  unzip failed; retrying with 7-Zip"
+                    "$SEVENZIP" x -y -bso0 -bsp0 -o"$files" "$a"
+                    find "$files" -newer "$a" -prune -o -exec touch {} + 2>/dev/null || true
+                fi
             fi ;;
         *.tar|*.tar.gz|*.tgz|*.tbz2|*.tar.bz2|*.tar.xz)
             tar --touch --no-same-owner -xf "$a" -C "$files" ;;
@@ -56,7 +63,7 @@ extract_one() {
     # Several archives of one dataset may contain identical paths (e.g. C4DM's
     # three Omni.zip files all hold Omni/00x00y.wav): give each its own subfolder.
     # Decided from the lock, so a re-fetch lays files out identically.
-    n_arch=$(tail -n +2 "$LOCKS_DIR/$D_ID.lock.tsv" | cut -f1 | grep -E '\.(zip|tar|tar\.gz|tgz|tbz2|tar\.bz2|tar\.xz)$' | wc -l)
+    n_arch=$(tail -n +2 "$LOCKS_DIR/$D_ID.lock.tsv" | cut -f1 | { grep -cE '\.(zip|tar|tar\.gz|tgz|tbz2|tar\.bz2|tar\.xz)$' || true; })
     if [ ! -d "$arch" ] || [ -z "$(ls -A "$arch" 2>/dev/null)" ]; then
         log "extract $D_ID: nothing to extract"
         state_set "$D_ID" extracted_at "$(now_json)"
