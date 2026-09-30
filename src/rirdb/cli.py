@@ -179,5 +179,14 @@ def report_corpus() -> None:
     console.print(f"wrote {build().relative_to(paths.REPO_ROOT)}")
 
 
+@app.command()
+def snapshot() -> None:
+    """Write snapshots/metrics_core.parquet (committed; purge insurance)."""
+    from rirdb.export import snapshot as run_snapshot
+
+    out = run_snapshot()
+    console.print(f"wrote {out.relative_to(paths.REPO_ROOT)} ({out.stat().st_size / 1e6:.2f} MB)")
+
+
 if __name__ == "__main__":
     app()
