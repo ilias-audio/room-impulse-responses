@@ -32,11 +32,20 @@ extract_archive() { # archive files_dir
                 unzip -DD -q -o "$joined/joined.zip" -d "$files"
                 rm -rf "$joined"
             else
-                # Info-ZIP 6.0 cannot read some ZIP64 archives (e.g. RSoANU: "start of central
-                # directory not found" on a checksum-verified file); fall back to 7-Zip.
+                # Some >4 GB archives are written without proper ZIP64 records (offsets wrap at
+                # 4 GiB; e.g. RSoANU em32, checksum-verified). Fallbacks: 7-Zip, then rebuild the
+                # central directory from the local headers with `zip -FF` and unzip the repair.
                 if ! unzip -DD -q -o "$a" -d "$files"; then
                     log "  unzip failed; retrying with 7-Zip"
-                    "$SEVENZIP" x -y -bso0 -bsp0 -o"$files" "$a"
+                    if ! "$SEVENZIP" x -y -bso0 -bsp0 -o"$files" "$a"; then
+                        local repaired="${a%.zip}.repaired.zip"
+                        if [ ! -s "$repaired" ]; then
+                            log "  7-Zip failed; rebuilding the zip directory with zip -FF"
+                            yes | zip -FF "$a" --out "$repaired" >/dev/null
+                        fi
+                        unzip -DD -q -o "$repaired" -d "$files"
+                        rm -f "$repaired"
+                    fi
                     find "$files" -newer "$a" -prune -o -exec touch {} + 2>/dev/null || true
                 fi
             fi ;;

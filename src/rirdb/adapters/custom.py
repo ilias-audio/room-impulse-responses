@@ -390,7 +390,7 @@ class NdArrayAdapter:
         for gi, g in enumerate(self._groups(dataset.adapter.params)):
             pattern = re.compile(g["pattern"]) if g.get("pattern") else None
             for f in sorted(root.glob(g["glob"])):
-                m_ = pattern.search(f.name) if pattern else None
+                m_ = pattern.search(f.relative_to(root).as_posix()) if pattern else None
                 if pattern is not None and m_ is None:
                     continue
                 gd = m_.groupdict() if m_ else {}

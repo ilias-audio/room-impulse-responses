@@ -1,0 +1,52 @@
+# probe meshgrid3d
+# root: /gpfs/scratch/eey119/rir-data/raw/meshgrid3d/files
+
+5 files, 4.89 GB
+extensions: .h5 4, .m 1
+
+## tree
+Raw_A_ir_48k_sp1.h5  [1222.81 MB]
+Raw_A_ir_48k_sp2.h5  [1222.81 MB]
+Raw_A_ir_48k_sp3.h5  [1222.81 MB]
+Raw_A_ir_48k_sp4.h5  [1222.81 MB]
+example_read_visualization_Raw.m  [0.00 MB]
+
+## audio
+
+## hdf5 (4 files; first 4)
+-- Raw_A_ir_48k_sp1.h5
+   @c = [340.]
+   @fs = [48000.]
+   @grid_dimensions = [48 51 26]
+   @mic_array_pos = [3.74 2.94 1.11]
+   @room_size = [8.4  6.14 2.66]
+   @sp_pos = [5.54 0.94 1.42]
+   grid: (3, 63648) float32
+   rir: (63648, 4800) float32
+-- Raw_A_ir_48k_sp2.h5
+   @c = [340.]
+   @fs = [48000.]
+   @grid_dimensions = [48 51 26]
+   @mic_array_pos = [3.74 2.94 1.11]
+   @room_size = [8.4  6.14 2.66]
+   @sp_pos = [4.64 0.94 1.42]
+   grid: (3, 63648) float32
+   rir: (63648, 4800) float32
+-- Raw_A_ir_48k_sp3.h5
+   @c = [340.]
+   @fs = [48000.]
+   @grid_dimensions = [48 51 26]
+   @mic_array_pos = [3.74 2.94 1.11]
+   @room_size = [8.4  6.14 2.66]
+   @sp_pos = [3.72 0.94 1.42]
+   grid: (3, 63648) float32
+   rir: (63648, 4800) float32
+-- Raw_A_ir_48k_sp4.h5
+   @c = [340.]
+   @fs = [48000.]
+   @grid_dimensions = [48 51 26]
+   @mic_array_pos = [3.74 2.94 1.11]
+   @room_size = [8.4  6.14 2.66]
+   @sp_pos = [3.42 0.94 1.42]
+   grid: (3, 63648) float32
+   rir: (63648, 4800) float32

@@ -92,7 +92,6 @@ def _ir_signal(row: dict, adapter, root: Path, d, cfg) -> np.ndarray | None:
 
 def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda") -> Path:
     import torch
-    import torchaudio.functional as AF
 
     from rirdb.adapters import get_adapter
     from rirdb.analysis.config import load_config
@@ -133,7 +132,9 @@ def embed_dataset(dataset_id: str, batch: int = 16, device: str = "cuda") -> Pat
             wet = []
             for s in irs:
                 h = torch.from_numpy(s[:N]).to(device)
-                y = AF.fftconvolve(src_t[name], h)[:N]
+                # power-of-two FFT: arbitrary sizes (~1M samples) hit cuFFT internal errors
+                nfft = 1 << int(np.ceil(np.log2(N + h.numel() - 1)))
+                y = torch.fft.irfft(torch.fft.rfft(src_t[name], nfft) * torch.fft.rfft(h, nfft), nfft)[:N]
                 y = y / (torch.sqrt(torch.mean(y ** 2)) + 1e-12)
                 wet.append(y.float().cpu().numpy())
             per_src[name] = emb(wet)

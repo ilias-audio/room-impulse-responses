@@ -1,0 +1,96 @@
+# probe myriad
+# root: /gpfs/scratch/eey119/rir-data/raw/myriad/files
+
+1257 files, 0.52 GB
+extensions: .wav 1223, <none> 24, .rtf 2, .csv 2, .py 2, .m 2, .txt 1, .pyc 1
+
+## tree
+MYRiAD_V2_econ/  (1257 files)
+  audio/  (1242 files)
+    AIL/  (1110 files)
+      SL1/  (47 files)
+      SL2/  (47 files)
+      SL3/  (47 files)
+      SL4/  (46 files)
+      SL5/  (47 files)
+      SL6/  (46 files)
+      SL7/  (46 files)
+      SL8/  (46 files)
+      ST1/  (46 files)
+      ST2/  (46 files)
+      ST3/  (46 files)
+      ST4/  (46 files)
+      ... 12 more dirs
+      .DS_Store  [0.02 MB]
+    SAL/  (121 files)
+      S-30_1/  (12 files)
+      S-45_2/  (12 files)
+      S-60_1/  (12 files)
+      S-90_1/  (12 files)
+      S0_1/  (12 files)
+      S0_2/  (12 files)
+      S30_1/  (12 files)
+      S45_2/  (12 files)
+      S60_1/  (12 files)
+      S90_1/  (12 files)
+      .DS_Store  [0.03 MB]
+    SRC/  (10 files)
+      .DS_Store  [0.01 MB]
+      DR.wav  [5.42 MB]
+      F1.wav  [4.23 MB]
+      F2.wav  [4.37 MB]
+      F3.wav  [3.97 MB]
+      M1.wav  [4.50 MB]
+      ... 4 more files
+    .DS_Store  [0.01 MB]
+  coord/  (3 files)
+    .DS_Store  [0.01 MB]
+    AIL.csv  [0.00 MB]
+    SAL.csv  [0.00 MB]
+  tools/  (9 files)
+    MATLAB/  (3 files)
+      .DS_Store  [0.01 MB]
+      load_audio_data.m  [0.00 MB]
+      load_coordinates.m  [0.01 MB]
+    Python/  (5 files)
+      __pycache__/  (1 files)
+      .DS_Store  [0.01 MB]
+      load_audio_data.py  [0.00 MB]
+      load_coordinates.py  [0.01 MB]
+      requirements.txt  [0.00 MB]
+    .DS_Store  [0.01 MB]
+  .DS_Store  [0.01 MB]
+  LICENSE.rtf  [0.02 MB]
+  README.rtf  [0.00 MB]
+__MACOSX/  (1349 files)
+  MYRiAD_V2_econ/  (1348 files)
+    audio/  (1327 files)
+      AIL/  (1182 files)
+      SAL/  (131 files)
+      SRC/  (10 files)
+      ._.DS_Store  [0.00 MB]
+      ._AIL  [0.00 MB]
+      ._SAL  [0.00 MB]
+      ._SRC  [0.00 MB]
+    coord/  (3 files)
+      ._.DS_Store  [0.00 MB]
+      ._AIL.csv  [0.00 MB]
+      ._SAL.csv  [0.00 MB]
+    tools/  (12 files)
+      MATLAB/  (3 files)
+      Python/  (6 files)
+      ._.DS_Store  [0.00 MB]
+      ._MATLAB  [0.00 MB]
+      ._Python  [0.00 MB]
+    ._.DS_Store  [0.00 MB]
+    ._LICENSE.rtf  [0.00 MB]
+    ._README.rtf  [0.00 MB]
+    ._audio  [0.00 MB]
+    ._coord  [0.00 MB]
+    ._tools  [0.00 MB]
+  ._MYRiAD_V2_econ  [0.00 MB]
+
+## audio
+audio headers read: 1223 of 1223 (0 unreadable)
+    1223 x  1 ch  44100 Hz  PCM_24
+  duration s: min 3.000  median 3.000  max 41.000

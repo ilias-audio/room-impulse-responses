@@ -1,0 +1,83 @@
+# probe sriracha
+# root: /gpfs/scratch/eey119/rir-data/raw/sriracha/files
+
+22 files, 127.43 GB
+extensions: .h5 20, .stl 1, .pdf 1
+
+## tree
+SR1-C1.h5  [8388.67 MB]
+SR1-C2.h5  [8388.67 MB]
+SR1-C3.h5  [8388.67 MB]
+SR1-C4.h5  [8388.67 MB]
+SR1-D.h5  [8921.15 MB]
+SR2-C1.h5  [8388.67 MB]
+... 16 more files
+
+## audio
+
+## hdf5 (20 files; first 5)
+-- SR1-C1.h5
+   @date = 2025-06-06 14:58:24
+   data/
+   data/impulse_response: (1024, 64, 32000) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1024, 3) float64
+   data/location/source_raw: (1024, 3) float32
+   metadata/
+   metadata/c0: (1024,) float32
+   metadata/humidity: (1024,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1024,) float32
+-- SR1-C2.h5
+   @date = 2025-06-06 14:58:24
+   data/
+   data/impulse_response: (1024, 64, 32000) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1024, 3) float64
+   data/location/source_raw: (1024, 3) float32
+   metadata/
+   metadata/c0: (1024,) float32
+   metadata/humidity: (1024,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1024,) float32
+-- SR1-C3.h5
+   @date = 2025-06-06 14:58:24
+   data/
+   data/impulse_response: (1024, 64, 32000) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1024, 3) float64
+   data/location/source_raw: (1024, 3) float32
+   metadata/
+   metadata/c0: (1024,) float32
+   metadata/humidity: (1024,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1024,) float32
+-- SR1-C4.h5
+   @date = 2025-06-06 14:58:24
+   data/
+   data/impulse_response: (1024, 64, 32000) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1024, 3) float64
+   data/location/source_raw: (1024, 3) float32
+   metadata/
+   metadata/c0: (1024,) float32
+   metadata/humidity: (1024,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1024,) float32
+-- SR1-D.h5
+   @date = 2025-06-06 14:58:24
+   data/
+   data/impulse_response: (1089, 64, 32000) float32
+   data/location/
+   data/location/receiver: (64, 3) float64
+   data/location/source: (1089, 3) float64
+   data/location/source_raw: (1089, 3) float32
+   metadata/
+   metadata/c0: (1089,) float32
+   metadata/humidity: (1089,) float32
+   metadata/sampling_rate: () int64
+   metadata/temperature: (1089,) float32

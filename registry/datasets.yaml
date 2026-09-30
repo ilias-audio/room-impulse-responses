@@ -552,6 +552,10 @@ datasets:
   license: {spdx: CC-BY-NC-SA-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["7389996"], include: ["MYRiAD_V2_econ.zip"]}
+  adapter:
+    name: wav_tree
+    # audio/<AIL|SAL>/<source position>/[<pose>/]<microphone>_RIR.wav (one mono file per mic)
+    params: {pattern: 'audio/(?P<room>AIL|SAL)/(?P<src>[^/]+)/(?:(?P<cond>P\d)/)?(?P<rcv>[^/]+)_RIR\.wav$'}
   keep_archive: false
   wave: 2
   homepage: https://zenodo.org/records/7322755
@@ -830,10 +834,15 @@ datasets:
   ir_kinds: [room]
   capture_formats: [mono_omni]
   content: 4410 mono RIRs on very dense grids (S1-M3969 planar, S32-M441 cuboidal) in a moderately reverberant room with accurate coordinates (npy release).
-  expected: {n_irs: 4410, n_rooms: 1}
+  expected: {n_irs: 18081, n_rooms: 1, note: "4,410 measurement points; 18,081 source-receiver IRs"}
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["10852693"], include: ["S1-M3969_npy.zip", "S32-M441_npy.zip", "src.zip", "LICENSE", "README.md"]}
+  adapter:
+    name: ndarray
+    # ir_<point>.npy = [n_sources, 32768] at 48 kHz: one record per source x point
+    params: {glob: "S*_npy/S*_npy/ir_*.npy", container: npy, time_axis: 1, record_axes: [0], fs: 48000,
+             pattern: '(?P<cond>S\d+-M\d+)_npy/ir_(?P<rcv>\d+)\.npy$', room_default: meshrir-room}
   keep_archive: false
   wave: 3
   analysis: {scope: subsample_v1}
@@ -853,8 +862,13 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["15169199"]}
+  adapter:
+    name: sofa
+    # Data.IR[65 positions, 32 capsules, 48000]: capsule mean (order 0) as the omni reference
+    params: {glob: "*.sofa", pattern: 'arni_em32_(?P<cond>dry|reverberant|anisotropic)_(?P<src>S\d)\.sofa$',
+             room_from: pattern, capture_format: em32_raw, reference_role: mean}
   wave: 3
-  analysis: {scope: subsample_v1}
+  analysis: {scope: full}   # only 585 records
   homepage: https://zenodo.org/records/15169199
   doi: 10.5281/zenodo.15169199
   status: planned
@@ -871,6 +885,11 @@ datasets:
   license: {spdx: CC-BY-4.0, redistribute_audio: yes}
   access: open
   source: {kind: zenodo, records: ["19656813"]}
+  adapter:
+    name: ndarray
+    # rir[63648 grid points, 4800 samples] per loudspeaker, fs in a root attribute
+    params: {glob: "Raw_A_ir_48k_sp*.h5", container: h5, array: rir, time_axis: 1, record_axes: [0],
+             fs_attr: "@fs", pattern: 'Raw_A_ir_48k_(?P<src>sp\d)\.h5$', room_default: meshgrid-room-a}
   wave: 3
   analysis: {scope: subsample_v1}
   homepage: https://zenodo.org/records/19656813
@@ -926,10 +945,15 @@ datasets:
   ir_kinds: [room]
   capture_formats: [array_raw]
   content: 2,654,720 single-channel RIRs of sources in a plane parallel to a planar mic array in a shoebox room, 8 scenarios (2 distances x 2 source arrangements x 2 absorption levels).
-  expected: {n_irs: 2654720, n_rooms: 1, note: "8 scenarios"}
+  expected: {n_irs: 1327360, n_rooms: 1, note: "authors state 2,654,720; the 20 published files hold 1,327,360"}
   license: {spdx: CC-BY-SA-4.0, redistribute_audio: yes}
   access: open
   source: {kind: depositonce, records: ["d9d4b747-2f3e-4b21-b32e-48863e9af876"]}
+  adapter:
+    name: ndarray
+    # data/impulse_response[1024 sources, 64 mics, 32000 samples] per scenario file (1 s at 32 kHz)
+    params: {glob: "SR*.h5", container: h5, array: data/impulse_response, time_axis: 2, record_axes: [0, 1],
+             fs_dataset: metadata/sampling_rate, pattern: '(?P<cond>SRA?\d-(?:C\d|D))\.h5$', room_default: sriracha-shoebox}
   wave: 3
   analysis: {scope: subsample_v1}
   homepage: https://depositonce.tu-berlin.de/items/d9d4b747-2f3e-4b21-b32e-48863e9af876

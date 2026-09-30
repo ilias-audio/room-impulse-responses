@@ -1,0 +1,11 @@
+relpath	url	size	algo	checksum	provider_version	resolved_at
+Mxyz.npy	https://zenodo.org/api/records/11148712/files/Mxyz.npy/content	103232	md5	d1aad2e13b7b32b6f5484df5b4ac8d93	zenodo:11148712	2026-09-30T16:50:46Z
+Setup.npz	https://zenodo.org/api/records/11148712/files/Setup.npz/content	2854	md5	6ed01cadfdc6b4ed51236dbdd2af3f54	zenodo:11148712	2026-09-30T16:50:46Z
+S1_Mrir.npy	https://zenodo.org/api/records/11148712/files/S1_Mrir.npy/content	3440099456	md5	23e390bf127fba018c5a232072361554	zenodo:11148712	2026-09-30T16:50:46Z
+S2_Mrir.npy	https://zenodo.org/api/records/11148712/files/S2_Mrir.npy/content	3440099456	md5	7f9354300f9702fcc7c7b69014c97bb8	zenodo:11148712	2026-09-30T16:50:46Z
+S3_Mrir.npy	https://zenodo.org/api/records/11148712/files/S3_Mrir.npy/content	3440099456	md5	37f33a96b0fe02bccdd34994a35e79d0	zenodo:11148712	2026-09-30T16:50:46Z
+S4_Mrir.npy	https://zenodo.org/api/records/11148712/files/S4_Mrir.npy/content	3440099456	md5	a705e3f028cfab4303511c52f75749ef	zenodo:11148712	2026-09-30T16:50:46Z
+S6_Mrir.npy	https://zenodo.org/api/records/11148712/files/S6_Mrir.npy/content	3440099456	md5	b36e7a7007a96e898b7bc40170215a76	zenodo:11148712	2026-09-30T16:50:46Z
+S5_Mrir.npy	https://zenodo.org/api/records/11148712/files/S5_Mrir.npy/content	3440099456	md5	d63448d5c189e96190d5297ca49d385a	zenodo:11148712	2026-09-30T16:50:46Z
+S7_Mrir.npy	https://zenodo.org/api/records/11148712/files/S7_Mrir.npy/content	3440099456	md5	f33f021d2550711d1371b6d65c5abbfb	zenodo:11148712	2026-09-30T16:50:46Z
+S8_Mrir.npy	https://zenodo.org/api/records/11148712/files/S8_Mrir.npy/content	3440099456	md5	25b297c591162d71059f53b6e955057c	zenodo:11148712	2026-09-30T16:50:46Z

@@ -1,0 +1,23 @@
+# probe em32_line_arni
+# root: /gpfs/scratch/eey119/rir-data/raw/em32_line_arni/files
+
+10 files, 5.23 GB
+extensions: .sofa 9, .pdf 1
+
+## tree
+Readme_Arni_em32.pdf  [0.48 MB]
+arni_em32_anisotropic_S1.sofa  [584.27 MB]
+arni_em32_anisotropic_S2.sofa  [584.00 MB]
+arni_em32_anisotropic_S3.sofa  [583.80 MB]
+arni_em32_dry_S1.sofa  [582.63 MB]
+arni_em32_dry_S2.sofa  [582.02 MB]
+... 4 more files
+
+## audio
+
+## sofa (9 files; first 5)
+-- arni_em32_anisotropic_S1.sofa: SingleRoomSRIR v1.0; Data.IR (65, 32, 48000); fs 48000.0
+-- arni_em32_anisotropic_S2.sofa: SingleRoomSRIR v1.0; Data.IR (65, 32, 48000); fs 48000.0
+-- arni_em32_anisotropic_S3.sofa: SingleRoomSRIR v1.0; Data.IR (65, 32, 48000); fs 48000.0
+-- arni_em32_dry_S1.sofa: SingleRoomSRIR v1.0; Data.IR (65, 32, 48000); fs 48000.0
+-- arni_em32_dry_S2.sofa: SingleRoomSRIR v1.0; Data.IR (65, 32, 48000); fs 48000.0

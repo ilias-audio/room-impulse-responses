@@ -1,0 +1,71 @@
+# probe meshrir
+# root: /gpfs/scratch/eey119/rir-data/raw/meshrir/files
+
+4430 files, 4.74 GB
+extensions: .npy 4415, .m 4, <none> 3, .html 3, .json 2, .py 2, .md 1
+
+## tree
+S1-M3969_npy/  (7943 files)
+  S1-M3969_npy/  (3972 files)
+    data.json  [0.60 MB]
+    ir_0.npy  [0.26 MB]
+    ir_1.npy  [0.26 MB]
+    ir_10.npy  [0.26 MB]
+    ir_100.npy  [0.26 MB]
+    ir_1000.npy  [0.26 MB]
+    ... 3966 more files
+  __MACOSX/  (3971 files)
+    S1-M3969_npy/  (3970 files)
+      ._ir_0.npy  [0.00 MB]
+      ._ir_1.npy  [0.00 MB]
+      ._ir_10.npy  [0.00 MB]
+      ._ir_100.npy  [0.00 MB]
+      ._ir_1000.npy  [0.00 MB]
+      ._ir_1001.npy  [0.00 MB]
+      ... 3964 more files
+    ._S1-M3969_npy  [0.00 MB]
+S32-M441_npy/  (473 files)
+  S32-M441_npy/  (444 files)
+    data.json  [0.08 MB]
+    ir_0.npy  [8.39 MB]
+    ir_1.npy  [8.39 MB]
+    ir_10.npy  [8.39 MB]
+    ir_100.npy  [8.39 MB]
+    ir_101.npy  [8.39 MB]
+    ... 438 more files
+  __MACOSX/  (29 files)
+    S32-M441_npy/  (29 files)
+      ._ir_0.npy  [0.00 MB]
+      ._ir_1.npy  [0.00 MB]
+      ._ir_10.npy  [0.00 MB]
+      ._ir_11.npy  [0.00 MB]
+      ._ir_12.npy  [0.00 MB]
+      ._ir_13.npy  [0.00 MB]
+      ... 23 more files
+src/  (12 files)
+  src/  (12 files)
+    example/  (5 files)
+      .DS_Store  [0.01 MB]
+      mic_idx.npy  [0.00 MB]
+      sf_control.html  [0.77 MB]
+      sf_func.py  [0.02 MB]
+      sf_reconst.html  [0.71 MB]
+    matfiles/  (3 files)
+      extract_plane.m  [0.00 MB]
+      loadIR.m  [0.00 MB]
+      sortIR.m  [0.00 MB]
+    .DS_Store  [0.01 MB]
+    ir_view.html  [0.74 MB]
+    ir_view.m  [0.00 MB]
+    irutilities.py  [0.01 MB]
+LICENSE  [0.02 MB]
+README.md  [0.00 MB]
+
+## audio
+
+## npy (4415 files; first 5)
+-- ir_0.npy: (1, 32768) float64
+-- ir_1.npy: (1, 32768) float64
+-- ir_10.npy: (1, 32768) float64
+-- ir_100.npy: (1, 32768) float64
+-- ir_1000.npy: (1, 32768) float64

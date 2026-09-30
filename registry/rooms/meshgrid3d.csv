@@ -1,0 +1,2 @@
+room_key,category,ir_kind,room_label,volume_m3,note
+meshgrid-room-a,laboratory,room,3D meshgrid room A (8.4 x 6.14 x 2.66 m),137.2,dimensions from the HDF5 attributes
