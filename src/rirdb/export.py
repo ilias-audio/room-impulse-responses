@@ -1,12 +1,15 @@
 """Exports: the committed core-metrics snapshot and platform (Postgres) loads.
 
-snapshots/metrics_core.parquet is small enough for git (<= 25 MB) and holds the
-core ISO parameters, grades, flags and room metadata of every analysed IR, so
-the numbers survive the scratch purge even if RIRDB_ROOT is lost.
+snapshots/metrics_core/<dataset>.parquet hold the core ISO parameters, grades,
+flags and room metadata of every analysed IR (metrics as float32, ZSTD), one
+file per dataset so each stays small for git and a refresh only rewrites the
+datasets that changed. The numbers survive the scratch purge even if
+RIRDB_ROOT is lost.
 """
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from rirdb import paths
@@ -26,15 +29,21 @@ CORE = (
 MAX_BYTES = 25 * 1024 * 1024
 
 
-def snapshot(out: Path = paths.REPO_ROOT / "snapshots" / "metrics_core.parquet") -> Path:
+def snapshot(out_dir: Path = paths.REPO_ROOT / "snapshots" / "metrics_core") -> list[Path]:
     con = connect()
-    have = {r[0] for r in con.execute("DESCRIBE corpus").fetchall()}
-    flags = sorted(c for c in have if c.startswith("flag_"))
-    cols = [c for c in CORE if c in have] + flags
-    out.parent.mkdir(parents=True, exist_ok=True)
-    con.execute(f"COPY (SELECT {', '.join(cols)} FROM corpus ORDER BY ir_id) TO '{out}' "
-                "(FORMAT PARQUET, COMPRESSION ZSTD)")
-    size = out.stat().st_size
-    if size > MAX_BYTES:
-        raise RuntimeError(f"snapshot is {size / 1e6:.1f} MB > 25 MB; drop columns or split by wave")
-    return out
+    types = {r[0]: r[1] for r in con.execute("DESCRIBE corpus").fetchall()}
+    flags = sorted(c for c in types if c.startswith("flag_"))
+    cols = [c for c in CORE if c in types] + flags
+    sel = ", ".join(f"CAST({c} AS FLOAT) AS {c}" if types[c] == "DOUBLE" else c for c in cols)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    written = []
+    for (ds,) in con.execute("SELECT DISTINCT dataset_id FROM corpus ORDER BY 1").fetchall():
+        if not re.fullmatch(r"[a-z0-9_]+", ds):
+            raise ValueError(f"unexpected dataset id {ds!r}")
+        out = out_dir / f"{ds}.parquet"
+        con.execute(f"COPY (SELECT {sel} FROM corpus WHERE dataset_id = '{ds}' ORDER BY ir_id) TO '{out}' "
+                    "(FORMAT PARQUET, COMPRESSION ZSTD, COMPRESSION_LEVEL 19)")
+        if out.stat().st_size > MAX_BYTES:
+            raise RuntimeError(f"{out.name} is {out.stat().st_size / 1e6:.1f} MB > 25 MB; drop columns")
+        written.append(out)
+    return written

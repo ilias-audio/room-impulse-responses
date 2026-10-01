@@ -1,6 +1,6 @@
 # RAVes: Room Acoustic Variances
 
-`raves` · measured · 2026 · wave 1 · status **planned**
+`raves` · measured · 2026 · wave 1 · status **active**
 
 SRIRs and BRIRs of a 5.0 loudspeaker layout (ITU-R BS.2159, r=2 m) in 7 rooms (RT 0.21-1.20 s plus a lecture hall and a foyer), at middle, wall and edge listening positions.
 
@@ -29,7 +29,7 @@ SRIRs and BRIRs of a 5.0 loudspeaker layout (ITU-R BS.2159, r=2 m) in 7 rooms (R
 | C80 mid (dB) | 2.5 | 11.7 | 23.2 | 190 |
 | D50 mid | 0.52 | 0.84 | 0.97 | 190 |
 | Ts mid (s) | 0.014 | 0.028 | 0.115 | 190 |
-| DRR (dB) | -4.6 | 0.7 | 6.5 | 190 |
+| DRR (dB) | -2.5 | 3.1 | 10.2 | 190 |
 | STI | 0.64 | 0.82 | 0.94 | 190 |
 | Bass ratio | 0.83 | 1.16 | 1.54 | 180 |
 | Treble ratio | 0.70 | 0.90 | 1.18 | 189 |
@@ -45,8 +45,8 @@ SRIRs and BRIRs of a 5.0 loudspeaker layout (ITU-R BS.2159, r=2 m) in 7 rooms (R
 | curved decay | 36 |
 | no noise floor | 4 |
 | filter bias risk | 3 |
-| pre onset energy | 3 |
 | lundeby failed any | 1 |
+| pre onset energy | 1 |
 
 ## Rooms (7; first 60)
 

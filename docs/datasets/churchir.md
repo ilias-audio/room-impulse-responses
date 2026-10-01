@@ -1,6 +1,6 @@
 # ChurchIR
 
-`churchir` · measured · 2025 · wave 1 · status **planned**
+`churchir` · measured · 2025 · wave 1 · status **active**
 
 Multichannel church impulse responses for spatial audio applications.
 
@@ -29,7 +29,7 @@ Multichannel church impulse responses for spatial audio applications.
 | C80 mid (dB) | -9.3 | -7.8 | -3.4 | 180 |
 | D50 mid | 0.06 | 0.10 | 0.28 | 180 |
 | Ts mid (s) | 0.257 | 0.322 | 0.338 | 180 |
-| DRR (dB) | -14.3 | -12.0 | -5.6 | 180 |
+| DRR (dB) | -12.9 | -11.1 | -5.1 | 180 |
 | STI | 0.33 | 0.35 | 0.42 | 180 |
 | Bass ratio | 1.15 | 1.19 | 1.23 | 180 |
 | Treble ratio | 0.74 | 0.76 | 0.77 | 180 |

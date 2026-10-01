@@ -1,6 +1,6 @@
 # Surrey real-room BRIRs
 
-`surrey_real_room_brirs` · measured · 2010 · wave 1 · status **planned**
+`surrey_real_room_brirs` · measured · 2010 · wave 1 · status **active**
 
 BRIRs captured with a head-and-torso simulator in 4 real rooms of the University of Surrey at 37 azimuths.
 
@@ -29,7 +29,7 @@ BRIRs captured with a head-and-torso simulator in 4 real rooms of the University
 | C80 mid (dB) | 6.8 | 14.5 | 19.8 | 148 |
 | D50 mid | 0.72 | 0.91 | 0.95 | 148 |
 | Ts mid (s) | 0.016 | 0.020 | 0.043 | 148 |
-| DRR (dB) | 2.8 | 4.9 | 8.8 | 148 |
+| DRR (dB) | 3.9 | 6.0 | 10.3 | 148 |
 | STI | 0.76 | 0.86 | 0.91 | 148 |
 | Bass ratio | 0.96 | 1.51 | 1.85 | 148 |
 | Treble ratio | 0.80 | 1.02 | 1.37 | 148 |
@@ -44,7 +44,6 @@ BRIRs captured with a head-and-torso simulator in 4 real rooms of the University
 | curved decay | 26 |
 | short | 20 |
 | nonlinear decay | 20 |
-| pre onset energy | 5 |
 | filter bias risk | 3 |
 
 ## Rooms (5; first 60)

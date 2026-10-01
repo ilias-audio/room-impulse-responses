@@ -1,6 +1,6 @@
 # C4DM RIR database
 
-`c4dm` · measured · 2010 · wave 1 · status **planned**
+`c4dm` · measured · 2010 · wave 1 · status **active**
 
 468 mono or Ambisonic B-format RIRs recorded in 3 large environments (Great Hall, Octagon, a classroom) at Queen Mary University of London; omni files fetched.
 
@@ -30,7 +30,7 @@
 | C80 mid (dB) | -1.7 | 0.2 | 2.2 | 468 |
 | D50 mid | 0.27 | 0.40 | 0.58 | 468 |
 | Ts mid (s) | 0.103 | 0.134 | 0.189 | 468 |
-| DRR (dB) | -8.5 | -2.1 | 1.7 | 468 |
+| DRR (dB) | -4.9 | -0.8 | 5.0 | 468 |
 | STI | 0.47 | 0.53 | 0.63 | 468 |
 | Treble ratio | 0.83 | 0.86 | 0.95 | 468 |
 | Mixing time (ms) | 13 | 26 | 72 | 468 |

@@ -1,6 +1,6 @@
 # BRAS - Benchmark for Room Acoustical Simulation
 
-`bras` · measured · 2020 · wave 1 · status **planned**
+`bras` · measured · 2020 · wave 1 · status **active**
 
 Measured RIRs and BRIRs (SOFA + wav) of 11 reference scenes (4 complex rooms CR1-CR4 and simple scenes RS1-RS7) plus RS8 (2026), each with geometry, boundary conditions and source/receiver descriptions.
 
@@ -29,7 +29,7 @@ Measured RIRs and BRIRs (SOFA + wav) of 11 reference scenes (4 complex rooms CR1
 | C80 mid (dB) | -2.3 | -0.0 | 4.4 | 226 |
 | D50 mid | 0.21 | 0.34 | 0.56 | 226 |
 | Ts mid (s) | 0.066 | 0.119 | 0.165 | 226 |
-| DRR (dB) | -16.3 | -9.7 | -2.3 | 226 |
+| DRR (dB) | -14.1 | -6.0 | 0.3 | 226 |
 | STI | 0.46 | 0.53 | 0.66 | 226 |
 | Bass ratio | 0.75 | 1.17 | 1.44 | 226 |
 | Treble ratio | 0.75 | 0.84 | 0.95 | 226 |
@@ -40,10 +40,10 @@ Measured RIRs and BRIRs (SOFA + wav) of 11 reference scenes (4 complex rooms CR1
 
 | flag | % |
 |---|---|
-| pre onset energy | 11 |
 | curved decay | 10 |
 | nonlinear decay | 10 |
 | mic not omni | 8 |
+| pre onset energy | 3 |
 | no noise floor | 2 |
 
 ## Rooms (4; first 60)

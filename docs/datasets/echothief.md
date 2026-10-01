@@ -1,6 +1,6 @@
 # EchoThief impulse response library
 
-`echothief` · production · n/a · wave 0 · status **planned**
+`echothief` · production · n/a · wave 0 · status **active**
 
 More than a hundred real-world spaces sampled around North America (caves, tunnels, stairwells, glaciers, bridges, ...), from SDSU Music Recording Technology.
 
@@ -30,7 +30,7 @@ More than a hundred real-world spaces sampled around North America (caves, tunne
 | C80 mid (dB) | -0.9 | 7.5 | 17.7 | 115 |
 | D50 mid | 0.32 | 0.73 | 0.96 | 115 |
 | Ts mid (s) | 0.016 | 0.044 | 0.136 | 115 |
-| DRR (dB) | -13.1 | -4.2 | 5.0 | 115 |
+| DRR (dB) | -9.7 | -1.1 | 7.9 | 115 |
 | STI | 0.51 | 0.75 | 0.92 | 115 |
 | Bass ratio | 0.96 | 1.18 | 1.59 | 115 |
 | Treble ratio | 0.63 | 0.87 | 1.16 | 115 |
@@ -48,7 +48,6 @@ More than a hundred real-world spaces sampled around North America (caves, tunne
 | lundeby failed any | 4 |
 | short | 3 |
 | filter bias risk | 2 |
-| pre onset energy | 2 |
 
 ## Rooms (115; first 60)
 

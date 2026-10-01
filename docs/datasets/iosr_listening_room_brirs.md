@@ -1,6 +1,6 @@
 # IoSR listening room multichannel BRIRs
 
-`iosr_listening_room_brirs` · measured · 2016 · wave 1 · status **planned**
+`iosr_listening_room_brirs` · measured · 2016 · wave 1 · status **active**
 
 BRIRs of an ITU-R BS.1116 listening room for 24 loudspeakers in the 22.2 layout, at head angles 0-360 deg in 2.5 deg steps.
 
@@ -29,7 +29,7 @@ BRIRs of an ITU-R BS.1116 listening room for 24 loudspeakers in the 22.2 layout,
 | C80 mid (dB) | 21.1 | 22.7 | 23.8 | 24 |
 | D50 mid | 0.95 | 0.96 | 0.97 | 24 |
 | Ts mid (s) | 0.015 | 0.017 | 0.018 | 24 |
-| DRR (dB) | 0.2 | 2.6 | 6.5 | 24 |
+| DRR (dB) | 3.2 | 5.9 | 8.6 | 24 |
 | STI | 0.90 | 0.91 | 0.93 | 24 |
 | Bass ratio | 1.32 | 1.48 | 1.54 | 24 |
 | Treble ratio | 0.88 | 0.91 | 0.95 | 24 |
@@ -41,7 +41,6 @@ BRIRs of an ITU-R BS.1116 listening room for 24 loudspeakers in the 22.2 layout,
 | flag | % |
 |---|---|
 | mic not omni | 100 |
-| pre onset energy | 71 |
 | curved decay | 71 |
 | nonlinear decay | 38 |
 | lundeby failed any | 4 |

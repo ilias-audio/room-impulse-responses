@@ -1,6 +1,6 @@
 # Aachen Impulse Response (AIR) database
 
-`aachen_air` · measured · 2009 · wave 1 · status **planned**
+`aachen_air` · measured · 2009 · wave 1 · status **active**
 
 344 binaural RIRs measured with a dummy head in 5 environments including a church (release 1.4, full-bandwidth .mat files).
 
@@ -29,7 +29,7 @@
 | C80 mid (dB) | 4.9 | 10.0 | 24.5 | 107 |
 | D50 mid | 0.62 | 0.79 | 0.99 | 107 |
 | Ts mid (s) | 0.010 | 0.033 | 0.062 | 107 |
-| DRR (dB) | -3.8 | 3.4 | 12.2 | 106 |
+| DRR (dB) | -1.3 | 6.2 | 14.9 | 106 |
 | STI | 0.69 | 0.81 | 0.98 | 106 |
 | Bass ratio | 0.87 | 1.00 | 2.52 | 105 |
 | Treble ratio | 0.69 | 0.88 | 1.11 | 107 |
@@ -45,7 +45,6 @@
 | nonlinear decay | 27 |
 | tail truncated | 19 |
 | no noise floor | 12 |
-| pre onset energy | 4 |
 | short | 4 |
 | lundeby failed any | 3 |
 

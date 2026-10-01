@@ -1,6 +1,6 @@
 # OK5 (Aalto)
 
-`ok5` · measured · 2026 · wave 1 · status **planned**
+`ok5` · measured · 2026 · wave 1 · status **active**
 
 70 spatial RIRs from 25 spaces (offices, corridors, lecture rooms, stairwells, ...) of the Otakaari 5 building at Aalto University, measured with a 6-microphone GRAS vector-intensity probe.
 
@@ -29,7 +29,7 @@
 | C80 mid (dB) | 3.1 | 11.3 | 17.5 | 70 |
 | D50 mid | 0.50 | 0.83 | 0.94 | 70 |
 | Ts mid (s) | 0.017 | 0.028 | 0.081 | 70 |
-| DRR (dB) | -3.1 | 1.5 | 6.1 | 70 |
+| DRR (dB) | 0.5 | 4.3 | 9.4 | 70 |
 | STI | 0.64 | 0.81 | 0.90 | 70 |
 | Bass ratio | 0.93 | 1.61 | 2.80 | 69 |
 | Treble ratio | 0.78 | 1.01 | 1.41 | 70 |

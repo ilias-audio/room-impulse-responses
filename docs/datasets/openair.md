@@ -1,6 +1,6 @@
 # OpenAIR
 
-`openair` · measured · 2010 · wave 1 · status **planned**
+`openair` · measured · 2010 · wave 1 · status **active**
 
 Ambisonic B-format (and mono/stereo) RIRs recorded in over 46 (still increasing) environments, with per-space data tables. Includes a few non-room entries (scale model, slinky, simulated auralizations) tagged by ir_kind.
 
@@ -30,7 +30,7 @@ Ambisonic B-format (and mono/stereo) RIRs recorded in over 46 (still increasing)
 | C80 mid (dB) | -3.2 | 3.2 | 18.8 | 671 |
 | D50 mid | 0.20 | 0.56 | 0.95 | 671 |
 | Ts mid (s) | 0.019 | 0.079 | 0.224 | 671 |
-| DRR (dB) | -12.8 | -3.5 | 5.6 | 690 |
+| DRR (dB) | -10.3 | -0.9 | 9.3 | 690 |
 | STI | 0.48 | 0.63 | 0.88 | 690 |
 | Bass ratio | 0.60 | 1.08 | 1.47 | 625 |
 | Treble ratio | 0.55 | 0.81 | 1.04 | 655 |
@@ -42,11 +42,11 @@ Ambisonic B-format (and mono/stereo) RIRs recorded in over 46 (still increasing)
 | flag | % |
 |---|---|
 | orientation unknown | 51 |
-| pre onset energy | 48 |
 | curved decay | 40 |
 | nonlinear decay | 28 |
 | no noise floor | 10 |
 | lundeby failed any | 9 |
+| pre onset energy | 5 |
 | tail truncated | 2 |
 | implausible hf decay | 1 |
 

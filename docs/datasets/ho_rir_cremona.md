@@ -1,6 +1,6 @@
 # The Sound of the Violin's Home (Arvedi Auditorium)
 
-`ho_rir_cremona` · measured · 2026 · wave 1 · status **planned**
+`ho_rir_cremona` · measured · 2026 · wave 1 · status **active**
 
 Higher-order RIRs of the Arvedi Auditorium (Museo del Violino, Cremona).
 
@@ -29,7 +29,7 @@ Higher-order RIRs of the Arvedi Auditorium (Museo del Violino, Cremona).
 | C80 mid (dB) | 3.3 | 5.3 | 6.8 | 325 |
 | D50 mid | 0.57 | 0.68 | 0.77 | 325 |
 | Ts mid (s) | 0.044 | 0.058 | 0.076 | 325 |
-| DRR (dB) | -4.4 | 0.2 | 4.1 | 325 |
+| DRR (dB) | -2.7 | 2.6 | 6.7 | 325 |
 | STI | 0.61 | 0.72 | 0.77 | 325 |
 | Bass ratio | 0.98 | 1.03 | 1.08 | 325 |
 | Treble ratio | 0.94 | 0.97 | 0.99 | 325 |
@@ -40,7 +40,6 @@ Higher-order RIRs of the Arvedi Auditorium (Museo del Violino, Cremona).
 | flag | % |
 |---|---|
 | omni proxy | 100 |
-| pre onset energy | 96 |
 | no noise floor | 44 |
 
 ## Rooms (1; first 60)

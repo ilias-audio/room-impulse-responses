@@ -1,6 +1,6 @@
 # BBC R&D BRIR dataset
 
-`bbc_brirs` · measured · 2019 · wave 1 · status **planned**
+`bbc_brirs` · measured · 2019 · wave 1 · status **active**
 
 BRIRs measured on a 3D multichannel loudspeaker system for dynamic data-based auralisation (SOFA MultiSpeakerBRIR convention).
 
@@ -29,7 +29,7 @@ BRIRs measured on a 3D multichannel loudspeaker system for dynamic data-based au
 | C80 mid (dB) | 27.1 | 27.9 | 28.7 | 32 |
 | D50 mid | 0.97 | 0.98 | 0.98 | 32 |
 | Ts mid (s) | 0.014 | 0.016 | 0.017 | 32 |
-| DRR (dB) | 0.4 | 2.2 | 5.2 | 32 |
+| DRR (dB) | 2.6 | 5.0 | 8.2 | 32 |
 | STI | 0.92 | 0.92 | 0.93 | 32 |
 | Bass ratio | 1.40 | 1.58 | 1.84 | 32 |
 | Treble ratio | 1.07 | 1.10 | 1.16 | 32 |

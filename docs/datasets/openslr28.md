@@ -1,6 +1,6 @@
 # RWCP + REVERB (via OpenSLR 28)
 
-`openslr28` · measured · 2017 · wave 1 · status **planned**
+`openslr28` · measured · 2017 · wave 1 · status **active**
 
 Real RIRs bundled by OpenSLR 28 at 16 kHz: RWCP Sound Scene Database (2000; 143 multi-channel RIRs in 14 rooms) and REVERB Challenge (2013; 24 8-channel RIRs in small/medium/large rooms). Its AIR copy is de-duplicated against aachen_air; noises and simulated RIRs are not indexed.
 
@@ -31,7 +31,7 @@ Real RIRs bundled by OpenSLR 28 at 16 kHz: RWCP Sound Scene Database (2000; 143 
 | C80 mid (dB) | 6.3 | 11.4 | 32.5 | 141 |
 | D50 mid | 0.64 | 0.81 | 0.99 | 141 |
 | Ts mid (s) | 0.011 | 0.029 | 0.050 | 141 |
-| DRR (dB) | -1.4 | 3.0 | 17.6 | 164 |
+| DRR (dB) | -0.3 | 4.6 | 26.1 | 164 |
 | Bass ratio | 0.82 | 1.22 | 3.21 | 149 |
 | Treble ratio | 0.28 | 0.81 | 1.19 | 192 |
 | Mixing time (ms) | 18 | 30 | 50 | 199 |

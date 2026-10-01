@@ -33,7 +33,7 @@ datasets:
   homepage: https://mcdermottlab.mit.edu/Reverb/IR_Survey.html
   paper: {title: "Statistics of natural reverberation enable perceptual separation of sound and space", url: "https://www.pnas.org/content/113/48/E7856"}
   doi: 10.1073/pnas.1612524113
-  status: planned
+  status: active
 
 - id: rochester
   name: University of Rochester RIR dataset
@@ -53,7 +53,7 @@ datasets:
   wave: 0
   homepage: https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089
   doi: 10.60593/ur.d.26801089
-  status: planned
+  status: active
   notes: "Room 13: the three Speak2 files are byte-identical copies of the Speak1 files (publishing error, found by content hash on 2026-09-30); the corpus_dedup view marks them."
 
 - id: voxengo
@@ -74,7 +74,7 @@ datasets:
   source: {kind: http, urls: ["https://www.voxengo.com/files/impulses/IMreverbs.zip"]}
   wave: 0
   homepage: https://www.voxengo.com/impulses/
-  status: planned
+  status: active
 
 - id: echothief
   name: EchoThief impulse response library
@@ -101,7 +101,7 @@ datasets:
   source: {kind: http, urls: ["https://www.echothief.com/wp-content/uploads/2024/07/EchoThiefImpulseResponseLibrary.zip"]}
   wave: 0
   homepage: https://www.echothief.com/
-  status: planned
+  status: active
 
 # ======================================================= W1: many spaces (sparse)
 - id: openair
@@ -123,7 +123,7 @@ datasets:
   wave: 1
   homepage: https://www.openairlib.net/
   paper: {title: "OpenAIR: An interactive auralization web resource and database", url: "https://www.aes.org/e-lib/browse.cfm?elib=15648"}
-  status: planned
+  status: active
 
 - id: ok5
   name: OK5 (Aalto)
@@ -140,7 +140,7 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/18622201
   doi: 10.5281/zenodo.18622201
-  status: planned
+  status: active
 
 - id: aachen_air
   name: Aachen Impulse Response (AIR) database
@@ -157,7 +157,7 @@ datasets:
   wave: 1
   homepage: http://www.iks.rwth-aachen.de/en/research/tools-downloads/databases/aachen-impulse-response-database/
   paper: {title: "A Binaural Room Impulse Response Database for the Evaluation of Dereverberation Algorithms", url: "https://ieeexplore.ieee.org/abstract/document/5201259"}
-  status: planned
+  status: active
 
 - id: openslr28
   name: RWCP + REVERB (via OpenSLR 28)
@@ -176,7 +176,7 @@ datasets:
   homepage: https://www.openslr.org/28/
   paper: {title: "Sound scene data collection in real acoustical environments (RWCP)", url: "https://library.naist.jp/dspace/bitstream/handle/10061/7746/JourAcouSocJaE_20_3_225.pdf?sequence=1"}
   notes: "REVERB paper: https://ieeexplore.ieee.org/document/6701894 ; RWCP home: http://research.nii.ac.jp/src/en/RWCP-SSD.html"
-  status: planned
+  status: active
 
 - id: but_reverb
   name: BUT Speech@FIT Reverb Database
@@ -196,7 +196,7 @@ datasets:
   wave: 1
   homepage: https://speech.fit.vutbr.cz/software/but-speech-fit-reverb-database
   paper: {title: "Building and evaluation of a real room impulse response dataset", url: "https://ieeexplore.ieee.org/document/8717722"}
-  status: planned
+  status: active
 
 - id: ace
   name: ACE Challenge corpus (single-mic + ground truth)
@@ -220,7 +220,7 @@ datasets:
   homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
   paper: {title: "Estimation of room acoustic parameters: The ACE challenge", url: "https://ieeexplore.ieee.org/document/7336912"}
   doi: 10.5281/zenodo.6257551
-  status: planned
+  status: active
 
 - id: c4dm
   name: C4DM RIR database
@@ -244,7 +244,7 @@ datasets:
   wave: 1
   homepage: http://isophonics.net/content/room-impulse-response-data-set
   paper: {title: "Database of Omnidirectional and B-Format Impulse Responses", url: "https://ieeexplore.ieee.org/document/5496083"}
-  status: planned
+  status: active
 
 - id: detmold_srir
   name: Detmold University of Music SRIR database
@@ -267,7 +267,7 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/4116247
   doi: 10.5281/zenodo.4116247
-  status: planned
+  status: active
 
 - id: raves
   name: "RAVes: Room Acoustic Variances"
@@ -293,7 +293,7 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/19809790
   doi: 10.5281/zenodo.19809790
-  status: planned
+  status: active
 
 - id: bras
   name: BRAS - Benchmark for Room Acoustical Simulation
@@ -322,7 +322,7 @@ datasets:
   wave: 1
   homepage: https://depositonce.tu-berlin.de/items/38410727-febb-4769-8002-9c710ba393c4
   paper: {title: "A benchmark for room acoustical simulation. Concept and database", url: "https://www.sciencedirect.com/science/article/abs/pii/S0003682X20309725"}
-  status: planned
+  status: active
 
 - id: mird
   name: Multichannel Impulse Response Database (Bar-Ilan)
@@ -360,7 +360,7 @@ datasets:
              record_prefix: spk}
   wave: 1
   homepage: https://github.com/IoSR-Surrey/IoSR_ListeningRoom_BRIRs
-  status: planned
+  status: active
 
 - id: surrey_real_room_brirs
   name: Surrey real-room BRIRs
@@ -383,7 +383,7 @@ datasets:
            roles: [L, R], capture_format: binaural, ir_kind: anechoic}
   wave: 1
   homepage: https://github.com/IoSR-Surrey/RealRoomBRIRs
-  status: planned
+  status: active
 
 - id: bbc_brirs
   name: BBC R&D BRIR dataset
@@ -402,7 +402,7 @@ datasets:
              channels: [2], roles: {2: [L, R]}, channel_formats: {2: binaural}}
   wave: 1
   homepage: https://github.com/bbc/bbcrd-brirs
-  status: planned
+  status: active
 
 - id: churchir
   name: ChurchIR
@@ -428,7 +428,7 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/14901751
   doi: 10.5281/zenodo.14901751
-  status: planned
+  status: active
 
 - id: ho_rir_cremona
   name: "The Sound of the Violin's Home (Arvedi Auditorium)"
@@ -454,7 +454,7 @@ datasets:
   wave: 1
   homepage: https://zenodo.org/records/20098848
   doi: 10.5281/zenodo.20098848
-  status: planned
+  status: active
 
 - id: drr_scaled_brirs
   name: DRR-scaled individual BRIRs
@@ -508,7 +508,7 @@ datasets:
   homepage: https://zenodo.org/records/6985104
   paper: {title: "Calibrating the Sabine and Eyring formulas", url: "https://asa.scitation.org/doi/full/10.1121/10.0013575"}
   doi: 10.5281/zenodo.6985104
-  status: planned
+  status: active
 
 - id: motus
   name: Motus
@@ -536,7 +536,7 @@ datasets:
   homepage: https://doi.org/10.5281/zenodo.4923187
   paper: {title: "A dataset of higher-order Ambisonic room impulse responses and 3D models measured in a room with varying furniture", url: "https://doi.org/10.1109/I3DA48870.2021.9610933"}
   doi: 10.5281/zenodo.4923187
-  status: planned
+  status: active
 
 - id: dechorate
   name: dEchorate
@@ -558,7 +558,7 @@ datasets:
   homepage: https://zenodo.org/records/5562386
   paper: {title: "dEchorate: a Calibrated Room Impulse Response Dataset for Echo-aware Signal Processing", url: "https://arxiv.org/abs/2104.13168"}
   doi: 10.5281/zenodo.5562386
-  status: planned
+  status: active
 
 - id: myriad
   name: MYRiAD
@@ -581,7 +581,7 @@ datasets:
   homepage: https://zenodo.org/records/7322755
   paper: {title: "MYRiAD: a multi-array room acoustic database", url: "https://doi.org/10.1186/s13636-023-00284-9"}
   doi: 10.5281/zenodo.7322755
-  status: planned
+  status: active
 
 - id: trajectorir
   name: trajectoRIR
@@ -604,7 +604,7 @@ datasets:
   homepage: https://zenodo.org/records/15564430
   paper: {title: "The trajectoRIR database: room acoustic recordings along a trajectory of moving microphones", url: "https://doi.org/10.1186/s13636-026-00449-2"}
   doi: 10.5281/zenodo.15564430
-  status: planned
+  status: active
 
 - id: tau_srir
   name: TAU Spatial Room Impulse Response Database
@@ -623,7 +623,7 @@ datasets:
   wave: 2
   homepage: https://zenodo.org/records/6408611
   doi: 10.5281/zenodo.6408611
-  status: planned
+  status: active
 
 - id: upv_rir_db
   name: UPV_RIR_DB
@@ -656,7 +656,7 @@ datasets:
            pattern: '(?P<room>Room_[^/]+)_mat/[^/]+/(?P<cond>RC\d)/(?P<src>SC\d)/BI/BI_RC\d_SC\d_(?P<rcv>Z\d+_[CLR]_[FM])_RIR\.mat$'}
   homepage: https://zenodo.org/records/19371528
   doi: 10.5281/zenodo.19371528
-  status: planned
+  status: active
 
 - id: aalto_multiroom
   name: Multi-Room Transition Dataset (MRTD)
@@ -685,7 +685,7 @@ datasets:
   homepage: https://zenodo.org/records/13341566
   paper: {title: "A Multi-Room Transition Dataset for Blind Estimation of Energy Decay (IWAENC 2024)", url: "https://research.aalto.fi/en/publications/a-multi-room-transition-dataset-for-blind-estimation-of-energy-de"}
   doi: 10.5281/zenodo.13341566
-  status: planned
+  status: active
 
 - id: mckenzie_rtd
   name: Room Transition Dataset (coupled rooms, Eigenmike)
@@ -715,7 +715,7 @@ datasets:
   homepage: https://zenodo.org/records/6375520
   paper: {title: "Acoustic Analysis and Dataset of Transitions between Coupled Rooms (ICASSP 2021)", url: "https://doi.org/10.1109/ICASSP39728.2021.9415122"}
   doi: 10.5281/zenodo.6375520
-  status: planned
+  status: active
 
 - id: arni_6dof_srir
   name: 6DoF SRIRs in Arni (Eigenmike + Zylia)
@@ -744,7 +744,7 @@ datasets:
   homepage: https://zenodo.org/records/6382405
   paper: {title: "Dataset of Spatial Room Impulse Responses in a Variable Acoustics Room for Six Degrees-of-Freedom Rendering and Analysis", url: "https://arxiv.org/abs/2111.11882"}
   doi: 10.5281/zenodo.6382405
-  status: planned
+  status: active
 
 - id: tuil_robot_coupled
   name: "TU Ilmenau SRIR dataset: a robot's journey through coupled rooms"
@@ -768,7 +768,7 @@ datasets:
   homepage: https://zenodo.org/records/13987509
   paper: {title: "Spatial Room Impulse Response Dataset: A Robot's Journey Through Coupled Rooms (DAGA 2024)", url: "https://pub.dega-akustik.de/DAGA_2024/files/upload/paper/453.pdf"}
   doi: 10.5281/zenodo.13987509
-  status: planned
+  status: active
 
 - id: metu_sparg
   name: METU SPARG Eigenmike em32 AIR dataset
@@ -788,7 +788,7 @@ datasets:
   wave: 2
   homepage: http://www.sparg.ii.metu.edu.tr/code.html
   doi: 10.5281/zenodo.2635758
-  status: planned
+  status: active
 
 - id: homula_rir
   name: HOMULA-RIR
@@ -815,7 +815,7 @@ datasets:
   homepage: https://github.com/polimi-ispl/homula-rir
   paper: {title: "HOMULA-RIR: A Room Impulse Response Dataset for Teleconferencing and Spatial Audio Applications", url: "https://doi.org/10.1109/ICASSPW62465.2024.10626753"}
   doi: 10.5281/zenodo.10479726
-  status: planned
+  status: active
 
 - id: flair
   name: FLAIR
@@ -837,7 +837,7 @@ datasets:
   homepage: https://zenodo.org/records/17037517
   paper: {title: "Bayesian Sound Field Reconstruction Using Partial Boundary Information", url: "https://ieeexplore.ieee.org/document/11197648"}
   doi: 10.5281/zenodo.17037517
-  status: planned
+  status: active
 
 - id: brudex
   name: BRUDEX
@@ -859,7 +859,7 @@ datasets:
   wave: 2
   homepage: https://zenodo.org/records/8340195
   doi: 10.5281/zenodo.8340195
-  status: planned
+  status: active
 
 - id: huddersfield_360_brir
   name: Huddersfield 360-degree BRIR database (6DoF)
@@ -881,7 +881,7 @@ datasets:
   wave: 2
   homepage: https://zenodo.org/records/2641166
   doi: 10.5281/zenodo.2641166
-  status: planned
+  status: active
 
 - id: soundcam
   name: SoundCam
@@ -929,7 +929,7 @@ datasets:
   homepage: http://www.ee.ic.ac.uk/naylor/ACEweb/index.html
   paper: {title: "Estimation of room acoustic parameters: The ACE challenge", url: "https://ieeexplore.ieee.org/document/7336912"}
   doi: 10.5281/zenodo.6257551
-  status: planned
+  status: active
 
 - id: rsoanu
   name: RSoANU RIR dataset
@@ -957,7 +957,7 @@ datasets:
   wave: 2
   homepage: https://zenodo.org/records/10720345
   doi: 10.5281/zenodo.10720345
-  status: planned
+  status: active
   notes: Content description to be confirmed from RSoANU_Documentation_v2.pdf during probe.
 
 - id: gtu_rir
@@ -1000,7 +1000,7 @@ datasets:
   homepage: https://sh01k.github.io/MeshRIR/
   paper: {title: "MeshRIR: A Dataset of Room Impulse Responses on Meshed Grid Points", url: "https://arxiv.org/abs/2106.10801"}
   doi: 10.5281/zenodo.10852693
-  status: planned
+  status: active
 
 - id: em32_line_arni
   name: "SRIR dataset: em32 along a line (Arni)"
@@ -1022,7 +1022,7 @@ datasets:
   analysis: {scope: full}   # only 585 records
   homepage: https://zenodo.org/records/15169199
   doi: 10.5281/zenodo.15169199
-  status: planned
+  status: active
 
 - id: meshgrid3d
   name: 3D Meshgrid RIR dataset (raw, 48 kHz)
@@ -1045,7 +1045,7 @@ datasets:
   analysis: {scope: subsample_v1}
   homepage: https://zenodo.org/records/19656813
   doi: 10.5281/zenodo.19656813
-  status: planned
+  status: active
 
 - id: mp_rir
   name: MP-RIR
@@ -1068,7 +1068,7 @@ datasets:
   homepage: https://zenodo.org/records/11148712
   paper: {title: "Multi-Purpose Room Impulse Response Dataset Measured on a 3D Spatial Grid", url: "https://aes2.org/publications/elibrary-page/?id=22515"}
   doi: 10.5281/zenodo.11148712
-  status: planned
+  status: active
 
 - id: miracle
   name: MIRACLE
@@ -1091,7 +1091,7 @@ datasets:
   analysis: {scope: subsample_v1}
   homepage: https://depositonce.tu-berlin.de/items/b079fd1c-999f-42cb-afd2-bcd34de6180b
   paper: {title: "MIRACLE - Microphone Array Impulse Response Dataset for Acoustic Learning", url: "https://doi.org/10.1186/s13636-024-00352-8"}
-  status: planned
+  status: active
   notes: "IRs are 1024 samples (~21 ms): direct sound and first reflections in a low-reverberation lab (probe 2026-09-30). Indexed with positions (ir_kind anechoic); decay metrics are not meaningful, so only the subsample is analysed."
 
 - id: sriracha
@@ -1114,7 +1114,7 @@ datasets:
   analysis: {scope: subsample_v1}
   homepage: https://depositonce.tu-berlin.de/items/d9d4b747-2f3e-4b21-b32e-48863e9af876
   paper: {title: "SRIRACHA: Shoebox Room Impulse Response Archive with Varying Absorption", url: "https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/643a8b38-bc2e-43cb-89e8-f972ed4457f8/content"}
-  status: planned
+  status: active
 
 # ======================================== W4: simulated (needs permanent storage)
 - id: treble10

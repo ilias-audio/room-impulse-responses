@@ -1,6 +1,6 @@
 # University of Rochester RIR dataset
 
-`rochester` · measured · 2024 · wave 0 · status **planned**
+`rochester` · measured · 2024 · wave 0 · status **active**
 
 Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a wide range of RT60, clarity and EDT; room layouts and acoustic plots per room.
 
@@ -11,6 +11,7 @@ Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a w
 - Paper: - · DOI 10.60593/ur.d.26801089
 - Licence: CC-BY-4.0
 - Audio redistribution: **yes** · ML training use: **allowed**
+- Notes: Room 13: the three Speak2 files are byte-identical copies of the Speak1 files (publishing error, found by content hash on 2026-09-30); the corpus_dedup view marks them.
 
 ## Contents
 
@@ -29,7 +30,7 @@ Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a w
 | C80 mid (dB) | -0.3 | 10.4 | 25.3 | 89 |
 | D50 mid | 0.35 | 0.83 | 0.97 | 89 |
 | Ts mid (s) | 0.020 | 0.034 | 0.158 | 89 |
-| DRR (dB) | -9.6 | -5.6 | -1.5 | 90 |
+| DRR (dB) | -6.6 | -2.4 | 2.5 | 90 |
 | STI | 0.53 | 0.81 | 0.92 | 90 |
 | Bass ratio | 0.85 | 1.47 | 2.36 | 89 |
 | Treble ratio | 0.77 | 0.98 | 1.31 | 89 |
@@ -41,8 +42,8 @@ Mono RIRs (48 kHz, 32-bit) from 14 rooms of the University of Rochester with a w
 |---|---|
 | nonlinear decay | 41 |
 | curved decay | 34 |
-| pre onset energy | 16 |
 | no noise floor | 13 |
+| pre onset energy | 6 |
 | tail truncated | 2 |
 | filter bias risk | 2 |
 | lundeby failed any | 1 |

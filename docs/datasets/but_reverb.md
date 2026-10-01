@@ -1,6 +1,6 @@
 # BUT Speech@FIT Reverb Database
 
-`but_reverb` · measured · 2019 · wave 1 · status **planned**
+`but_reverb` · measured · 2019 · wave 1 · status **active**
 
 1300+ mono-channel RIRs recorded in 8 rooms (offices, lecture rooms, stairs, ...) with 31 microphones per source position.
 
@@ -29,7 +29,7 @@
 | C80 mid (dB) | -0.9 | 4.4 | 9.7 | 1,571 |
 | D50 mid | 0.29 | 0.54 | 0.78 | 1,571 |
 | Ts mid (s) | 0.035 | 0.063 | 0.139 | 1,571 |
-| DRR (dB) | -19.3 | -9.1 | -2.2 | 1,674 |
+| DRR (dB) | -15.3 | -5.9 | 0.0 | 1,674 |
 | Bass ratio | 0.91 | 1.05 | 1.40 | 1,073 |
 | Treble ratio | 0.73 | 0.93 | 1.10 | 1,362 |
 | Mixing time (ms) | 10 | 20 | 44 | 1,674 |

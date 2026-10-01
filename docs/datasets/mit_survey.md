@@ -1,6 +1,6 @@
 # MIT IR Survey
 
-`mit_survey` · measured · 2016 · wave 0 · status **planned**
+`mit_survey` · measured · 2016 · wave 0 · status **active**
 
 271 mono RIRs, each recorded in a distinct everyday place (surveyed from daily-life locations of volunteers); the public archive holds 270 (32 kHz, 24-bit).
 
@@ -29,7 +29,7 @@
 | C80 mid (dB) | 9.5 | 20.1 | 51.2 | 251 |
 | D50 mid | 0.82 | 0.97 | 1.00 | 251 |
 | Ts mid (s) | 0.008 | 0.014 | 0.033 | 251 |
-| DRR (dB) | 0.7 | 8.5 | 17.6 | 265 |
+| DRR (dB) | 3.1 | 11.7 | 23.7 | 265 |
 | STI | 0.83 | 0.96 | 0.99 | 265 |
 | Bass ratio | 0.72 | 1.10 | 1.84 | 214 |
 | Treble ratio | 0.43 | 0.83 | 1.20 | 267 |
@@ -45,7 +45,6 @@
 | tail truncated | 24 |
 | no noise floor | 9 |
 | lundeby failed any | 3 |
-| pre onset energy | 1 |
 | filter bias risk | 1 |
 | edc method disagreement | 1 |
 

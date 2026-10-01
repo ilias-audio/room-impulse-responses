@@ -1,6 +1,6 @@
 # Voxengo free reverb impulse responses
 
-`voxengo` · production · n/a · wave 0 · status **planned**
+`voxengo` · production · n/a · wave 0 · status **active**
 
 Free stereo reverb IRs of real spaces and processed spaces distributed with Voxengo's convolution tools.
 
@@ -30,7 +30,7 @@ Free stereo reverb IRs of real spaces and processed spaces distributed with Voxe
 | C80 mid (dB) | -5.2 | 2.6 | 8.3 | 33 |
 | D50 mid | 0.16 | 0.44 | 0.74 | 33 |
 | Ts mid (s) | 0.041 | 0.079 | 0.264 | 33 |
-| DRR (dB) | -15.4 | -9.3 | -4.3 | 34 |
+| DRR (dB) | -13.4 | -5.7 | -2.1 | 34 |
 | STI | 0.34 | 0.62 | 0.75 | 34 |
 | Bass ratio | 0.88 | 1.03 | 1.41 | 32 |
 | Treble ratio | 0.69 | 0.86 | 1.02 | 33 |

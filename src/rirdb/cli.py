@@ -213,11 +213,13 @@ def embed(
 
 @app.command()
 def snapshot() -> None:
-    """Write snapshots/metrics_core.parquet (committed; purge insurance)."""
+    """Write snapshots/metrics_core/<dataset>.parquet (committed; purge insurance)."""
     from rirdb.export import snapshot as run_snapshot
 
-    out = run_snapshot()
-    console.print(f"wrote {out.relative_to(paths.REPO_ROOT)} ({out.stat().st_size / 1e6:.2f} MB)")
+    outs = run_snapshot()
+    total = sum(p.stat().st_size for p in outs)
+    console.print(f"wrote {len(outs)} files to snapshots/metrics_core/ ({total / 1e6:.1f} MB; "
+                  f"largest {max(p.stat().st_size for p in outs) / 1e6:.1f} MB)")
 
 
 if __name__ == "__main__":

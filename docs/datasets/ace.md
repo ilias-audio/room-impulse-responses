@@ -1,6 +1,6 @@
 # ACE Challenge corpus (single-mic + ground truth)
 
-`ace` · measured · 2015 · wave 1 · status **planned**
+`ace` · measured · 2015 · wave 1 · status **active**
 
 Single-microphone RIRs from 7 rooms (2 positions each) with the published per-band T60 and DRR ground truth. Multichannel arrays are in ace_arrays.
 
@@ -29,7 +29,7 @@ Single-microphone RIRs from 7 rooms (2 positions each) with the published per-ba
 | C80 mid (dB) | 6.2 | 12.0 | 13.9 | 14 |
 | D50 mid | 0.71 | 0.84 | 0.90 | 14 |
 | Ts mid (s) | 0.022 | 0.030 | 0.053 | 14 |
-| DRR (dB) | -1.5 | 1.5 | 7.2 | 14 |
+| DRR (dB) | 1.2 | 4.4 | 8.7 | 14 |
 | STI | 0.76 | 0.81 | 0.87 | 14 |
 | Bass ratio | 0.79 | 1.30 | 1.52 | 14 |
 | Treble ratio | 0.90 | 1.01 | 1.38 | 14 |

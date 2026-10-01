@@ -54,6 +54,7 @@ rir-data/
 *.duckdb
 # ...except the small committed snapshots and tiny synthetic test fixtures
 !snapshots/*.parquet
+!snapshots/metrics_core/*.parquet
 !tests/fixtures/**
 
 # Local debug scripts (on GPFS so compute nodes can see them)

@@ -1,6 +1,6 @@
 # Detmold University of Music SRIR database
 
-`detmold_srir` · measured · 2020 · wave 1 · status **planned**
+`detmold_srir` · measured · 2020 · wave 1 · status **active**
 
 About 600 multichannel SRIRs from 3 performance spaces (Konzerthaus ~600 seats, Brahmssaal ~100 seats, Sommertheater ~300 seats), stage and audience positions, open SDM array and dummy head; incl. orchestra loudspeaker setups.
 
@@ -29,7 +29,7 @@ About 600 multichannel SRIRs from 3 performance spaces (Konzerthaus ~600 seats, 
 | C80 mid (dB) | -0.3 | 1.2 | 2.6 | 649 |
 | D50 mid | 0.35 | 0.43 | 0.51 | 649 |
 | Ts mid (s) | 0.088 | 0.100 | 0.115 | 649 |
-| DRR (dB) | -8.6 | -5.4 | -1.4 | 653 |
+| DRR (dB) | -5.4 | -2.9 | 1.1 | 653 |
 | STI | 0.55 | 0.58 | 0.62 | 653 |
 | Bass ratio | 1.05 | 1.10 | 1.16 | 622 |
 | Treble ratio | 0.84 | 0.86 | 0.88 | 643 |
