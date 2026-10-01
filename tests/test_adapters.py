@@ -115,3 +115,14 @@ def test_sofa_measurements_as_receivers(tmp_path):
     assert [r.rcv_key for r in recs] == [f"m{i}" for i in range(5)]
     assert recs[0].src_pos is None and recs[1].rcv_pos == (3.0, 4.0, 5.0)
     assert recs[0].room_key == "offices" and recs[0].channel_roles == ("FLU", "FRD", "BLD", "BRU")
+
+
+def test_ndarray_crop(tmp_path):
+    a = np.random.default_rng(4).standard_normal((2, 3, 1000)).astype(np.float32)
+    np.save(tmp_path / "deconvolved.npy", a)
+    params = {"glob": "*.npy", "container": "npy", "time_axis": 2, "record_axes": [0, 1], "fs": 100, "crop_s": 2.5}
+    ad = get_adapter("ndarray", params)
+    recs = list(ad.iter_records(_dataset(params), tmp_path))
+    assert len(recs) == 6 and {r.n_samples for r in recs} == {250}
+    x, fs = ad.load(recs[4].locator, tmp_path)
+    np.testing.assert_array_equal(x, a[1, 1, :250][None, :])

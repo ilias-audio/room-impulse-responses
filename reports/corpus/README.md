@@ -1,8 +1,8 @@
 # Corpus report
 
-Generated 2026-10-01 00:03 UTC by `rirdb report corpus` from `metrics/v1` (analyzer 1.0.0, config b6f0e3615d1b769b).
+Generated 2026-10-01 09:35 UTC by `rirdb report corpus` from `metrics/v1` (analyzer 1.0.0, config b6f0e3615d1b769b).
 
-**253,422 IRs** analysed from **43 datasets**, **646 rooms/spaces**; 199,658 are room IRs (the rest: outdoor, scale models, anechoic, devices). Grades: A 51,242, B 74,990, C 69,383, D 57,807 (A: T30 valid 125 Hz-4 kHz; B: T20/T30 valid 250 Hz-2 kHz; C: partial; D: none).
+**254,174 IRs** analysed from **44 datasets**, **647 rooms/spaces**; 200,410 are room IRs (the rest: outdoor, scale models, anechoic, devices). Grades: A 51,990, B 74,993, C 69,384, D 57,807 (A: T30 valid 125 Hz-4 kHz; B: T20/T30 valid 250 Hz-2 kHz; C: partial; D: none).
 
 Single numbers follow ISO 3382-1 (mean of 500 Hz and 1 kHz; only where both are valid). Figures use one preferred representation per measured position (e.g. OpenAIR B-format over its mono copy) and room IRs only.
 
@@ -46,6 +46,7 @@ Single numbers follow ISO 3382-1 (mean of 500 Hz and 1 kHz; only where both are 
 | raves | 190 | 7 | 159/28/3/0 | 0.23 / 0.49 / 1.20 | 0.40 | 11.7 | 0.84 | 3.1 | 0.82 | 1.16 / 0.90 | 28 | 0 |
 | rochester | 90 | 14 | 82/7/1/0 | 0.17 / 0.45 / 1.88 | 0.41 | 10.4 | 0.83 | -2.4 | 0.81 | 1.47 / 0.98 | 14 | 0 |
 | rsoanu | 786 | 1 | 77/581/128/0 | 0.76 / 0.84 / 0.91 | 0.76 | 5.7 | 0.64 | -3.3 | 0.67 | 0.86 / 1.08 | 30 | 0 |
+| soundcam | 752 | 1 | 748/3/1/0 | 0.46 / 0.49 / 0.51 | 0.40 | 11.1 | 0.81 | 1.2 | 0.78 | 1.30 / 1.15 | 22 | 0 |
 | sriracha | 82587 | 1 | 3/65763/16821/0 | 0.75 / 0.77 / 0.80 | 1.26 | 4.5 | 0.62 | 1.0 | 0.69 | 0.92 / 0.89 | 40 | 0 |
 | surrey_real_room_brirs | 185 | 5 | 127/21/0/37 | 0.28 / 0.54 / 0.96 | 0.31 | 14.5 | 0.91 | 6.0 | 0.86 | 1.51 / 1.02 | 52 | 0 |
 | tau_srir | 38530 | 9 | 0/18/38059/453 |  /  /  | 0.46 | 10.9 | 0.82 | 4.9 | 0.82 |  / 1.04 | 24 | 0 |
@@ -94,6 +95,7 @@ Single numbers follow ISO 3382-1 (mean of 500 Hz and 1 kHz; only where both are 
 | raves | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 4 | 0 | 0 | 36 | 37 | 3 | 0 | 50 | 0 | <NA> |
 | rochester | 0 | 0 | 0 | 0 | 6 | 2 | 1 | 13 | 0 | 0 | 34 | 41 | 2 | 0 | 0 | 0 | <NA> |
 | rsoanu | 0 | 37 | 0 | 0 | 0 | 0 | 15 | 2 | 0 | 31 | 2 | 1 | 0 | 2 | 0 | 50 | 50 |
+| soundcam | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 11 | 4 | 0 | 0 | 0 | 0 | <NA> |
 | sriracha | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 65 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | <NA> |
 | surrey_real_room_brirs | 0 | 0 | 20 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 26 | 20 | 3 | 0 | 80 | 0 | <NA> |
 | tau_srir | 0 | 0 | 99 | 100 | 0 | 1 | 61 | 61 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 100 |

@@ -377,6 +377,7 @@ class NdArrayAdapter:
       room_default, capture_format, roles, reference_role, ir_kind
       channels             indices along channel_axis to keep (e.g. one ear pair of several)
       record_is            rcv (default) | src: what the record index enumerates, for the position keys
+      crop_s               keep only the first crop_s seconds (e.g. long deconvolutions whose tail is non-stationary noise)
       positions            {src|rcv: {array: path, axis_of: record axis index}} (optional, h5)
     Records are the Cartesian product of record-axis indices; loading slices lazily.
     """
@@ -468,7 +469,8 @@ class NdArrayAdapter:
             yield IRRecord(
                 dataset_id=dataset.id, local_key=key, room_key=slug(room),
                 capture_format=g.get("capture_format", "mono_omni" if n_ch == 1 else "array_raw"),
-                channel_roles=tuple(roles), fs=fs, n_samples=int(shape[t_ax]),
+                channel_roles=tuple(roles), fs=fs,
+                n_samples=min(int(shape[t_ax]), int(round(g["crop_s"] * fs))) if g.get("crop_s") else int(shape[t_ax]),
                 locator={"relpath": rel, "container": g.get("container", "h5"), "group": gi,
                          "idx": list(idx), "array": array},
                 condition_key=gd.get("cond") or (array if g.get("array_pattern") else None),
@@ -491,6 +493,8 @@ class NdArrayAdapter:
             sl = [slice(None)] * len(shape)
             for a, i in zip(rec_axes, locator["idx"]):
                 sl[a] = i
+            if g.get("crop_s"):
+                sl[t_ax] = slice(0, int(round(g["crop_s"] * self._fs(path, g))))
             x = np.asarray(arr[tuple(sl)], dtype=np.float64)
             # remaining axes keep their relative order: put channels first, time last
             remaining = [a for a in range(len(shape)) if a not in rec_axes]

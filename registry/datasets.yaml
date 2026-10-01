@@ -902,13 +902,14 @@ datasets:
   adapter:
     name: ndarray
     # <room>_preprocessed/<Empty|Human1|Human2>/deconvolved.npy: float32 [measurements, 10 mics, 667200] at 48 kHz
-    # (13.9 s, the tail is noise). Loudspeaker and mics are fixed; conditions differ by a person's presence/position.
-    params: {glob: "*_preprocessed/*/deconvolved.npy", container: npy, time_axis: 2, record_axes: [0, 1], fs: 48000,
+    # (13.9 s). After ~1 s the tail is noise with transient bursts (up to -55 dB re peak at 3-4 s) that defeat the
+    # noise-floor estimate: cropped to 3 s (> 5 x T30). Loudspeaker and mics fixed; conditions = presence of a person.
+    params: {glob: "*_preprocessed/*/deconvolved.npy", container: npy, time_axis: 2, record_axes: [0, 1], fs: 48000, crop_s: 3.0,
              pattern: '(?P<room>[A-Za-z]+)_preprocessed/(?P<cond>Empty|Human\d)/deconvolved\.npy$'}
   analysis: {scope: subsample_v1}
   homepage: https://sites.google.com/view/soundcam
   paper: {title: "SoundCam: A Dataset for Tasks in Tracking and Identifying Humans from Real Room Acoustics", url: "https://nips.cc/virtual/2023/poster/73471"}
-  status: planned
+  status: active
   notes: "Preprocessed archives total 413 GB (RIRs bundled with music recordings); Stanford serves ~2 MB/s. Only ConferenceRoom_preprocessed (51.7 GB) is fetched; LivingRoom (104 GB), TreatedRoom (211 GB) and TreatedRoomPanels (46 GB) are deferred until permanent storage."
 
 - id: ace_arrays
