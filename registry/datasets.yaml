@@ -888,9 +888,9 @@ datasets:
   year: 2023
   type: measured
   ir_kinds: [room]
-  capture_formats: [array_raw]
+  capture_formats: [mono_omni]
   content: 5,000 10-channel real-world RIRs in three rooms (treated lab, in-the-wild living room, conference room) with humans at positions throughout each room. Only the Conference Room archive is fetched for now.
-  expected: {n_irs: 5000, n_rooms: 3}
+  expected: {n_irs: 12000, n_rooms: 1, note: "Conference Room only: (100 empty + 1,000 + 100 with a person) measurements x 10 fixed mics; one fixed loudspeaker"}
   license: {spdx: MIT, redistribute_audio: yes}
   access: open
   source:
@@ -899,6 +899,13 @@ datasets:
       - https://stacks.stanford.edu/file/druid:xq364hd5023/ConferenceRoom_preprocessed.tar.gz
   keep_archive: false
   wave: 2
+  adapter:
+    name: ndarray
+    # <room>_preprocessed/<Empty|Human1|Human2>/deconvolved.npy: float32 [measurements, 10 mics, 667200] at 48 kHz
+    # (13.9 s, the tail is noise). Loudspeaker and mics are fixed; conditions differ by a person's presence/position.
+    params: {glob: "*_preprocessed/*/deconvolved.npy", container: npy, time_axis: 2, record_axes: [0, 1], fs: 48000,
+             pattern: '(?P<room>[A-Za-z]+)_preprocessed/(?P<cond>Empty|Human\d)/deconvolved\.npy$'}
+  analysis: {scope: subsample_v1}
   homepage: https://sites.google.com/view/soundcam
   paper: {title: "SoundCam: A Dataset for Tasks in Tracking and Identifying Humans from Real Room Acoustics", url: "https://nips.cc/virtual/2023/poster/73471"}
   status: planned

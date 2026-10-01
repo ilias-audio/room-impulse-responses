@@ -1,0 +1,36 @@
+# probe soundcam
+# root: /gpfs/scratch/eey119/rir-data/raw/soundcam/files
+
+16 files, 65.32 GB
+extensions: .npy 16
+
+## tree
+ConferenceRoom_preprocessed/  (16 files)
+  Empty/  (4 files)
+    adjusted_audio.npy  [1296.00 MB]
+    audio.npy  [1344.00 MB]
+    deconvolved.npy  [2668.80 MB]
+    directlines.npy  [134.40 MB]
+  Human1/  (6 files)
+    adjusted_audio.npy  [12960.00 MB]
+    audio.npy  [13440.00 MB]
+    centroid.npy  [0.02 MB]
+    deconvolved.npy  [26688.00 MB]
+    directlines.npy  [1344.00 MB]
+    skeletons.npy  [2.30 MB]
+  Human2/  (6 files)
+    adjusted_audio.npy  [1296.00 MB]
+    audio.npy  [1344.00 MB]
+    centroid.npy  [0.00 MB]
+    deconvolved.npy  [2668.80 MB]
+    directlines.npy  [134.40 MB]
+    skeletons.npy  [0.23 MB]
+
+## audio
+
+## npy (16 files; first 5)
+-- adjusted_audio.npy: (100, 10, 648000) int16
+-- audio.npy: (100, 10, 672000) int16
+-- deconvolved.npy: (100, 10, 667200) float32
+-- directlines.npy: (100, 672000) int16
+-- adjusted_audio.npy: (1000, 10, 648000) int16
