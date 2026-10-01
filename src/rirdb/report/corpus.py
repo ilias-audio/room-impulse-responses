@@ -200,9 +200,18 @@ def build(out_dir: Path = paths.REPORTS_DIR / "corpus") -> Path:
     dups = con.execute("""SELECT d.content_sha1[:10] AS sha, list(i.dataset_id || ': ' || i.local_key) AS files
                           FROM duplicates d, UNNEST(d.ir_ids) AS u(id) JOIN irs i ON i.ir_id = u.id
                           GROUP BY 1 ORDER BY 1""").df()
-    dup_md = (["No exact duplicates (identical decoded samples) found."] if dups.empty else
-              [f"{len(dups)} group(s) of byte-identical IRs (the `corpus_dedup` view marks all but one with `dup_of`):", ""]
-              + [f"- {' = '.join(f)}" for f in dups["files"]])
+    if dups.empty:
+        dup_md = ["No exact duplicates (identical decoded samples) found."]
+    else:
+        dups["datasets"] = [" + ".join(sorted({f.split(":")[0] for f in fs})) for fs in dups["files"]]
+        dups["extra"] = [len(fs) - 1 for fs in dups["files"]]
+        dups.assign(files=[" = ".join(fs) for fs in dups["files"]]).to_csv(out_dir / "duplicates.csv", index=False)
+        per = dups.groupby("datasets").agg(groups=("sha", "size"), extra=("extra", "sum")).sort_values("groups", ascending=False)
+        dup_md = ([f"{len(dups)} group(s) of byte-identical IRs (the `corpus_dedup` view marks all but one with "
+                   "`dup_of`; full list in [duplicates.csv](duplicates.csv)):", "",
+                   "| dataset(s) | groups | redundant copies |", "|---|---|---|"]
+                  + [f"| {k} | {r.groups} | {r.extra} |" for k, r in per.iterrows()]
+                  + ["", "Examples:", ""] + [f"- {' = '.join(f)}" for f in dups["files"].head(5)])
     md = [
         "# Corpus report",
         "",
