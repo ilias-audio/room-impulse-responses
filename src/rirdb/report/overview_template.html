@@ -1,0 +1,531 @@
+<title>rirdb Corpus Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: lab-notebook column (≈ 68ch prose, charts wider) with a sticky contents rail; the CLAP map breaks out to full width.
+   Octave bands carry a fixed warm-to-cool ramp (63 Hz amber -> 8 kHz blue) used by every per-band chart. */
+:root {
+  --bg: #f4f6f7; --panel: #ffffff; --ink: #18232c; --muted: #5b6873; --line: #d8dee3; --soft: #e9eef1;
+  --accent: #1f6f78; --accent-ink: #ffffff; --warn: #b5651d; --bad: #b3363a; --good: #2e7d4f; --sel: #c8102e;
+  --bar: #1f6f78; --bar2: #8fb8bd; --grid: #e3e8eb; --code-bg: #eef2f4;
+  --b63: #b8741a; --b125: #c99a1e; --b250: #8c9a2a; --b500: #4f9a55; --b1000: #23907e; --b2000: #1d7f9f; --b4000: #2f62b0; --b8000: #5b4bb0; --bbb: #4b5660;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --pt-l: 46%; --pt-s: 62%;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11171c; --panel: #172028; --ink: #e3e9ed; --muted: #97a4ae; --line: #2a3640; --soft: #1d2830;
+  --accent: #5cb8bf; --accent-ink: #0d1418; --warn: #e09a55; --bad: #ef7a7d; --good: #6cc492; --sel: #ff6b81;
+  --bar: #5cb8bf; --bar2: #2f5f64; --grid: #23303a; --code-bg: #1c262e;
+  --b63: #e0a04a; --b125: #e6c04e; --b250: #b9c654; --b500: #7cc47f; --b1000: #4fc1ad; --b2000: #4eb3d4; --b4000: #6f9be6; --b8000: #9a8cf0; --bbb: #a3afb8;
+  --pt-l: 64%; --pt-s: 62%; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11171c; --panel: #172028; --ink: #e3e9ed; --muted: #97a4ae; --line: #2a3640; --soft: #1d2830;
+  --accent: #5cb8bf; --accent-ink: #0d1418; --warn: #e09a55; --bad: #ef7a7d; --good: #6cc492; --sel: #ff6b81;
+  --bar: #5cb8bf; --bar2: #2f5f64; --grid: #23303a; --code-bg: #1c262e;
+  --b63: #e0a04a; --b125: #e6c04e; --b250: #b9c654; --b500: #7cc47f; --b1000: #4fc1ad; --b2000: #4eb3d4; --b4000: #6f9be6; --b8000: #9a8cf0; --bbb: #a3afb8;
+  --pt-l: 64%; --pt-s: 62%; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); }
+.wrap { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; max-width: 1240px; margin: 0 auto; padding-inline: 24px; padding-block: 32px 64px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 13px; }
+nav.toc .proj { font: 600 13px/1.2 var(--f-mono); color: var(--accent); letter-spacing: .02em; margin-bottom: 14px; }
+nav.toc a { display: block; color: var(--muted); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line); }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); border-left-color: var(--accent); outline: none; }
+main { min-width: 0; display: grid; gap: 56px; }
+section { min-width: 0; display: grid; gap: 16px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: 40px; font-weight: 600; letter-spacing: -.01em; }
+h2 { font-size: 26px; font-weight: 600; padding-top: 6px; border-top: 1px solid var(--line); }
+h3 { font-size: 17px; font-weight: 600; margin-top: 8px; }
+p { margin: 0; max-width: 68ch; }
+.lede { font-size: 17px; color: var(--muted); max-width: 66ch; }
+.eyebrow { font: 500 12px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+code, .mono { font-family: var(--f-mono); font-size: .9em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+pre { margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; overflow-x: auto; font: 13px/1.5 var(--f-mono); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; }
+.tile b { font: 600 28px/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+.tile span { color: var(--muted); font-size: 13px; }
+.answer { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; display: grid; gap: 10px; }
+.answer h3 { margin: 0; }
+.verdict { font: 500 12px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; padding: 4px 8px; border-radius: 3px; justify-self: start; }
+.v-ok { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.v-warn { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 12px/1.3 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; background: var(--soft); position: sticky; top: 0; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12.5px; }
+tr:last-child td { border-bottom: 0; }
+.heat { font-family: var(--f-mono); font-size: 12px; text-align: right; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; }
+.controls label { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+select, input[type="search"], button { font: 13px var(--f-body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; }
+button { cursor: pointer; }
+button:hover { border-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; padding: 5px 10px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.chart { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px 12px 6px; min-width: 0; display: grid; gap: 4px; }
+.chart.wide { grid-column: 1 / -1; }
+.chart .ct { font: 600 14px/1.3 var(--f-display); }
+.chart .cs { font-size: 12px; color: var(--muted); }
+svg.c { width: 100%; height: auto; display: block; overflow: visible; }
+svg.c text { fill: var(--muted); font: 10.5px var(--f-mono); }
+svg.c .axis { stroke: var(--line); }
+svg.c .grid { stroke: var(--grid); }
+svg.c .bar { fill: var(--bar); }
+svg.c .bar2 { fill: var(--bar2); }
+svg.c .med { stroke: var(--ink); stroke-width: 2; }
+svg.c .lbl { fill: var(--ink); }
+.note { font-size: 13px; color: var(--muted); max-width: 72ch; }
+.pill { display: inline-block; font: 500 11px/1.6 var(--f-mono); padding: 0 6px; border-radius: 3px; background: var(--soft); color: var(--muted); }
+/* CLAP map */
+#map { min-width: 0; }
+.mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; }
+.canvasbox { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; aspect-ratio: 4 / 3; max-width: 100%; touch-action: none; overflow: hidden; }
+.canvasbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; font-size: 12px; max-width: 280px; box-shadow: 0 2px 8px rgb(0 0 0 / .12); }
+.side { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 10px; align-content: start; min-width: 0; max-height: 720px; overflow-y: auto; }
+.side .sel-title { font: 600 15px/1.25 var(--f-display); overflow-wrap: anywhere; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 12.5px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; font-family: var(--f-mono); overflow-wrap: anywhere; }
+.nnlist { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.nnlist button { width: 100%; text-align: left; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; background: var(--bg); padding: 6px 8px; }
+.nnlist .d { font-family: var(--f-mono); font-size: 12px; color: var(--accent); }
+.nnlist .t { font-size: 12px; overflow-wrap: anywhere; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); max-height: 120px; overflow-y: auto; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.ramp { height: 10px; border-radius: 2px; width: 220px; max-width: 100%; }
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 920px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); padding-inline: 16px; gap: 24px; }
+  nav.toc { position: static; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  nav.toc .proj { width: 100%; margin: 0; }
+  nav.toc a { border-left: 0; padding: 2px 0; }
+  .mapgrid { grid-template-columns: minmax(0, 1fr); }
+  h1 { font-size: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <div class="proj">rirdb · analyzer <span id="ver"></span></div>
+  <a href="#summary">Summary</a>
+  <a href="#filter">Picking IRs</a>
+  <a href="#integrity">Signal integrity</a>
+  <a href="#dist">Distributions</a>
+  <a href="#datasets">Per dataset</a>
+  <a href="#map">CLAP map</a>
+  <a href="#metrics">What is measured</a>
+</nav>
+<main>
+<section id="summary">
+  <div class="eyebrow">Room impulse response corpus · consolidated public datasets</div>
+  <h1>rirdb Corpus Atlas</h1>
+  <p class="lede" id="lede"></p>
+  <div class="tiles" id="tiles"></div>
+</section>
+
+<section id="filter">
+  <h2>Picking IRs</h2>
+  <p>Every analysed IR is a row of the DuckDB view <code>corpus</code> (one row per IR, 334+ columns). <code>corpus_dedup</code> adds <code>dup_of</code> for sample-identical copies, and <code>clean_rooms</code> is the subset most work should start from. The subsets used throughout this report are nested:</p>
+  <div class="tbl"><table id="subsetTbl"></table></div>
+  <p class="note"><b>measured</b> is false for production libraries (Voxengo, hardware-reverb and plate captures). <b>ir_kind</b> separates rooms from anechoic captures (MIRACLE, RWCP, Surrey), outdoor spaces, vehicles, devices, scale models and virtual reconstructions. <b>preferred</b> keeps one representation per measured position (OpenAIR's B-format over its mono copy, MRTD's omni over its KEMAR). The clean subset also drops files the audit marks as sweeps or chirps, tonal, not decaying, or with dropouts; it does <i>not</i> filter on grade or noise, so add those conditions yourself.</p>
+  <h3>From the command line (inside a job)</h3>
+<pre>sbatch -p computeshort jobs/quick_cpu.sh pixi run rirdb query \
+  "grade IN ('A','B') AND t30_mid BETWEEN 0.8 AND 1.2 AND NOT flag_nonstationary_noise" \
+  --view clean_rooms --columns ir_id,dataset_id,room_label,t30_mid,edt_mid,c80_mid,drr_bb --limit 0 --csv picks.csv</pre>
+  <h3>From Python</h3>
+<pre>from rirdb.query import connect
+con = connect()                       # views: corpus, corpus_dedup, clean_rooms, irs, rooms, metrics, audit
+df = con.execute("""
+    SELECT ir_id, dataset_id, room_label, locator, t30_500, t30_1000, c80_mid, drr_bb
+    FROM clean_rooms
+    WHERE valid_t30_500 AND valid_t30_1000 AND training_use = 'allowed'
+""").df()
+# audio: rirdb.adapters.get_adapter(...).load(json.loads(locator), rirdb.paths.files_dir(dataset_id))</pre>
+  <h3>Without scratch (committed snapshot)</h3>
+<pre>import pandas as pd
+core = pd.read_parquet("snapshots/metrics_core/")   # one file per dataset, core metrics + all flags
+rooms = core[core.measured &amp; (core.ir_kind == "room") &amp; core.preferred]</pre>
+</section>
+
+<section id="integrity">
+  <h2>Signal integrity</h2>
+  <p>Four questions, each answered by a check that runs on every analysed file. The audit (<code>rirdb audit</code>) works on the same channel the analysis used, after the same onset crop.</p>
+  <div class="answer" id="ansOnset"></div>
+  <div class="answer" id="ansSweep"></div>
+  <div class="answer" id="ansNoise"></div>
+  <div class="answer" id="ansOther"></div>
+  <div class="charts">
+    <div class="chart"><div class="ct">Pre-delay in the source files</div><div class="cs">Time from file start to the ISO onset (log scale); removed before analysis</div><div id="chOnset"></div></div>
+    <div class="chart"><div class="ct">Peak-to-noise ratio</div><div class="cs">Peak level over the broadband noise floor, dB</div><div id="chPnr"></div></div>
+    <div class="chart"><div class="ct">Noise-floor bursts</div><div class="cs">Loudest 20 ms frame over the median frame after the decay, dB (stationary noise ≈ 1–3 dB)</div><div id="chBurst"></div></div>
+    <div class="chart"><div class="ct">Noise-floor drift</div><div class="cs">Last third minus first third of the floor, dB (fade-outs and gating show as large negative values)</div><div id="chDrift"></div></div>
+  </div>
+  <h3>Flag rates per dataset</h3>
+  <p class="note">Share of each dataset's analysed IRs carrying the flag. Columns are the audit flags, then the analyzer's own quality flags. Empty cells are zero.</p>
+  <div class="tbl"><table id="flagTbl"></table></div>
+  <h3>Audit examples</h3>
+  <div class="tbl"><table id="exTbl"></table></div>
+</section>
+
+<section id="dist">
+  <h2>Distributions</h2>
+  <p>The dense single-room datasets (SRIRACHA, MIRACLE, TAU-SRIR, Arni) hold most of the IRs, so per-IR histograms mostly describe a handful of rooms. <b>Per room</b> takes the median of each room first and counts every room once; use it for statements about the space of rooms.</p>
+  <div class="controls">
+    <label for="subsetSel">Subset <select id="subsetSel"></select></label>
+    <span class="seg" role="group" aria-label="Weighting"><button id="wIr" aria-pressed="false">Per IR</button><button id="wRoom" aria-pressed="true">Per room</button></span>
+    <label for="bandMetric">Per-band metric <select id="bandMetric"><option value="t30">T30</option><option value="t20">T20</option><option value="edt">EDT</option><option value="c80">C80</option><option value="d50">D50</option></select></label>
+  </div>
+  <div class="charts">
+    <div class="chart wide"><div class="ct" id="bandTitle">T30 per octave band</div><div class="cs">Box: p25–p75 with the median; whiskers p5–p95; n = valid values. Only values passing the ISO decay-range rule are included.</div><div id="chBands"></div></div>
+    <div class="chart wide"><div class="ct">Broadband T30</div><div class="cs">Log scale, seconds; valid values only</div><div id="chT30"></div></div>
+    <div class="chart"><div class="ct">Share of IRs with a valid value, per band</div><div class="cs">Per IR, for the selected metric and subset. Dense sets dominate: SRIRACHA's 82,587 IRs are 1 s at 32 kHz, so their T30 is rarely valid; switch to a single dataset in the table below for its own rates.</div><div id="chValid"></div></div>
+    <div class="chart"><div class="ct">EDT (mid)</div><div class="cs">Mean of 500 Hz and 1 kHz, s</div><div id="chEdt"></div></div>
+    <div class="chart"><div class="ct">C80 (mid)</div><div class="cs">dB</div><div id="chC80"></div></div>
+    <div class="chart"><div class="ct">D50 (mid)</div><div class="cs">0–1</div><div id="chD50"></div></div>
+    <div class="chart"><div class="ct">DRR</div><div class="cs">Full band, ±8 ms direct window, dB</div><div id="chDrr"></div></div>
+    <div class="chart"><div class="ct">STI (room only)</div><div class="cs">IEC 60268-16 indirect method</div><div id="chSti"></div></div>
+    <div class="chart"><div class="ct">Bass ratio</div><div class="cs">(T125 + T250) / (T500 + T1k)</div><div id="chBr"></div></div>
+    <div class="chart"><div class="ct">Treble ratio</div><div class="cs">(T2k + T4k) / (T500 + T1k)</div><div id="chTr"></div></div>
+    <div class="chart"><div class="ct">Mixing time</div><div class="cs">Normalised echo density reaching 1, ms</div><div id="chTmix"></div></div>
+    <div class="chart"><div class="ct">Room volume</div><div class="cs">Where the dataset publishes it, m³</div><div id="chVol"></div></div>
+  </div>
+  <h3>By room category</h3>
+  <p class="note">T30 (mid) per category, room medians: p5 / p25 / p50 / p75 / p95.</p>
+  <div class="tbl"><table id="catTbl"></table></div>
+</section>
+
+<section id="datasets">
+  <h2>Per dataset</h2>
+  <div class="tbl"><table id="dsTbl"></table></div>
+</section>
+
+<section id="map">
+  <h2>CLAP map</h2>
+  <p id="mapIntro"></p>
+  <div class="controls">
+    <span class="seg" role="group" aria-label="Embedding"><button id="mIr" aria-pressed="true">IR embedding</button><button id="mRv" aria-pressed="false">Reverb effect</button></span>
+    <label for="colorBy">Colour <select id="colorBy"><option value="dataset">Dataset</option><option value="category">Room category</option><option value="kind">IR kind</option><option value="t30">T30 (mid)</option><option value="c80">C80 (mid)</option><option value="drr">DRR</option></select></label>
+    <label for="kindSel">Show <select id="kindSel"><option value="all">All kinds</option><option value="room">Rooms only</option></select></label>
+    <label for="search">Find <input id="search" type="search" placeholder="room or dataset" autocomplete="off"></label>
+    <button id="reset">Reset view</button>
+  </div>
+  <div class="mapgrid">
+    <div class="canvasbox" id="cbox"><canvas id="cv" aria-label="CLAP embedding map" role="img"></canvas><div class="tip" id="tip" hidden></div></div>
+    <aside class="side" id="side" aria-live="polite"></aside>
+  </div>
+  <div class="legend" id="legend"></div>
+  <p class="note">Drag to pan, scroll or pinch to zoom, click a point to list its nearest neighbours. Distances are cosine distances in the 512-d CLAP space, so they do not depend on the 2-D layout; UMAP keeps local neighbourhoods but not global distances. CLAP also hears the recording chain (microphones, sample rate, processing): an IR's nearest neighbour comes from its own dataset almost every time, which is why the datasets form islands. Use <b>Other datasets</b> to find the acoustically closest IRs from elsewhere.</p>
+</section>
+
+<section id="metrics">
+  <h2>What is measured</h2>
+  <p>Per IR and per octave band (63 Hz–8 kHz, IEC 61260-1 class-1 filters) plus a band-limited broadband signal, after trimming digital silence, estimating noise explicitly and cropping at the ISO onset. Multichannel files are analysed on one channel (omni or W, a reference capsule, or both ears).</p>
+  <div class="tbl"><table id="metricTbl"></table></div>
+</section>
+
+<footer id="foot"></footer>
+</main>
+</div>
+
+<script>
+const OVERVIEW = /*OVERVIEW_JSON*/null;
+const CLAP = /*CLAP_JSON*/null;
+</script>
+<script>
+(() => {
+const D = OVERVIEW, $ = (id) => document.getElementById(id);
+const fmt = (v, d = 0) => v == null || !isFinite(v) ? "–" : Number(v).toLocaleString("en-GB", { minimumFractionDigits: d, maximumFractionDigits: d });
+const pct = (v, d = 1) => v == null ? "–" : (v * 100).toFixed(d) + " %";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const BANDS = ["63", "125", "250", "500", "1000", "2000", "4000", "8000", "bb"];
+const bandLabel = (b) => b === "bb" ? "bb" : (+b >= 1000 ? (+b / 1000) + "k" : b);
+const SV = "http://www.w3.org/2000/svg";
+function el(tag, attrs = {}, parent) { const e = document.createElementNS(SV, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function svgBox(w, h) { return el("svg", { viewBox: `0 0 ${w} ${h}`, class: "c", role: "img" }); }
+function niceTicks(lo, hi, n = 5) {
+  const span = hi - lo, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= n) || mag * 10;
+  const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10)); return out;
+}
+
+/* histogram: edges + counts; log x when edges are geometric */
+function histogram(target, h, opts = {}) {
+  const box = $(target); box.textContent = "";
+  if (!h || !h.n) { box.textContent = "No valid values in this subset."; return; }
+  const W = 460, H = 190, L = 44, R = 10, T = 10, B = 34;
+  const s = svgBox(W, H); box.appendChild(s);
+  const e = h.edges, c = h.counts, logx = e.length > 2 && Math.abs((e[2] / e[1]) - (e[1] / e[0])) < 1e-3 && e[0] > 0;
+  const fx = logx ? (v) => L + (Math.log(v / e[0]) / Math.log(e[e.length - 1] / e[0])) * (W - L - R)
+                  : (v) => L + ((v - e[0]) / (e[e.length - 1] - e[0])) * (W - L - R);
+  const max = Math.max(...c, 1), fy = (v) => H - B - (v / max) * (H - B - T);
+  for (const t of niceTicks(0, max, 4)) {
+    el("line", { x1: L, x2: W - R, y1: fy(t), y2: fy(t), class: "grid" }, s);
+    el("text", { x: L - 6, y: fy(t) + 3.5, "text-anchor": "end" }, s).textContent = t >= 1000 ? (t / 1000) + "k" : t;
+  }
+  c.forEach((v, i) => { if (!v) return; const x0 = fx(e[i]), x1 = fx(e[i + 1]); el("rect", { x: x0 + .5, width: Math.max(x1 - x0 - 1, .8), y: fy(v), height: H - B - fy(v), class: "bar" }, s); });
+  el("line", { x1: L, x2: W - R, y1: H - B, y2: H - B, class: "axis" }, s);
+  const xt = opts.ticks ? opts.ticks : logx ? [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100].filter((v) => v >= e[0] && v <= e[e.length - 1])
+                  : niceTicks(e[0], e[e.length - 1], 6);
+  for (const t of xt) { el("line", { x1: fx(t), x2: fx(t), y1: H - B, y2: H - B + 4, class: "axis" }, s); el("text", { x: fx(t), y: H - B + 15, "text-anchor": "middle" }, s).textContent = opts.tick ? opts.tick(t) : t; }
+  if (h.q && h.q[2] != null) { const x = fx(h.q[2]); el("line", { x1: x, x2: x, y1: T, y2: H - B, class: "med", "stroke-dasharray": "3 3" }, s);
+    el("text", { x: Math.min(x + 4, W - R - 60), y: T + 9, class: "lbl" }, s).textContent = "median " + (opts.fmt ? opts.fmt(h.q[2]) : fmt(h.q[2], 2)); }
+  el("text", { x: W - R, y: H - 4, "text-anchor": "end" }, s).textContent = "n = " + fmt(h.n);
+}
+
+/* per-band boxes */
+function bandBoxes(target, boxes, metric) {
+  const box = $(target); box.textContent = "";
+  const W = 900, H = 260, L = 50, R = 10, T = 12, B = 42, logy = ["t30", "t20", "edt"].includes(metric);
+  const vals = BANDS.flatMap((b) => (boxes[b] && boxes[b].q) ? [boxes[b].q[0], boxes[b].q[4]] : []);
+  if (!vals.length) { box.textContent = "No valid values in this subset."; return; }
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  if (logy) { lo = Math.max(lo * 0.8, 0.02); hi = hi * 1.2; } else { const p = (hi - lo) * 0.08 || 1; lo -= p; hi += p; }
+  const s = svgBox(W, H); box.appendChild(s);
+  const fy = logy ? (v) => H - B - (Math.log(v / lo) / Math.log(hi / lo)) * (H - B - T) : (v) => H - B - ((v - lo) / (hi - lo)) * (H - B - T);
+  const ticks = logy ? [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20].filter((t) => t >= lo && t <= hi) : niceTicks(lo, hi, 5);
+  for (const t of ticks) { el("line", { x1: L, x2: W - R, y1: fy(t), y2: fy(t), class: "grid" }, s); el("text", { x: L - 6, y: fy(t) + 3.5, "text-anchor": "end" }, s).textContent = t; }
+  const cw = (W - L - R) / BANDS.length;
+  BANDS.forEach((b, i) => {
+    const cx = L + cw * (i + .5), q = boxes[b] && boxes[b].q, col = css("--b" + b);
+    el("text", { x: cx, y: H - B + 16, "text-anchor": "middle", class: "lbl" }, s).textContent = bandLabel(b) + (b === "bb" ? "" : " Hz");
+    el("text", { x: cx, y: H - B + 30, "text-anchor": "middle" }, s).textContent = "n " + fmt(boxes[b] ? boxes[b].n : 0);
+    if (!q) return;
+    const bw = Math.min(cw * .46, 46);
+    el("line", { x1: cx, x2: cx, y1: fy(q[0]), y2: fy(q[4]), stroke: col, "stroke-width": 1.5 }, s);
+    el("rect", { x: cx - bw / 2, width: bw, y: fy(q[3]), height: Math.max(fy(q[1]) - fy(q[3]), 1), fill: col, "fill-opacity": .28, stroke: col, "stroke-width": 1.5 }, s);
+    el("line", { x1: cx - bw / 2, x2: cx + bw / 2, y1: fy(q[2]), y2: fy(q[2]), stroke: col, "stroke-width": 3 }, s);
+    el("text", { x: cx + bw / 2 + 3, y: fy(q[2]) + 3.5, class: "lbl" }, s).textContent = q[2] < 10 && logy ? q[2].toFixed(2) : fmt(q[2], metric === "d50" ? 2 : 1);
+  });
+  el("line", { x1: L, x2: W - R, y1: H - B, y2: H - B, class: "axis" }, s);
+}
+
+function validityBars(target, v) {
+  const box = $(target); box.textContent = "";
+  const W = 460, H = 190, L = 40, R = 10, T = 10, B = 30, s = svgBox(W, H); box.appendChild(s);
+  const cw = (W - L - R) / BANDS.length, fy = (x) => H - B - x * (H - B - T);
+  for (const t of [0, .25, .5, .75, 1]) { el("line", { x1: L, x2: W - R, y1: fy(t), y2: fy(t), class: "grid" }, s); el("text", { x: L - 5, y: fy(t) + 3.5, "text-anchor": "end" }, s).textContent = (t * 100) + "%"; }
+  BANDS.forEach((b, i) => { const x = L + cw * i + cw * .15, val = v[b] ?? 0;
+    el("rect", { x, width: cw * .7, y: fy(val), height: H - B - fy(val), fill: css("--b" + b) }, s);
+    el("text", { x: x + cw * .35, y: H - B + 14, "text-anchor": "middle", class: "lbl" }, s).textContent = bandLabel(b); });
+}
+
+/* ---------- summary ---------- */
+const all = D.distributions.all, mr = D.distributions.measured_rooms, cr = D.distributions.clean_rooms;
+$("ver").textContent = D.analyzer_version;
+$("lede").textContent = `${fmt(all.n_irs)} impulse responses from ${all.n_datasets} public datasets and ${fmt(all.n_rooms)} rooms or spaces, each analysed with the same ISO 3382 pipeline and audited for sweeps and noise. ${fmt(cr.n_irs)} of them are clean measured room IRs from ${fmt(cr.n_rooms)} rooms.`;
+$("tiles").innerHTML = [[all.n_irs, "IRs analysed"], [mr.n_irs, "measured room IRs"], [cr.n_irs, "clean measured room IRs"], [cr.n_rooms, "rooms in the clean set"], [all.n_datasets, "datasets"]]
+  .map(([v, l]) => `<div class="tile"><b>${fmt(v)}</b><span>${l}</span></div>`).join("");
+$("subsetTbl").innerHTML = "<thead><tr><th>Subset</th><th>SQL predicate (over corpus_dedup)</th><th class='n'>IRs</th><th class='n'>Rooms</th><th class='n'>Datasets</th></tr></thead><tbody>" +
+  Object.keys(D.subsets).map((k) => `<tr><td>${esc(D.subsets[k])}</td><td><code>${esc(D.subset_sql[k])}</code></td><td class="n">${fmt(D.distributions[k].n_irs)}</td><td class="n">${fmt(D.distributions[k].n_rooms)}</td><td class="n">${D.distributions[k].n_datasets}</td></tr>`).join("") + "</tbody>";
+
+/* ---------- integrity ---------- */
+const I = D.integrity, A = I.audit || {}, nA = (f) => (A[f] ? A[f].n : 0);
+const byDs = (f) => A[f] && A[f].n ? Object.entries(A[f].by_dataset).map(([k, v]) => `${esc(k)} ${fmt(v)}`).join(", ") : "";
+const modes = I.edc_mode_bb || {}, nAll = all.n_irs;
+$("ansOnset").innerHTML = `<h3>Is the time before the direct sound removed?</h3><span class="verdict v-ok">Yes, in the analysis</span>
+ <p>Every IR is cropped at its ISO 3382-1 onset (the first sample within 20 dB of the peak; for multichannel files the earliest channel, so interaural and inter-capsule delays survive). Leading and trailing digital silence is trimmed first. The source files are not modified, so code that reads raw audio must crop too: the onset time is the column <code>onset_s</code>, and the stored features and CLAP embeddings already use onset-aligned IRs.</p>
+ <p>In the files, ${pct(I.onset.share_over_10ms)} of IRs have more than 10 ms before the direct sound and ${pct(I.onset.share_over_100ms)} more than 100 ms. Energy found before the onset (sweep distortion products, pre-ringing, time aliasing) sets <code>flag_pre_onset_energy</code>.</p>`;
+$("ansSweep").innerHTML = `<h3>Are all files impulse responses (no sweeps, music or speech)?</h3>
+ <span class="verdict ${nA("flag_sweep_like") + nA("flag_tonal") + nA("flag_not_decaying") + nA("flag_dropout") ? "v-warn" : "v-ok"}">${pct((nA("flag_sweep_like") + nA("flag_tonal") + nA("flag_not_decaying") + nA("flag_dropout")) / Math.max(I.audited, 1), 2)} flagged (upper bound; files can carry several flags)</span>
+ <p>The audit looks at the first 10 s after the onset in 43 ms frames. A sweep, or the chirp an imperfect sweep deconvolution leaves behind, is a straight ridge in time against log frequency. After removing the decay and the IR's own colouration, the audit tries lines from 0.25 to 16 octaves per second and scores how much brighter each line is than its brighter neighbour ⅓ octave away. Sweeps score 30–60 dB, chirp residue 9–14 dB and clean IRs at most 6 dB; the flag is set at 8 dB. Hum and other sustained lines are caught separately: a frame holds a line when a spectral peak stands 15 dB above its ±⅓-octave neighbourhood, where noise peaks reach 8–10 dB. On reference files every dry, inverse and in-room OpenAIR sweep is flagged and the averaged Theatre 41 IRs pass.</p>
+ <p>${fmt(I.audited)} IRs audited; ${fmt(nAll - I.audited)} are too short for the check (two frames, about 90 ms; mostly MIRACLE's 32 ms captures). Sweep or chirp glide: <b>${fmt(nA("flag_sweep_like"))}</b>${byDs("flag_sweep_like") ? " (" + byDs("flag_sweep_like") + ")" : ""}. Tonal (music, sines or a single dominant mode): <b>${fmt(nA("flag_tonal"))}</b>${byDs("flag_tonal") ? " (" + byDs("flag_tonal") + ")" : ""}. Level not decaying over more than 1 s: <b>${fmt(nA("flag_not_decaying"))}</b>${byDs("flag_not_decaying") ? " (" + byDs("flag_not_decaying") + ")" : ""}. Runs of exact digital zeros of 5 ms or more inside the IR (dropouts, gated tails): <b>${fmt(nA("flag_dropout"))}</b>${byDs("flag_dropout") ? " (" + byDs("flag_dropout") + ")" : ""}. All of these are excluded from <code>clean_rooms</code>.</p>`;
+$("ansNoise").innerHTML = `<h3>Is the noise floor stationary?</h3>
+ <span class="verdict ${nA("flag_nonstationary_noise") ? "v-warn" : "v-ok"}">${pct(nA("flag_nonstationary_noise") / Math.max(nAll, 1))} flagged</span>
+ <p>The decay metrics rely on Lundeby's iterative noise-floor estimate. For ${fmt(modes.lundeby || 0)} IRs a broadband floor was found; ${fmt(modes.schroeder_nofloor || 0)} still decay at the end of the file (windowed, truncated or denoised tails: no floor to judge, plain Schroeder integration is used), and Lundeby failed on ${fmt(modes.failed || 0)}. Where a floor exists, the audit splits it into 20 ms frames: a burst more than 10 dB above the median frame, or a drift of more than 6 dB between the first and last third, sets <code>flag_nonstationary_noise</code> (<b>${fmt(nA("flag_nonstationary_noise"))}</b> IRs). The SoundCam files, whose 13.9 s tails carry such bursts, are cropped to 3 s for this reason.</p>`;
+$("ansOther").innerHTML = `<h3>What else is checked?</h3>
+ <p>Clipping, DC offset, low peak-to-noise ratio, onset found at low PNR, decay ranges too small for EDT/T20/T30 (ISO 3382: 20/35/45 dB above the floor), curved or non-linear decays (ISO 3382-2 Annex B), octave-filter bias for short decays (B·T &lt; 16), disagreement between Lundeby and Chu noise compensation, tails cut by the end of the file, high-frequency decays longer than air absorption allows, and exact duplicates (identical samples). Files whose decay sinks below the quantisation step (16-bit files recorded at a low level: the tail rounds to exact zeros) carry <code>flag_quantized_tail</code> (<b>${fmt(nA("flag_quantized_tail"))}</b>${byDs("flag_quantized_tail") ? ": " + byDs("flag_quantized_tail") : ""}); <code>quant_range_db</code> gives the range the bit depth allows. This limits the usable decay range but is not an artefact, so those files stay in <code>clean_rooms</code>. Each check is a boolean column <code>flag_*</code>; the grade summarises validity: A = T30 valid 125 Hz–4 kHz, B = T20/T30 valid 250 Hz–2 kHz, C = partial, D = none.</p>`;
+histogram("chOnset", I.onset.hist, { ticks: [1e-4, 1e-3, 1e-2, 0.1, 1, 10], tick: (t) => t >= 1 ? t + " s" : (t * 1000) + " ms", fmt: (v) => (v * 1000).toFixed(1) + " ms" });
+histogram("chPnr", I.pnr, { fmt: (v) => v.toFixed(0) + " dB" });
+histogram("chBurst", I.noise_burst, { fmt: (v) => v.toFixed(1) + " dB" });
+histogram("chDrift", I.noise_drift, { fmt: (v) => v.toFixed(1) + " dB" });
+
+const AF = ["flag_sweep_like", "flag_tonal", "flag_not_decaying", "flag_dropout", "flag_nonstationary_noise", "flag_quantized_tail"];
+const QF = ["flag_pre_onset_energy", "flag_clipped", "flag_dc_offset", "flag_low_pnr", "flag_lundeby_failed_any", "flag_no_noise_floor", "flag_tail_truncated", "flag_curved_decay", "flag_nonlinear_decay", "flag_implausible_hf_decay", "flag_filter_bias_risk", "flag_edc_method_disagreement"];
+const short = (f) => f.replace("flag_", "").replace(/_/g, " ");
+function heat(v) { if (!v) return "<td class='heat'></td>"; const a = Math.min(1, Math.sqrt(v)); return `<td class="heat" style="background: color-mix(in srgb, var(--warn) ${Math.round(a * 55)}%, transparent)">${(v * 100).toFixed(v < 0.01 ? 2 : 1)}</td>`; }
+$("flagTbl").innerHTML = "<thead><tr><th>Dataset</th><th class='n'>IRs</th>" + [...AF, ...QF].map((f) => `<th class="n">${short(f)} %</th>`).join("") + "</tr></thead><tbody>" +
+  I.per_dataset.map((r) => `<tr><td>${esc(r.dataset)}</td><td class="n">${fmt(r.n)}</td>${[...AF, ...QF].map((f) => heat(r[f])).join("")}</tr>`).join("") + "</tbody>";
+const exRows = AF.flatMap((f) => ((A[f] && A[f].examples) || []).slice(0, 12).map((r) => ({ f, ...r })));
+$("exTbl").innerHTML = exRows.length ? "<thead><tr><th>Flag</th><th>Dataset</th><th>File / record</th><th class='n'>tonal</th><th class='n'>glide dB</th><th class='n'>slope dB/s</th><th class='n'>burst dB</th><th class='n'>drift dB</th></tr></thead><tbody>" +
+  exRows.map((r) => `<tr><td><span class="pill">${short(r.f)}</span></td><td>${esc(r.dataset_id)}</td><td class="mono" style="font-size:12px;overflow-wrap:anywhere">${esc(r.local_key)}</td><td class="n">${fmt(r.tonal_frac, 2)}</td><td class="n">${fmt(r.glide_db, 1)}</td><td class="n">${fmt(r.env_slope_db_s, 1)}</td><td class="n">${fmt(r.noise_burst_db, 1)}</td><td class="n">${fmt(r.noise_drift_db, 1)}</td></tr>`).join("") + "</tbody>"
+  : "<tbody><tr><td>No flagged files.</td></tr></tbody>";
+
+/* ---------- distributions ---------- */
+let subset = "clean_rooms", weight = "room";
+const sel = $("subsetSel");
+sel.innerHTML = Object.keys(D.subsets).map((k) => `<option value="${k}">${esc(D.subsets[k])}</option>`).join("");
+sel.value = subset;
+const tSec = (t) => t >= 1 ? t + " s" : t + " s";
+function drawDist() {
+  const S = D.distributions[subset], H = S.hist[weight], m = $("bandMetric").value;
+  const names = { t30: "T30", t20: "T20", edt: "EDT", c80: "C80", d50: "D50" }, unit = { t30: "s", t20: "s", edt: "s", c80: "dB", d50: "" };
+  $("bandTitle").textContent = `${names[m]} per octave band${unit[m] ? " (" + unit[m] + ")" : ""}: ${D.subsets[subset].toLowerCase()}, ${weight === "room" ? "median per room" : "per IR"}`;
+  bandBoxes("chBands", S.bands[weight][m], m);
+  histogram("chT30", H.t30_bb, { tick: tSec, fmt: (v) => v.toFixed(2) + " s" });
+  validityBars("chValid", S.validity[m] || {});
+  histogram("chEdt", H.edt_mid, { fmt: (v) => v.toFixed(2) + " s" });
+  histogram("chC80", H.c80_mid, { fmt: (v) => v.toFixed(1) + " dB" });
+  histogram("chD50", H.d50_mid, { fmt: (v) => v.toFixed(2) });
+  histogram("chDrr", H.drr_bb, { fmt: (v) => v.toFixed(1) + " dB" });
+  histogram("chSti", H.sti, { fmt: (v) => v.toFixed(2) });
+  histogram("chBr", H.br, { ticks: [0.3, 0.5, 0.7, 1, 1.5, 2, 3], fmt: (v) => v.toFixed(2) });
+  histogram("chTr", H.tr, { ticks: [0.3, 0.5, 0.7, 1, 1.5, 2, 3], fmt: (v) => v.toFixed(2) });
+  histogram("chTmix", H.t_mix_ned_ms, { fmt: (v) => v.toFixed(0) + " ms" });
+  histogram("chVol", H.volume_m3, { ticks: [1, 10, 100, 1000, 1e4, 1e5], tick: (t) => t >= 1000 ? (t / 1000) + "k" : t, fmt: (v) => fmt(v) + " m³" });
+  $("catTbl").innerHTML = "<thead><tr><th>Category</th><th class='n'>Rooms</th><th class='n'>IRs</th><th class='n'>p5</th><th class='n'>p25</th><th class='n'>median</th><th class='n'>p75</th><th class='n'>p95</th></tr></thead><tbody>" +
+    S.categories.map((c) => { const q = c.t30_mid_room.q || []; return `<tr><td>${esc(c.category)}</td><td class="n">${fmt(c.n_rooms)}</td><td class="n">${fmt(c.n_irs)}</td>${[0, 1, 2, 3, 4].map((i) => `<td class="n">${fmt(q[i], 2)}</td>`).join("")}</tr>`; }).join("") + "</tbody>";
+}
+sel.addEventListener("change", () => { subset = sel.value; drawDist(); });
+$("bandMetric").addEventListener("change", drawDist);
+for (const [id, w] of [["wIr", "ir"], ["wRoom", "room"]]) $(id).addEventListener("click", () => { weight = w; $("wIr").setAttribute("aria-pressed", w === "ir"); $("wRoom").setAttribute("aria-pressed", w === "room"); drawDist(); });
+
+/* ---------- per dataset ---------- */
+$("dsTbl").innerHTML = "<thead><tr><th>Dataset</th><th>Kind</th><th class='n'>IRs</th><th>Grades A/B/C/D</th><th class='n'>T30 mid</th><th class='n'>pre-delay ms</th><th class='n'>PNR dB</th><th class='n'>floor found</th><th class='n'>burst dB</th></tr></thead><tbody>" +
+  I.per_dataset.map((r) => { const g = r.grades, tot = g.reduce((a, b) => a + b, 0) || 1, cols = ["--good", "--accent", "--warn", "--bad"];
+    const bar = `<span style="display:inline-flex;width:120px;height:9px;border-radius:2px;overflow:hidden;vertical-align:middle;background:var(--soft)">${g.map((v, i) => `<i style="width:${(v / tot * 100).toFixed(1)}%;background:var(${cols[i]})"></i>`).join("")}</span> <span class="mono" style="font-size:11.5px;color:var(--muted)">${g.join("/")}</span>`;
+    return `<tr><td>${esc(r.dataset)}</td><td>${esc(r.kind)}</td><td class="n">${fmt(r.n)}</td><td style="white-space:nowrap">${bar}</td><td class="n">${fmt(r.t30_mid_med, 2)}</td><td class="n">${fmt(r.onset_ms_med, 1)}</td><td class="n">${fmt(r.pnr_med, 0)}</td><td class="n">${pct(r.floor_share, 0)}</td><td class="n">${fmt(r.noise_burst_med, 1)}</td></tr>`; }).join("") + "</tbody>";
+
+/* ---------- metric catalogue ---------- */
+const MET = [
+  ["Decay times", "edt_*, t20_*, t30_*, ldt_*, tbest_*", "ISO 3382-1/-2 linear regression on the Schroeder EDC with Lundeby noise compensation (pyrato 1.1, pyfar 0.8). EDT 0 to −10 dB, T20 −5 to −25, T30 −5 to −35.", "valid_* when the decay range above the floor is ≥ 20 / 35 / 45 dB (EDT / T20 / T30); *_mid = mean of 500 Hz and 1 kHz when both valid"],
+  ["Decay shape", "curvature_*, xi_*, decay_range_db_*, intersection_s_*, edc_mode_*", "Curvature C = 100 (T30/T20 − 1) and non-linearity ξ (ISO 3382-2 Annex B); Lundeby intersection time; EDC mode (lundeby / no floor / failed)", "flags curved / non-linear decay; t30_bb_chu cross-checks the noise compensation"],
+  ["Energy ratios", "c50_*, c80_*, d50_*, ts_*", "ISO 3382-1 clarity, definition and centre time from the noise-compensated EDC", "C80 at 125 Hz reads about 3 dB below OpenAIR's (filter group delay); see analyzer-v1.md"],
+  ["Tonal balance", "br, tr, level_*, spectral_tilt_db_per_oct, centroid_early_hz, centroid_late_hz", "Beranek bass and treble ratios from valid decay times; octave levels re 1 kHz; early and late spectral centroid", ""],
+  ["Direct-to-reverberant ratio", "drr_bb, direct_peak_ms", "Full band, direct window ±8 ms around the direct peak (ACE challenge convention), noise subtracted up to the Lundeby intersection", "validated on ACE: median −0.01 dB, MAE 0.22 dB"],
+  ["Speech transmission", "sti, valid_sti", "IEC 60268-16:2020 indirect method, room only (no masking or ambient noise), truncated at the noise floor, ≥ 1.6 s", "needs fs > 22.6 kHz and a usable decay range"],
+  ["Spatial", "iacc_e/l/a_*, iacc_e3, one_minus_iacc_e3, jlf_*, jlf_low", "IACC ±1 ms (ISO 3382-1 Annex B) on binaural pairs; early lateral fraction from W and Y on FOA/HOA with a known orientation", "flag_orientation_unknown where the array orientation is undocumented"],
+  ["Echo density", "t_mix_ned_ms, t_mix_edp_ms, ned_mean_0_50ms", "Normalised echo density (Abel and Huang 2006), 20 ms window; kurtosis-based EDP mixing time", ""],
+  ["Signal and noise", "onset_s, leading_silence_s, trailing_zeros_s, onset_spread_ms, pnr_db, pre_onset_*", "ISO onset (−20 dB), digital silence, peak-to-noise ratio, energy before the onset", "flags pre-onset energy, clipping, DC offset, low PNR"],
+  ["Audit", "tonal_frac, tonal_prom_db, glide_db, glide_oct_s, glide_span_oct, env_slope_db_s, active_s, crest_db, noise_burst_db, noise_drift_db", "Sweep / tonal / non-decaying content in the first 10 s; stationarity of the noise floor", "flag_sweep_like, flag_tonal, flag_not_decaying, flag_nonstationary_noise"],
+  ["Perceptual coordinates", "z_*", "Metrics divided by their just-noticeable difference (registry/jnd.yaml; ISO 3382-1 Table A.1 where normative)", "distance in z = number of JNDs apart"],
+  ["Stored curves (HDF5)", "features/v1/<dataset>/shard-*.h5", "EDC per band (2 ms grid and 256-point log time), EDR at 1/12 octave, log-mel (64 × 10 ms, 4 s), NED and EDP profiles, 1/24-octave magnitude, per-bin T60, MTF", "row-aligned with ir_id"],
+  ["Embeddings", "embeddings/laion__clap-htsat-unfused/", "CLAP (HTSAT, unfused) of the onset-aligned IR, of 6 dry sources convolved with it, and the reverb vector (mean change over the sources)", "used by the CLAP map below"],
+  ["Not computed", "G, LJ", "Strength and late lateral level need calibrated level; the public IRs are uncalibrated", ""],
+];
+$("metricTbl").innerHTML = "<thead><tr><th>Group</th><th>Columns</th><th>Method / standard</th><th>Validity and notes</th></tr></thead><tbody>" +
+  MET.map((r) => `<tr><td><b>${r[0]}</b></td><td class="mono" style="font-size:12px;overflow-wrap:anywhere">${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("") + "</tbody>";
+$("foot").innerHTML = `Generated ${esc(D.generated)} by <code>rirdb report overview</code>, analyzer ${esc(D.analyzer_version)}. Methods: <code>docs/decisions/analyzer-v1.md</code>; data findings: <code>docs/decisions/dataset-findings.md</code>.`;
+
+drawDist();
+
+/* ---------- CLAP map ---------- */
+const C = CLAP, P = C.points, N = C.n;
+$("mapIntro").textContent = `${fmt(N)} IRs: preferred representations, duplicates removed, at most ${fmt(C.cap_per_dataset)} per dataset with every room kept. Points close together sound alike to the CLAP audio model. The IR map embeds the IR itself; the reverb-effect map embeds how the IR changes six dry recordings (speech, singing, piano, drums, acoustic and electric guitar), which is closer to how the reverb is heard. The ${C.k} nearest neighbours of every point are precomputed in the full embedding space.`;
+{
+  const ag = (k) => C.maps[k].agreement || {}, a = ag("ir"), r = ag("reverb_vector");
+  const p = (v) => v == null ? "–" : Math.round(v * 100) + " %", w = (o) => o && o.t30_within_20pct;
+  $("mapIntro").textContent += ` How far to trust it: the nearest neighbour has a T30 within 20 % of the selected IR for ${p(w(r.any))} of IRs on the reverb-effect map (${p(w(a.any))} on the IR map), and for ${p(w(r.other))} (${p(w(a.other))}) when it must come from another dataset; two random IRs agree that well ${p(r.random_t30_within_20pct)} of the time. CLAP is a general audio model, not a reverberation metric, so check the decay values listed with each neighbour.`;
+}
+const cv = $("cv"), ctx = cv.getContext("2d"), cbox = $("cbox"), tip = $("tip");
+let mapKey = "ir", colorBy = "dataset", kindFilter = "all", query = "", selected = -1, hover = -1, nnMode = "any";
+const nnOf = (i) => { const M = C.maps[mapKey]; return nnMode === "other" ? { nn: M.nn_x[i], d: M.dist_x[i] } : { nn: M.nn[i], d: M.dist[i] }; };
+let view = { s: 1, x: 0, y: 0 }, dpr = 1, Wc = 0, Hc = 0, grid = null;
+const roomKind = C.cats.ir_kind.indexOf("room");
+let TH = {}, COLS = [];
+function readTheme() { TH = { s: css("--pt-s"), l: css("--pt-l"), line: css("--line"), sel: css("--sel"), ink: css("--ink") }; }
+function catColor(i) { const h = (i * 137.508) % 360; return `hsl(${h.toFixed(0)} ${TH.s} ${TH.l})`; }
+const RAMP = ["#3b2a7a", "#28589c", "#1f8a8a", "#58b26a", "#d8c63a"];
+function rampColor(t) { t = Math.max(0, Math.min(1, t)); const k = t * (RAMP.length - 1), i = Math.min(Math.floor(k), RAMP.length - 2), f = k - i;
+  const a = RAMP[i].match(/\w\w/g).map((h) => parseInt(h, 16)), b = RAMP[i + 1].match(/\w\w/g).map((h) => parseInt(h, 16));
+  return `rgb(${a.map((v, j) => Math.round(v + (b[j] - v) * f)).join(",")})`; }
+const CONT = { t30: { arr: P.t30, lo: 0.1, hi: 5, log: true, unit: "s", name: "T30 mid" }, c80: { arr: P.c80, lo: -10, hi: 25, unit: "dB", name: "C80 mid" }, drr: { arr: P.drr, lo: -20, hi: 20, unit: "dB", name: "DRR" } };
+function computeColor(i) {
+  if (colorBy in CONT) { const c = CONT[colorBy], v = c.arr[i]; if (v == null) return TH.line;
+    return rampColor(c.log ? Math.log(v / c.lo) / Math.log(c.hi / c.lo) : (v - c.lo) / (c.hi - c.lo)); }
+  return catColor(P[colorBy][i]);
+}
+function recolor() { readTheme(); COLS = new Array(N); for (let i = 0; i < N; i++) COLS[i] = computeColor(i); }
+const colorOf = (i) => COLS[i];
+function visible(i) {
+  if (kindFilter === "room" && P.kind[i] !== roomKind) return false;
+  if (query) { const s = (C.room_labels[P.room[i]] + " " + C.cats.dataset_id[P.dataset[i]] + " " + P.key[i]).toLowerCase(); if (!s.includes(query)) return false; }
+  return true;
+}
+function size() { const r = cbox.getBoundingClientRect(); dpr = window.devicePixelRatio || 1; Wc = r.width; Hc = r.height; cv.width = Math.round(Wc * dpr); cv.height = Math.round(Hc * dpr); }
+const pad = 18;
+function toScreen(i) { const xy = C.maps[mapKey].xy[i]; return [pad + ((xy[0] / 1e4 - view.x) * view.s) * (Wc - 2 * pad), pad + ((xy[1] / 1e4 - view.y) * view.s) * (Hc - 2 * pad)]; }
+function buildGrid() { grid = new Map(); for (let i = 0; i < N; i++) { if (!visible(i)) continue; const [x, y] = toScreen(i); const k = Math.floor(x / 12) + "," + Math.floor(y / 12); if (!grid.has(k)) grid.set(k, []); grid.get(k).push(i); } }
+function draw() {
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, Wc, Hc);
+  const r = Math.max(1.4, Math.min(4, 1.6 * Math.sqrt(view.s))), dim = selected >= 0;
+  const nn = selected >= 0 ? new Set(nnOf(selected).nn) : null;
+  ctx.globalAlpha = dim ? 0.25 : 0.8;
+  for (let i = 0; i < N; i++) { if (!visible(i)) continue; const [x, y] = toScreen(i); if (x < -5 || y < -5 || x > Wc + 5 || y > Hc + 5) continue;
+    ctx.fillStyle = colorOf(i); ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill(); }
+  ctx.globalAlpha = 1;
+  if (selected >= 0) {
+    const [sx, sy] = toScreen(selected); ctx.strokeStyle = TH.sel; ctx.lineWidth = 1;
+    for (const j of nn) { const [x, y] = toScreen(j); ctx.globalAlpha = .55; ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(x, y); ctx.stroke(); ctx.globalAlpha = 1;
+      ctx.fillStyle = colorOf(j); ctx.beginPath(); ctx.arc(x, y, r + 2, 0, 6.2832); ctx.fill(); ctx.lineWidth = 1.5; ctx.stroke(); }
+    ctx.fillStyle = TH.sel; ctx.beginPath(); ctx.arc(sx, sy, r + 3.5, 0, 6.2832); ctx.fill();
+  }
+  if (hover >= 0 && hover !== selected) { const [x, y] = toScreen(hover); ctx.strokeStyle = TH.ink; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, r + 3, 0, 6.2832); ctx.stroke(); }
+}
+function nearest(mx, my) { let best = -1, bd = 14 * 14; const cx = Math.floor(mx / 12), cy = Math.floor(my / 12);
+  for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) { const cell = grid.get((cx + a) + "," + (cy + b)); if (!cell) continue;
+    for (const i of cell) { const [x, y] = toScreen(i), d = (x - mx) ** 2 + (y - my) ** 2; if (d < bd) { bd = d; best = i; } } } return best; }
+function describe(i) { return `${esc(C.room_labels[P.room[i]])} · ${esc(C.cats.dataset_id[P.dataset[i]])}`; }
+function side() {
+  const s = $("side");
+  if (selected < 0) { s.innerHTML = `<div class="eyebrow">Nearest neighbours</div><p class="note">Click a point to see the ${C.k} IRs closest to it in CLAP space, with their decay and clarity values. Use Find to locate a room by name.</p>`; return; }
+  const i = selected, M = C.maps[mapKey];
+  s.innerHTML = `<div class="eyebrow">Selected IR</div><div class="sel-title">${describe(i)}</div>
+   <dl class="kv"><dt>record</dt><dd>${esc(P.key[i])}</dd><dt>ir_id</dt><dd>${esc(P.ir_id[i])}</dd><dt>kind</dt><dd>${esc(C.cats.ir_kind[P.kind[i]])} · ${esc(C.cats.category[P.category[i]])}</dd>
+   <dt>T30 mid</dt><dd>${fmt(P.t30[i], 2)} s</dd><dt>EDT mid</dt><dd>${fmt(P.edt[i], 2)} s</dd><dt>C80 mid</dt><dd>${fmt(P.c80[i], 1)} dB</dd><dt>DRR</dt><dd>${fmt(P.drr[i], 1)} dB</dd><dt>grade</dt><dd>${esc(P.grade[i])}</dd></dl>
+   <div class="eyebrow">${C.k} nearest · ${esc(M.label)}</div>
+   <span class="seg" role="group" aria-label="Neighbours from"><button id="nnAny" aria-pressed="${nnMode === "any"}">Any dataset</button><button id="nnOther" aria-pressed="${nnMode === "other"}">Other datasets</button></span>
+   <ol class="nnlist">${nnOf(i).nn.map((j, r) => `<li><button data-j="${j}"><span class="d">${(nnOf(i).d[r] / 1000).toFixed(3)}</span><span class="t">${describe(j)}<br><span class="mono" style="color:var(--muted)">T30 ${fmt(P.t30[j], 2)} s · C80 ${fmt(P.c80[j], 1)} · DRR ${fmt(P.drr[j], 1)}</span></span></button></li>`).join("")}</ol>`;
+  s.querySelectorAll("button[data-j]").forEach((b) => b.addEventListener("click", () => select(+b.dataset.j, true)));
+  for (const [id, m] of [["nnAny", "any"], ["nnOther", "other"]]) s.querySelector("#" + id).addEventListener("click", () => { nnMode = m; side(); draw(); });
+}
+function select(i, center) { selected = i; if (center && i >= 0) { const xy = C.maps[mapKey].xy[i]; view.x = xy[0] / 1e4 - 0.5 / view.s; view.y = xy[1] / 1e4 - 0.5 / view.s; buildGrid(); } side(); draw(); }
+function legend() {
+  const lg = $("legend");
+  if (colorBy in CONT) { const c = CONT[colorBy]; lg.innerHTML = `<span>${esc(c.name)}: ${c.lo} ${c.unit}</span><span class="ramp" style="background:linear-gradient(90deg, ${RAMP.join(",")})"></span><span>${c.hi} ${c.unit}${c.log ? " (log)" : ""}</span>`; return; }
+  const key = { dataset: "dataset_id", category: "category", kind: "ir_kind" }[colorBy], names = C.cats[key];
+  const counts = new Array(names.length).fill(0); for (let i = 0; i < N; i++) if (visible(i)) counts[P[colorBy][i]]++;
+  lg.innerHTML = names.map((n, i) => counts[i] ? `<span><i style="background:${catColor(i)}"></i>${esc(n)} <span class="mono">${counts[i]}</span></span>` : "").join("");
+}
+function refresh() { buildGrid(); legend(); draw(); }
+for (const [id, k] of [["mIr", "ir"], ["mRv", "reverb_vector"]]) $(id).addEventListener("click", () => { mapKey = k; $("mIr").setAttribute("aria-pressed", k === "ir"); $("mRv").setAttribute("aria-pressed", k !== "ir"); view = { s: 1, x: 0, y: 0 }; refresh(); side(); });
+$("colorBy").addEventListener("change", (e) => { colorBy = e.target.value; recolor(); refresh(); });
+$("kindSel").addEventListener("change", (e) => { kindFilter = e.target.value; refresh(); });
+$("search").addEventListener("input", (e) => { query = e.target.value.trim().toLowerCase(); refresh(); });
+$("reset").addEventListener("click", () => { view = { s: 1, x: 0, y: 0 }; select(-1); refresh(); });
+let drag = null, moved = false;
+cv.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y }; moved = false; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", (e) => {
+  const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+  if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
+    view.x = drag.vx - dx / ((Wc - 2 * pad) * view.s); view.y = drag.vy - dy / ((Hc - 2 * pad) * view.s); draw(); return; }
+  const i = nearest(mx, my); if (i !== hover) { hover = i; draw(); }
+  if (i >= 0) { tip.hidden = false; tip.innerHTML = `${describe(i)}<br><span class="mono">T30 ${fmt(P.t30[i], 2)} s · C80 ${fmt(P.c80[i], 1)} dB · DRR ${fmt(P.drr[i], 1)} dB</span>`;
+    tip.style.left = Math.min(mx + 12, Wc - 290) + "px"; tip.style.top = Math.min(my + 12, Hc - 60) + "px"; } else tip.hidden = true;
+});
+cv.addEventListener("pointerup", (e) => { const r = cv.getBoundingClientRect(); if (drag && !moved) { select(nearest(e.clientX - r.left, e.clientY - r.top)); } else if (drag) buildGrid(); drag = null; });
+cv.addEventListener("pointerleave", () => { hover = -1; tip.hidden = true; draw(); });
+cv.addEventListener("wheel", (e) => { e.preventDefault(); const r = cv.getBoundingClientRect(), mx = (e.clientX - r.left - pad) / (Wc - 2 * pad), my = (e.clientY - r.top - pad) / (Hc - 2 * pad);
+  const f = Math.exp(-e.deltaY * 0.0015), ns = Math.max(1, Math.min(60, view.s * f)), wx = view.x + mx / view.s, wy = view.y + my / view.s;
+  view.s = ns; view.x = wx - mx / ns; view.y = wy - my / ns; buildGrid(); draw(); }, { passive: false });
+let pinch = null;
+cv.addEventListener("touchmove", (e) => { if (e.touches.length !== 2) return; e.preventDefault(); const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+  if (pinch) { view.s = Math.max(1, Math.min(60, view.s * d / pinch)); buildGrid(); draw(); } pinch = d; }, { passive: false });
+cv.addEventListener("touchend", () => { pinch = null; });
+new ResizeObserver(() => { size(); refresh(); }).observe(cbox);
+const rethemed = () => { recolor(); refresh(); drawDist(); };
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", rethemed);
+new MutationObserver(rethemed).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+recolor(); size(); refresh(); side();
+})();
+</script>

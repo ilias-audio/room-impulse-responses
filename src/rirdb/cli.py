@@ -146,20 +146,45 @@ def merge(dataset_ids: list[str] = typer.Argument(...)) -> None:
         console.print(f"wrote {run_merge(d)}")
 
 
+@app.command()
+def audit(
+    dataset_id: str = typer.Option(..., "--dataset"),
+    shard: str = typer.Option("0", help="Shard index, or 'auto' inside a SLURM array."),
+    n_shards: int = typer.Option(1),
+    workers: int = typer.Option(0, help="Processes (0: SLURM_CPUS_PER_TASK or 4)."),
+) -> None:
+    """Signal-integrity audit of one shard (sweep / non-IR content, noise-floor stationarity)."""
+    from rirdb.audit import audit_shard, workers_default
+    from rirdb.run import auto_shard
+
+    s, n = auto_shard(n_shards if n_shards > 1 else None) if shard == "auto" else (int(shard), n_shards)
+    console.print(f"wrote {audit_shard(dataset_id, s, n, workers or workers_default())}")
+
+
+@app.command("audit-merge")
+def audit_merge(dataset_ids: list[str] = typer.Argument(...)) -> None:
+    """Merge audit shards into audit/v1/<id>/audit.parquet."""
+    from rirdb.audit import merge_audit
+
+    for d in dataset_ids:
+        console.print(f"wrote {merge_audit(d)}")
+
+
 @app.command("query")
 def query_cmd(
-    where: str = typer.Argument(..., help="SQL predicate over the `corpus` view."),
+    where: str = typer.Argument(..., help="SQL predicate over the view (default `corpus`)."),
     columns: str = typer.Option("", help="Comma-separated columns (default: a core set)."),
     limit: int = typer.Option(50),
     order_by: str = typer.Option("", help="ORDER BY clause, e.g. 't30_mid DESC'."),
     csv: str = typer.Option("", help="Also write the result to this CSV path."),
+    view: str = typer.Option("corpus", help="corpus | corpus_dedup (adds dup_of) | clean_rooms."),
 ) -> None:
     """Pick IRs by constraints (DuckDB over the metrics Parquet)."""
     import pandas as pd
 
     from rirdb.query import query
 
-    df = query(where, [c.strip() for c in columns.split(",") if c.strip()] or None, limit, order_by or None)
+    df = query(where, [c.strip() for c in columns.split(",") if c.strip()] or None, limit, order_by or None, view)
     with pd.option_context("display.width", 200, "display.max_columns", 40, "display.max_colwidth", 40):
         console.print(df.to_string(index=False))
     console.print(f"{len(df)} rows")
@@ -193,6 +218,14 @@ def report_cards() -> None:
     from rirdb.report.cards import build
 
     console.print(f"wrote {len(build())} dataset cards to docs/datasets/")
+
+
+@report_app.command("overview")
+def report_overview() -> None:
+    """Filtering guide, signal integrity, distributions and the CLAP map -> reports/overview/."""
+    from rirdb.report.overview import build
+
+    console.print(f"wrote {build()}")
 
 
 @app.command()

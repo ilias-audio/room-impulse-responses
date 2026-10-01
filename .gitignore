@@ -60,3 +60,4 @@ rir-data/
 # Local debug scripts (on GPFS so compute nodes can see them)
 .scratch/
 *.tmp
+reports/overview/clap_map.json

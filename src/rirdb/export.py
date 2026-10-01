@@ -22,7 +22,7 @@ CORE = (
      "fs", "duration_s", "grade", "analyzer_version", "config_sha256",
      "t30_mid", "t20_mid", "edt_mid", "c50_mid", "c80_mid", "d50_mid", "ts_mid", "br", "tr",
      "drr_bb", "sti", "t_mix_ned_ms", "t_mix_edp_ms", "pnr_db", "spectral_tilt_db_per_oct",
-     "iacc_e3", "one_minus_iacc_e3", "jlf_low"]
+     "iacc_e3", "one_minus_iacc_e3", "jlf_low", "onset_s", "noise_burst_db", "noise_drift_db", "tonal_frac"]
     + [f"{m}_{b}" for b in (*BANDS, "bb") for m in ("t30", "edt", "c80")]
     + [f"valid_t30_{b}" for b in (*BANDS, "bb")]
 )
