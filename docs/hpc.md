@@ -33,12 +33,31 @@ process pools do not oversubscribe cores.
 ```bash
 sbatch jobs/quick_cpu.sh pixi run test
 sbatch -p computeshort -t 1:0:0 jobs/quick_cpu.sh pixi run rirdb registry compile
-sbatch --array=0-99%50 jobs/cpu_array.sh pixi run rirdb analyze --dataset openair --shard auto
-PIXI_ENV=embed sbatch jobs/gpu.sh pixi run -e embed rirdb embed --wave 1
+jobs/analyze_dataset.sh openair 16                     # analysis array + merge (registry pinned)
+EMBED_SHARDS=2 jobs/analyze_dataset.sh soundcam 4      # ... + CLAP embeddings after the merge
+TASKS=50-79 jobs/analyze_dataset.sh arni 80            # re-run some shards with the full shard count
 ```
 
 Short jobs (< 1 h) queue much faster on `computeshort`: override with
 `sbatch -p computeshort -t 1:0:0 ...`.
+
+## Registry and running jobs
+
+Jobs import the code and read `registry/datasets.yaml` from the working tree
+when they start, not when they are submitted. A registry that is invalid for a
+few minutes fails every task that starts in that window (this happened once:
+30 analysis and 38 embedding tasks). Two safeguards:
+
+- `jobs/analyze_dataset.sh` copies the registry to `qlogs/registry_<time>_<id>.yaml`
+  at submission and the jobs read the copy (`RIRDB_REGISTRY`). Pass the same
+  `--export=ALL,RIRDB_REGISTRY=<copy>` when submitting arrays by hand.
+- Edit a copy and swap it in only after a job has validated it:
+  `cp registry/datasets.yaml .scratch/datasets.next.yaml`, edit, then
+  `jobs/registry_swap.sh .scratch/datasets.next.yaml`.
+
+When re-running part of an array, pass `--n-shards N` (or use `TASKS=`):
+`--shard auto` otherwise infers the shard count from the partial array.
+`rirdb merge` only merges one complete shard set with a single analyzer config.
 
 ## Monitoring
 
